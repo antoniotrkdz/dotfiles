@@ -141,7 +141,7 @@ bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
 # Make the currently focused window a scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+grave move scratchpad
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -156,7 +156,7 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # Show the first scratchpad window
-bindsym $mod+minus scratchpad show
+bindsym $mod+grave scratchpad show
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -219,3 +219,4 @@ for_window [window_role="task_dialog"] floating enable
 for_window [class="(?i)Gitter"] border none pixel 1
 for_window [class="(?i)xcalc"] floating enable
 for_window [class="(?i)skype"] floating enable
+for_window [title="(?i)Tabs Outliner"] floating enable, border normal 1, resize set 500 1000, move down 50
