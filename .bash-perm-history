@@ -1,1 +1,25 @@
-/home/antoniotrkdz/.bash-perm-history
+2017-04-12.22:02:48 trkdz-spectre-devuan /home/antoniotrkdz  2006  . .bashrc 
+2017-04-12.22:02:56 trkdz-spectre-devuan /home/antoniotrkdz  2007  ls -l
+2017-04-12.22:03:01 trkdz-spectre-devuan /home/antoniotrkdz  2008  ls -la
+2017-04-12.22:03:35 trkdz-spectre-devuan /home/antoniotrkdz  2009  nano .bash-perm-history 
+2017-04-12.22:06:59 trkdz-spectre-devuan /home/antoniotrkdz  2010  nano .bashrc 
+2017-04-12.22:07:04 trkdz-spectre-devuan /home/antoniotrkdz  2011  . .bashrc 
+2017-04-12.22:07:42 trkdz-spectre-devuan /home/antoniotrkdz  2012  nano .bash-perm-history 
+2017-04-12.22:17:21 trkdz-spectre-devuan /home/antoniotrkdz  2013  git clone git@github.com:antoniotrkdz/dotfiles.git
+2017-04-12.22:17:29 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2014  cd dotfiles/
+2017-04-12.22:18:14 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2015  ln -s ~/.bashrc ./.bashrc
+2017-04-12.22:18:42 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2016  ln -s ~/.profile ./.profile
+2017-04-12.22:19:19 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2017  ln -s ~/.bash-perm-history ./.bash-perm-history
+2017-04-12.22:20:04 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2018  mkdir .i3
+2017-04-12.22:20:33 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2019  ln -s ~/.i3/config ./.i3/config
+2017-04-12.22:20:39 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2020  git status 
+2017-04-12.22:20:56 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2021  git add .
+2017-04-12.22:22:14 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2022  git commit -am'First copy of dotfiles 12 Apr 2017
+.bashrc .profile .bash-perm-history .i3/config'
+2017-04-12.22:22:35 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2023  git push origin master
+2017-04-12.22:24:26 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2024  rm .i3/config 
+2017-04-12.22:24:32 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2025  rm .bashrc 
+2017-04-12.22:24:39 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2026  rm .bash-perm-history 
+2017-04-12.22:24:46 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2027  rm .profile 
+2017-04-12.22:24:51 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2028  ls -la
+2017-04-12.22:25:20 trkdz-spectre-devuan /home/antoniotrkdz/dotfiles  2029  cp ~/.bashrc ./
