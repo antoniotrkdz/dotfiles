@@ -1,0 +1,25 @@
+!
+! Making the right CTRL to work in the spectre us keyboard
+!
+keycode 94 = Control_R 
+add Control = Control_R
+
+!
+! Setting space as hyper modifier (mod3) for i3 usage
+!
+clear mod3
+clear mod4
+add mod3 = Hyper_L
+add mod4 = Super_L Super_R
+
+
+!
+! Swap Caps_Lock and Control_L
+!
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Control_L = Caps_Lock
+keysym Caps_Lock = Control_L
+add Lock = Caps_Lock
+add Control = Control_L
+
