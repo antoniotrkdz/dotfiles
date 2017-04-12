@@ -24,7 +24,7 @@ fi
 # This file depends on settings in .xmodmaprc
 xmodmap ~/.xmodmaprc
 
-# Use spacebar as a modifier
+# Use spacebar as a modifier (in .i3/config set mod3)
 spare_modifier="Hyper_L"
 xmodmap -e "keycode 65 = $spare_modifier"
 xmodmap -e "add Hyper_L = $spare_modifier"
