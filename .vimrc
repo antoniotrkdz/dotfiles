@@ -16,9 +16,13 @@ endif
 call plug#begin('~/.vim/plugged')
 
 "Git wrapper
-
 Plug 'tpope/vim-fugitive'
+
 Plug 'bling/vim-airline'
+
+Plug 'tpope/vim-surround'
+
+Plug 'easymotion/vim-easymotion'
 
 call plug#end()
 
