@@ -95,7 +95,7 @@ set relativenumber
 set clipboard=unnamed
 
 "Set correct colors
-if &term == "gnome-256color" || &term == "xterm-256color"
+if &term == "rxvt-unicode-256color" || &term == "xterm-256color"
     set t_Co=256
     colorscheme one
     set background=dark
