@@ -46,6 +46,9 @@ Plug 'rakr/vim-one'
 
 call plug#end()
 
+"NERDTree configuration
+let NERDTreeShowHidden=1
+
 "Configuration for airline
 
 "always dispalays airline
