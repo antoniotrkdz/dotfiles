@@ -95,6 +95,9 @@ set relativenumber
 "Shares the system clipboard
 set clipboard=unnamed
 
+"Set one line to be always shown below or above the cursor
+set scrolloff=1
+
 "Set correct colors
 if &term == "rxvt-unicode-256color" || &term == "xterm-256color"
     set t_Co=256
