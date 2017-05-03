@@ -59,6 +59,10 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+if [ "$COLORTERM" == "xfce4-terminal" ] ; then
+    export TERM=xterm-256color
+fi
+
 ##Git branch and status  
 function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "!"
@@ -103,7 +107,7 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-#alias ll='ls -l'
+alias ll='ls -l'
 #alias la='ls -A'
 #alias l='ls -CF'
 
@@ -131,5 +135,8 @@ export NVM_DIR="/home/antoniotrkdz/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 #GIT aliases
-alias gc='git checkout'
-#alias ll='ls -l'
+alias gcm='git checkout master'
+alias gs='git status'
+
+#vim alias
+alias v='vim'
