@@ -34,6 +34,8 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'lifepillar/vim-cheat40'
 
+Plug 'mattn/emmet-vim'
+
 Plug 'easymotion/vim-easymotion'
 
 Plug 'KeitaNakamura/neodark.vim'
@@ -48,11 +50,19 @@ call plug#end()
 
 "NERDTree configuration
 let NERDTreeShowHidden=1
+"Get rid of the "? show help...
+let NERDTreeMinimalUI=1
+"NERDTree Default window size
+"let g:NERDTreeWinSize = 25
+"Make NERDTree window resizable
+"let NERDTreeWinSize=1
 
 "Configuration for airline
 
 "always dispalays airline
 set laststatus=2
+
+let g:airline#extensions#tabline#enabled = 1
 
 let g:airline_theme = 'onedark'
 
@@ -97,6 +107,9 @@ set clipboard=unnamed
 
 "Set one line to be always shown below or above the cursor
 set scrolloff=1
+
+"Set to split always right
+set splitright
 
 "Set correct colors
 if &term == "rxvt-unicode-256color" || &term == "xterm-256color"
