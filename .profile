@@ -30,3 +30,9 @@ xmodmap -e "keycode 65 = $spare_modifier"
 xmodmap -e "add Hyper_L = $spare_modifier"
 xmodmap -e "keycode any = space"
 xcape -e "$spare_modifier=space"
+
+# Use Spacebar as a Modifier (ALTERNATIVE  CONFIGURATION)
+# No need for separate .xmodmaprc file    
+#xmodmap -e "keycode 65 = Super_L"   
+#xmodmap -e "keycode any = space"  
+#xcape -e "Super_L=space"
