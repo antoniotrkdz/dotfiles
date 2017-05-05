@@ -20,6 +20,8 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'scrooloose/nerdtree'
 
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
+
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -94,6 +96,10 @@ endif
     let g:airline_symbols.branch = ''
     let g:airline_symbols.readonly = ''
     let g:airline_symbols.linenr = ''
+
+"Mappings
+nnoremap <Space> i    
+inoremap jj <esc>
 
 "visual bell for errors
 set visualbell
