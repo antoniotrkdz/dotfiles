@@ -97,8 +97,8 @@ endif
     let g:airline_symbols.readonly = ''
     let g:airline_symbols.linenr = ''
 
-"Mappings
-nnoremap <Space> i    
+"Mappings (make sure there are no spaces at the end!)
+nnoremap <Space> i
 inoremap jj <esc>
 
 "visual bell for errors
