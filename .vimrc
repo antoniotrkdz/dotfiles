@@ -18,7 +18,7 @@ call plug#begin('~/.vim/plugged')
 "Git wrapper
 Plug 'tpope/vim-fugitive'
 
-Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/nerdtree'
 
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
 
