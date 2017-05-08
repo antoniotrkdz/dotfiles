@@ -21,6 +21,11 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+# Autostart X at login: if logging into tty1, run startx
+#if [ -z "$DISPLAY" ] && [ $(tty) = /dev/tty1 ] ; then
+#	    exec startx ;
+#fi
+
 # This file depends on settings in .xmodmaprc
 xmodmap ~/.xmodmaprc
 

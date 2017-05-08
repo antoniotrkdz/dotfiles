@@ -20,7 +20,7 @@ Plug 'tpope/vim-fugitive'
 
 "Plug 'scrooloose/nerdtree'
 
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -41,6 +41,8 @@ Plug 'mattn/emmet-vim'
 Plug 'easymotion/vim-easymotion'
 
 Plug 'KeitaNakamura/neodark.vim'
+
+Plug 'pangloss/vim-javascript'
 
 Plug 'desert256.vim'
 
