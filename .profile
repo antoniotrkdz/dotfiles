@@ -25,19 +25,3 @@ fi
 #if [ -z "$DISPLAY" ] && [ $(tty) = /dev/tty1 ] ; then
 #	    exec startx ;
 #fi
-
-# This file depends on settings in .xmodmaprc
-xmodmap ~/.xmodmaprc
-
-# Use spacebar as a modifier (in .i3/config set mod3)
-spare_modifier="Hyper_L"
-xmodmap -e "keycode 65 = $spare_modifier"
-xmodmap -e "add Hyper_L = $spare_modifier"
-xmodmap -e "keycode any = space"
-xcape -e "$spare_modifier=space"
-
-# Use Spacebar as a Modifier (ALTERNATIVE  CONFIGURATION)
-# No need for separate .xmodmaprc file    
-#xmodmap -e "keycode 65 = Super_L"   
-#xmodmap -e "keycode any = space"  
-#xcape -e "Super_L=space"
