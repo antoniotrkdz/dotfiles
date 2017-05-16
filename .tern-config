@@ -1,6 +1,7 @@
 {
     "plugins": {
-	    "node": {}
+	"browser": {}
+	"node": {}
 	}
 }
 
