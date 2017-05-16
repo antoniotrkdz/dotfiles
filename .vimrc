@@ -133,3 +133,6 @@ if &term == "rxvt-unicode-256color" || &term == "xterm-256color"
 else
     set t_Co=8
 endif
+
+highlight Pmenu ctermfg=7 ctermbg=0
+highlight PmenuSel ctermfg=0 ctermbg=7
