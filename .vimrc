@@ -103,6 +103,7 @@ endif
 "Mappings (make sure there are no spaces at the end!)
 nnoremap <Space> i
 inoremap jj <esc>
+nnoremap <silent> <F2> :NERDTreeTabsToggle<CR>
 
 "visual bell for errors
 set visualbell
