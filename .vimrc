@@ -51,6 +51,8 @@ Plug 'rainux/vim-desert-warm-256'
 
 Plug 'rakr/vim-one'
 
+Plug 'tyrannicaltoucan/vim-quantum'
+
 call plug#end()
 
 "NERDTree configuration
@@ -69,7 +71,8 @@ set laststatus=2
 
 let g:airline#extensions#tabline#enabled = 1
 
-let g:airline_theme = 'onedark'
+"let g:airline_theme = 'onedark'
+let g:airline_theme='quantum'   
 
 let g:airline_powerline_fonts = 1
  
@@ -104,6 +107,7 @@ endif
 nnoremap <Space> i
 inoremap jj <esc>
 nnoremap <silent> <F2> :NERDTreeTabsToggle<CR>
+nnoremap <F5> :exec '!sensible-browser % &'<CR>
 
 "visual bell for errors
 set visualbell
@@ -121,8 +125,31 @@ set scrolloff=1
 "Set to split always right
 set splitright
 
-"Set correct colors
-if &term == "rxvt-unicode-256color" || &term == "xterm-256color"
+"Set some 'sensible' defaults
+set tabstop=4
+set shiftwidth=4
+set autoindent
+set backspace=indent,eol,start
+set complete-=i
+set smarttab
+set wildmenu
+
+"Set colors and fonts
+syntax on
+if has('gui_running')
+    set background=dark
+    set termguicolors
+    "Black background (before colorscheme=quantum:)
+    let g:quantum_black=1
+    colorscheme quantum
+    "colorscheme neodark
+    
+    "To italicize comments:
+    let g:quantum_italics=1
+
+    set guifont=inconsolata\ for\ Powerline
+
+elseif &term == "rxvt-unicode-256color" || &term == "xterm-256color"
     set t_Co=256
     colorscheme one
     set background=dark
@@ -131,7 +158,6 @@ if &term == "rxvt-unicode-256color" || &term == "xterm-256color"
     "let g:neodark#use_256color = 1 " default: 0
     "To use your default terminal background:
     "let g:neodark#terminal_transparent = 1 " default: 0
-    syntax on
 else
     set t_Co=8
 endif
