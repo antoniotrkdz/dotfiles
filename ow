@@ -1,0 +1,11 @@
+#!/bin/bash
+
+APP=$2
+
+if [ -n $3 ] ; then
+	APP="$APP $3"
+fi
+
+echo "Opening $APP in workspace $1..." 
+
+/usr/bin/i3-msg "workspace "$1 && exec $APP
