@@ -71,8 +71,11 @@ set laststatus=2
 
 let g:airline#extensions#tabline#enabled = 1
 
-"let g:airline_theme = 'onedark'
-let g:airline_theme='quantum'   
+if has('gui_running')
+	let g:airline_theme='quantum'   
+else
+	let g:airline_theme = 'onedark'
+endif
 
 let g:airline_powerline_fonts = 1
  
@@ -104,8 +107,8 @@ endif
     let g:airline_symbols.linenr = ''
 
 "Mappings (make sure there are no spaces at the end!)
-nnoremap <Space> i
-inoremap jj <esc>
+"nnoremap <Space> i
+inoremap jk <esc>
 nnoremap <silent> <F2> :NERDTreeTabsToggle<CR>
 nnoremap <F5> :exec '!sensible-browser % &'<CR>
 
@@ -132,14 +135,20 @@ set autoindent
 set backspace=indent,eol,start
 set complete-=i
 set smarttab
-set wildmenu
+"Alternative menu
+"set wildmenu
+
+"Avoid producing any extraneous files
+set nobackup
+set nowritebackup
+set noswapfile
 
 "Set colors and fonts
 syntax on
 if has('gui_running')
     set background=dark
     set termguicolors
-    "Black background (before colorscheme=quantum:)
+    "Black background (before colorscheme=quantum)
     let g:quantum_black=1
     colorscheme quantum
     "colorscheme neodark
