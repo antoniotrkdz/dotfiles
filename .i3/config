@@ -224,6 +224,7 @@ for_window [window_role="task_dialog"] floating enable
 for_window [class="(?i)Gitter"] border none pixel 1
 for_window [class="(?i)xcalc"] floating enable
 for_window [class="(?i)skype"] floating enable
+for_window [class="(?i)skypeforlinux"] floating disable
 for_window [title="(?i)Tabs Outliner"] floating enable, border normal 1, resize set 675 1040, move down 60, move scratchpad
 for_window [title="(?i)Extract files"] resize set 400 500
 for_window [title="(?i)Select one or multiple files"] floating enable, border normal 1, resize set 700 900, move position center
