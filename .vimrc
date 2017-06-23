@@ -11,7 +11,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-
 "set the runtime path to include Vundle and initialise
 call plug#begin('~/.vim/plugged')
 
@@ -41,6 +40,8 @@ Plug 'mattn/emmet-vim'
 
 Plug 'easymotion/vim-easymotion'
 
+Plug 'scrooloose/nerdcommenter'
+
 Plug 'KeitaNakamura/neodark.vim'
 
 Plug 'pangloss/vim-javascript'
@@ -64,9 +65,8 @@ let NERDTreeMinimalUI=1
 "Make NERDTree window resizable
 "let NERDTreeWinSize=1
 
-"Configuration for airline
-
-"always dispalays airline
+"Airline configuration 
+"Always dispalays airline
 set laststatus=2
 
 let g:airline#extensions#tabline#enabled = 1
@@ -105,6 +105,22 @@ endif
     let g:airline_symbols.branch = ''
     let g:airline_symbols.readonly = ''
     let g:airline_symbols.linenr = ''
+
+"NERDCommenter settings
+" Add spaces after comment delimiters by default
+"let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+"let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+"let g:NERDDefaultAlign = 'left'
+" Set a language to use its alternate delimiters by default
+"let g:NERDAltDelims_java = 1
+" Add your own custom formats or override the defaults
+"let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+" Allow commenting and inverting empty lines (useful when commenting a region)
+"let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+"let g:NERDTrimTrailingWhitespace = 1
 
 "Mappings (make sure there are no spaces at the end!)
 "nnoremap <Space> i
@@ -171,5 +187,6 @@ else
     set t_Co=8
 endif
 
+"Highlight settings for youcompleteme hints
 highlight Pmenu ctermfg=7 ctermbg=0
 highlight PmenuSel ctermfg=0 ctermbg=7
