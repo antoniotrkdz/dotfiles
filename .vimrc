@@ -191,3 +191,5 @@ endif
 "Highlight settings for youcompleteme hints
 highlight Pmenu ctermfg=7 ctermbg=0
 highlight PmenuSel ctermfg=0 ctermbg=7
+"Turn off the preview (opening a scratch buffer) from the youcompleteme menu
+set completeopt-=preview
