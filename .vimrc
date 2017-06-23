@@ -134,6 +134,7 @@ set visualbell
 "line number and relative line number
 set number
 set relativenumber
+set ruler
 
 "Shares the system clipboard
 set clipboard=unnamed
