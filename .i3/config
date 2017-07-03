@@ -161,6 +161,10 @@ bindsym $mod+Shift+0 move container to workspace 10
 #bindsym $mod+grave scratchpad show
 bindsym $mod+minus scratchpad show
 
+# Move the current workspace to the next output
+# (effectively toggles when you only have two outputs)
+bindsym $mod+x move workspace to output right
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
