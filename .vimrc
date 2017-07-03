@@ -42,6 +42,8 @@ Plug 'easymotion/vim-easymotion'
 
 Plug 'scrooloose/nerdcommenter'
 
+Plug 'ap/vim-css-color'
+
 Plug 'KeitaNakamura/neodark.vim'
 
 Plug 'pangloss/vim-javascript'
