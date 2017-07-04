@@ -44,6 +44,8 @@ Plug 'scrooloose/nerdcommenter'
 
 Plug 'ap/vim-css-color'
 
+Plug 'vim-scripts/dbext.vim'
+
 Plug 'KeitaNakamura/neodark.vim'
 
 Plug 'pangloss/vim-javascript'
@@ -150,10 +152,12 @@ set splitright
 "Set some 'sensible' defaults
 set tabstop=4
 set shiftwidth=4
+set expandtab
+set smarttab
 set autoindent
 set backspace=indent,eol,start
 set complete-=i
-set smarttab
+set list listchars=tab:▸\ ,eol:¬,trail:·,space:·
 "Alternative menu
 "set wildmenu
 
