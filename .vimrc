@@ -21,6 +21,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
+Plug 'marijnh/tern_for_vim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -30,7 +31,15 @@ Plug 'vim-airline/vim-airline-themes'
 "set the required font(s) in the console settings
 Plug 'powerline/fonts'
 
+Plug 'w0rp/ale' " Ale  Async Linting as you type
+
+Plug 'SirVer/ultisnips' "Added vim snippets for code autofilling
+
 Plug 'tpope/vim-surround'
+
+Plug 'raimondi/delimitmate'
+
+Plug 'itchyny/vim-cursorword'
 
 Plug 'airblade/vim-gitgutter'
 
@@ -76,9 +85,9 @@ set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 
 if has('gui_running')
-	let g:airline_theme='quantum'   
+    let g:airline_theme='quantum'   
 else
-	let g:airline_theme = 'onedark'
+    let g:airline_theme = 'onedark'
 endif
 
 let g:airline_powerline_fonts = 1
@@ -131,9 +140,11 @@ endif
 inoremap jk <esc>
 nnoremap <silent> <F2> :NERDTreeTabsToggle<CR>
 nnoremap <F5> :exec '!sensible-browser % &'<CR>
+"Shortcut to rapidly toggle `set list`
+nmap <leader>l :set list!<CR>
 
 "visual bell for errors
-set visualbell
+"set visualbell
 
 "line number and relative line number
 set number
@@ -157,7 +168,9 @@ set smarttab
 set autoindent
 set backspace=indent,eol,start
 set complete-=i
-set list listchars=tab:▸\ ,eol:¬,trail:·,space:·
+"set list!
+set listchars=tab:▸\ ,eol:¬,trail:·,space:·
+"tab:▹\ ,
 "Alternative menu
 "set wildmenu
 
@@ -193,6 +206,11 @@ elseif &term == "rxvt-unicode-256color" || &term == "xterm-256color"
 else
     set t_Co=8
 endif
+
+"Tern config
+let g:tern_show_argument_hints = 'on_hold'
+let g:tern_map_keys = 1
+let g:tern_show_signature_in_pum = 1
 
 "Highlight settings for youcompleteme hints
 highlight Pmenu ctermfg=7 ctermbg=0
