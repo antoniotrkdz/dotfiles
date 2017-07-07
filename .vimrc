@@ -21,7 +21,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
-Plug 'marijnh/tern_for_vim'
+Plug 'ternjs/tern_for_vim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -217,3 +217,25 @@ highlight Pmenu ctermfg=7 ctermbg=0
 highlight PmenuSel ctermfg=0 ctermbg=7
 "Turn off the preview (opening a scratch buffer) from the youcompleteme menu
 set completeopt-=preview
+
+"-----------------------------------------------------------
+""     ALE
+"-----------------------------------------------------------
+let g:ale_fixers = {}
+let g:ale_fixers.javascript = [ 'prettier', ]
+let g:ale_fixers.html = [ 'tidy',]
+"let g:ale_javascript_prettier_options ='prettier\ --stdin\
+"--single-quote\ --trailing-comma\ es5'
+"let g:ale_javascript_prettier_options ='--single-quote'
+let g:ale_echo_msg_format = '%linter%: %s [%severity%]'
+"let g:ale_sign_column_always = 1
+"let g:ale_sign_error         = '✘'
+"let g:ale_sign_warning       = '🔸'
+"let g:ale_sign_warning       = '⚠️'
+let g:ale_linters = {'jsx': ['stylelint', 'eslint'],'sql': ['sqlint'] }
+let g:ale_linter_aliases = {'jsx': 'css'}
+"let g:ale_set_highlights = 0
+"let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ OK']
+"nmap <silent> <C-/>
+""<Plug>(ale_previous_wrap)
+"nmap <silent> <C-\> <Plug>(ale_next_wrap)
