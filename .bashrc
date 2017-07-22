@@ -136,6 +136,7 @@ fi
 
 export NVM_DIR="/home/antoniotrkdz/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 
 #GIT aliases
 alias gcm='git checkout master'
@@ -144,3 +145,5 @@ alias gs='git status'
 #vim alias
 alias v='vim'
 alias vg='vim -g'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
