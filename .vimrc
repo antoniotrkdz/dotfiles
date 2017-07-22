@@ -235,12 +235,9 @@ set completeopt-=preview
 
 "ALE configuration
 let g:ale_fixers = {}
-let g:ale_fixers.javascript = [ 'prettier' ]
-let g:ale_fixers.html = [ 'tidy' ]
-"let g:ale_javascript_prettier_options ='prettier\ --stdin\ --tab-width 4\ --single-quote\ --trailing-comma\ es5'
-let g:ale_javascript_prettier_options ='--single-quote'
-let g:ale_javascript_prettier_options ='--tab-width 4'
-let g:ale_javascript_prettier_options ='--trailing-comma'
+let g:ale_fixers['javascript'] = [ 'prettier', 'eslint' ]
+let g:ale_fixers['html'] = [ 'tidy' ]
+let g:ale_javascript_prettier_options ='--tab-width 4 --single-quote --no-bracket-spacing --trailing-comma es5' 
 let g:ale_echo_msg_format = '%linter%: %s [%severity%]'
 "let g:ale_sign_column_always = 1
 "let g:ale_sign_error         = '--'
