@@ -78,6 +78,7 @@ call plug#end()
 "Mappings (make sure there are no spaces at the end!)
 "nnoremap <Space> i
 inoremap jk <esc>
+inoremap kj <esc>
 nnoremap <silent> <F2> :NERDTreeTabsToggle<CR>
 noremap <F3> :Autoformat<CR>
 map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
@@ -137,6 +138,7 @@ if has('gui_running')
     let g:quantum_italics=1
 
     set guifont=inconsolata\ for\ Powerline
+    set guioptions-=T "remove the toolbar 
 
 elseif &term == "rxvt-unicode-256color" || &term == "xterm-256color"
     set t_Co=256
