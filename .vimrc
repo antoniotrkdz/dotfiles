@@ -81,13 +81,17 @@ inoremap jk <esc>
 inoremap kj <esc>
 nnoremap <silent> <F2> :NERDTreeTabsToggle<CR>
 noremap <F3> :Autoformat<CR>
-map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+noremap <F4> :ALEFix<CR>
+"Open the current file in default browser
 nnoremap <F5> :exec '!sensible-browser % &'<CR>
+"Search the word under the cursor in file folder.
+noremap <F8> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 "Shortcut to rapidly toggle `set list`
-nmap <leader>l :set list!<CR>
+nnoremap <leader>l :set list!<CR>
 "Short cut to cicle through the buffers
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
+
 "visual bell for errors
 "set visualbell
 
@@ -97,7 +101,8 @@ set relativenumber
 set ruler
 
 "Shares the system clipboard
-set clipboard=unnamed
+"set clipboard=unnamed
+set clipboard=unnamedplus
 
 "Set one line to be always shown below or above the cursor
 set scrolloff=1
@@ -123,6 +128,9 @@ set listchars=tab:▸\ ,eol:¬,trail:·,space:·
 set nobackup
 set nowritebackup
 set noswapfile
+
+"avoid showing the mode on the last line
+set noshowmode
 
 "Set colors and fonts
 syntax on
