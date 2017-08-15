@@ -88,6 +88,8 @@ nnoremap <F5> :exec '!sensible-browser % &'<CR>
 noremap <F8> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 "Shortcut to rapidly toggle `set list`
 nnoremap <leader>l :set list!<CR>
+"Turn on/off case insensive search
+nnoremap <leader>i :set ignorecase!<CR>
 "Short cut to cicle through the buffers
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
@@ -121,6 +123,7 @@ set complete-=i
 "set list!
 set listchars=tab:▸\ ,eol:¬,trail:·,space:·
 "tab:▹\ ,
+
 "Alternative menu
 "set wildmenu
 
