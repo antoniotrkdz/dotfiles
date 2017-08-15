@@ -129,8 +129,14 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-"avoid showing the mode on the last line
+"Avoid showing the mode on the last line
 set noshowmode
+
+"guiheadroom, room (in pixels) left above/below the window
+set ghr=0
+
+"guipty	use a pseudo-tty for I/O to external commands
+set guipty	"noguipty
 
 "Set colors and fonts
 syntax on
