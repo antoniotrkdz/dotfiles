@@ -106,6 +106,9 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+#expand the aliases (for scripts)
+shopt -s expand_aliases
+
 # some more ls aliases
 alias ll='ls -l'
 #alias la='ls -A'
@@ -133,6 +136,7 @@ fi
 
 export NVM_DIR="/home/antoniotrkdz/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 
 #GIT aliases
 alias gcm='git checkout master'
@@ -140,3 +144,6 @@ alias gs='git status'
 
 #vim alias
 alias v='vim'
+alias vg='vim -g'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -42,6 +42,7 @@
 
 ## Use Spacebar as a Modifier (ALTERNATIVE  CONFIGURATION)
 ## No need for separate .xmodmaprc file
+xmodmap ~/.xmodmaprc
 xmodmap -e "keycode 65=Super_L"
 xmodmap -e "keycode any=space"
 xcape -e "Super_L=space"
