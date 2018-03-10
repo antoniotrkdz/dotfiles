@@ -222,12 +222,12 @@ for_window [tiling class="^.*"] border pixel 1
 new_window pixel 1
 
 ##Handling of all special windows (that should be flaoting anyway)
-for_window [window_role="pop-up"] floating enable
+for_window [window_role="pop-up"] floating enable, border normal 1
 for_window [window_role="task_dialog"] floating enable
-
+for_window [window_role="GtkFileChooserDialog"] floating enable, border normal 1, resize set 1200 800
 for_window [class="(?i)Gitter"] border none pixel 1
-for_window [class="(?i)xcalc"] floating enable border normal 1
-for_window [class="(?i)skype"] floating enable
+for_window [class="(?i)xcalc"] floating enable, border normal 1
+for_window [class="(?i)skype"] floating enable, border normal 1 
 for_window [class="(?i)skypeforlinux"] floating disable
 for_window [title="(?i)Tabs Outliner"] floating enable, border normal 1, resize set 675 1040, move down 60, move scratchpad
 for_window [title="(?i)Extract files"] resize set 400 500

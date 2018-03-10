@@ -36,6 +36,8 @@ Plug 'SirVer/ultisnips'
 Plug 'mattn/emmet-vim'
 "Colour preview in code
 Plug 'ap/vim-css-color'
+"Always highlights the enclosing XML/HTML tags 
+Plug 'valloric/matchtagalways'
 "Airline bottom bar (and top one)
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -93,8 +95,14 @@ nnoremap <leader>i :set ignorecase!<CR>
 "Short cut to cicle through the buffers
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
+"Livedow markdown previewer toggle on/off
+"nnoremap gm :LivedownToggle<CR>
+nnoremap <F6> :LivedownToggle<CR>
 
-"visual bell for errors
+"Disable all error bells
+set belloff=all
+
+"Visual bell for errors
 "set visualbell
 
 "line number and relative line number
@@ -113,8 +121,8 @@ set scrolloff=1
 "set splitright
 
 "Set some 'sensible' defaults
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
 set smarttab
 set autoindent
@@ -172,6 +180,9 @@ endif
 
 "Highlight for the matching parenthesis.
 highlight MatchParen guibg=#212121 guifg=#00ff00
+
+"Option for Match HTML Tag plugin
+let g:mta_filetypes = {'html': 1, 'xhtml': 1, 'xml': 1, 'jinja': 1, 'javascript': 1}
 
 "NERDTree configuration
 let NERDTreeShowHidden=1
@@ -254,7 +265,7 @@ set completeopt-=preview
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = [ 'prettier', 'eslint' ]
 let g:ale_fixers['html'] = [ 'tidy' ]
-let g:ale_javascript_prettier_options ='--tab-width 4 --single-quote --no-bracket-spacing --trailing-comma es5' 
+let g:ale_javascript_prettier_options ='--tab-width 2 --single-quote --no-bracket-spacing --trailing-comma es5' 
 let g:ale_echo_msg_format = '%linter%: %s [%severity%]'
 "let g:ale_sign_column_always = 1
 "let g:ale_sign_error         = '--'
