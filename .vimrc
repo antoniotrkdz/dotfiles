@@ -162,7 +162,8 @@ if has('gui_running')
     "To italicize comments:
     let g:quantum_italics=1
 
-    set guifont=inconsolata\ for\ Powerline
+    "set guifont=inconsolata\ for\ Powerline
+    set guifont=Hack\ 11
     set guioptions-=T "remove the toolbar 
 
 elseif &term == "rxvt-unicode-256color" || &term == "xterm-256color"

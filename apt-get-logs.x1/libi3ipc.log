@@ -1,0 +1,50 @@
+Script started on Wed 18 Apr 2018 03:42:59 AM CEST
+root@trkdz-x1-devuan:~# dpkg -i /home/antoniotrkdz/dotfiles/libi3ipc-glib_0.6.0-1_amd664.deb 
+Selecting previously unselected package libi3ipc-glib.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 102466 files and directories currently installed.)
+Preparing to unpack .../libi3ipc-glib_0.6.0-1_amd64.deb ...
+Unpacking libi3ipc-glib (0.6.0-1) ...
+[1mdpkg:[0m dependency problems prevent configuration of libi3ipc-glib:
+ libi3ipc-glib depends on gobject-introspection; however:
+  Package gobject-introspection is not installed.
+
+[1mdpkg:[0m error processing package libi3ipc-glib (--install):
+ dependency problems - leaving unconfigured
+Errors were encountered while processing:
+ libi3ipc-glib
+root@trkdz-x1-devuan:~# apt-get install -f
+Reading package lists... 0%Reading package lists... 0%Reading package lists... 7%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... Done
+Correcting dependencies... Done
+The following additional packages will be installed:
+  binutils build-essential dpkg-dev fakeroot g++ g++-6 gcc gcc-6
+  gobject-introspection libalgorithm-diff-perl libalgorithm-diff-xs-perl
+  libalgorithm-merge-perl libasan3 libatomic1 libc-dev-bin libc6-dev libcc1-0
+  libcilkrts5 libdpkg-perl libfakeroot libfile-fcntllock-perl libgcc-6-dev libitm1
+  liblsan0 libmpx2 libstdc++-6-dev libtsan0 libubsan0 linux-libc-dev make
+  python3-mako python3-markupsafe
+Suggested packages:
+  binutils-doc debian-keyring g++-multilib g++-6-multilib gcc-6-doc
+  libstdc++6-6-dbg gcc-multilib autoconf automake libtool flex bison gdb gcc-doc
+  gcc-6-multilib gcc-6-locales libgcc1-dbg libgomp1-dbg libitm1-dbg libatomic1-dbg
+  libasan3-dbg liblsan0-dbg libtsan0-dbg libubsan0-dbg libcilkrts5-dbg libmpx2-dbg
+  libquadmath0-dbg glibc-doc libstdc++-6-doc make-doc python3-beaker
+  python-mako-doc
+The following NEW packages will be installed:
+  binutils build-essential dpkg-dev fakeroot g++ g++-6 gcc gcc-6
+  gobject-introspection libalgorithm-diff-perl libalgorithm-diff-xs-perl
+  libalgorithm-merge-perl libasan3 libatomic1 libc-dev-bin libc6-dev libcc1-0
+  libcilkrts5 libdpkg-perl libfakeroot libfile-fcntllock-perl libgcc-6-dev libitm1
+  liblsan0 libmpx2 libstdc++-6-dev libtsan0 libubsan0 linux-libc-dev make
+  python3-mako python3-markupsafe
+0 upgraded, 32 newly installed, 0 to remove and 1 not upgraded.
+1 not fully installed or removed.
+Need to get 30.1 MB of archives.
+After this operation, 135 MB of additional disk space will be used.
+Do you want to continue? [Y/n] n
+Abort.
+root@trkdz-x1-devuan:~# exit
+exit
+
+Script done on Wed 18 Apr 2018 03:44:22 AM CEST

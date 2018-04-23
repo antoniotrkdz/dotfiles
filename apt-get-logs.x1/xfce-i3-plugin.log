@@ -1,0 +1,54 @@
+Script started on Wed 18 Apr 2018 03:50:30 AM CEST
+root@trkdz-x1-devuan:~# dpkg -i do[K[K/home/dotf[K[K[K[Kantoniotrkdz/dotfiles/
+.bash-perm-history
+.bashrc
+conky.conf
+.git/
+.git-templates/
+Hack-v3.003-ttf.zip
+.i3/
+libi3ipc-glib_0.6.0-1_amd64.deb
+.profile
+raid_status_check.gawk
+README.md
+sources.list.d/
+.tern-config
+Trianglify-experiments/
+.vimrc
+xfce4-i3-workspaces-plugin_1.2.0-3_amd64.deb
+.xmodmaprc
+.xsessionrc
+root@trkdz-x1-devuan:~# dpkg -i /home/antoniotrkdz/dotfiles/xfce4-i3-workspaces-pluginn_1.2.0-3_amd64.deb 
+Selecting previously unselected package xfce4-i3-workspaces-plugin.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 105902 files and directories currently installed.)
+Preparing to unpack .../xfce4-i3-workspaces-plugin_1.2.0-3_amd64.deb ...
+Unpacking xfce4-i3-workspaces-plugin (1.2.0-3) ...
+[1mdpkg:[0m dependency problems prevent configuration of xfce4-i3-workspaces-plugin:
+ xfce4-i3-workspaces-plugin depends on libxfce4util6 (>= 4.9.0); however:
+  Package libxfce4util6 is not installed.
+ xfce4-i3-workspaces-plugin depends on xfce4-panel (<< 4.11); however:
+  Version of xfce4-panel on system is 4.12.1-2.
+
+[1mdpkg:[0m error processing package xfce4-i3-workspaces-plugin (--install):
+ dependency problems - leaving unconfigured
+Processing triggers for hicolor-icon-theme (0.15-1) ...
+Errors were encountered while processing:
+ xfce4-i3-workspaces-plugin
+root@trkdz-x1-devuan:~# apt-get install -f
+Reading package lists... 0%Reading package lists... 0%Reading package lists... 6%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... Done
+Correcting dependencies... Done
+The following packages will be REMOVED:
+  xfce4-i3-workspaces-plugin
+0 upgraded, 0 newly installed, 1 to remove and 1 not upgraded.
+1 not fully installed or removed.
+After this operation, 135 kB disk space will be freed.
+Do you want to continue? [Y/n] y
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 105914 files and directories currently installed.)
+Removing xfce4-i3-workspaces-plugin (1.2.0-3) ...
+Processing triggers for hicolor-icon-theme (0.15-1) ...
+root@trkdz-x1-devuan:~# 
+exit
+
+Script done on Wed 18 Apr 2018 04:08:48 AM CEST

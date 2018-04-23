@@ -1,0 +1,23 @@
+Script started on Mon 23 Apr 2018 02:29:20 AM CEST
+[1;31mroot[00m@trkdz-x1-devuan:~# apt-get install vim-nox
+Reading package lists... 0%Reading package lists... 100%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... Done
+The following additional packages will be installed:
+  libruby2.3 libtcl8.6 rake ruby ruby-did-you-mean ruby-minitest ruby-net-telnet
+  ruby-power-assert ruby-test-unit ruby2.3 rubygems-integration vim-runtime zip
+Suggested packages:
+  tcl8.6 ri ruby-dev bundler cscope vim-doc
+The following NEW packages will be installed:
+  libruby2.3 libtcl8.6 rake ruby ruby-did-you-mean ruby-minitest ruby-net-telnet
+  ruby-power-assert ruby-test-unit ruby2.3 rubygems-integration vim-nox vim-runtime
+  zip
+0 upgraded, 14 newly installed, 0 to remove and 8 not upgraded.
+Need to get 11.3 MB of archives.
+After this operation, 50.9 MB of additional disk space will be used.
+Do you want to continue? [Y/n] n
+Abort.
+[1;31mroot[00m@trkdz-x1-devuan:~# exit
+exit
+
+Script done on Mon 23 Apr 2018 02:29:35 AM CEST

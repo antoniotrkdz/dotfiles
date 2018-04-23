@@ -1,0 +1,20 @@
+Script started on Wed 18 Apr 2018 03:27:10 AM CEST
+root@trkdz-x1-devuan:~# apt-get install lxqt-panel
+Reading package lists... 0%Reading package lists... 100%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... Done
+The following additional packages will be installed:
+  libdbusmenu-qt5-2 libfm-extra4 libkf5solid5 libkf5solid5-data libkf5windowsystem-data libkf5windowsystem5 liblxqt-globalkeys-ui0 liblxqt-globalkeys0 liblxqt-l10n
+  liblxqt0 libmenu-cache-bin libmenu-cache3 libqt5xdg2 libqt5xdgiconloader2 libqt5xml5 libstatgrab10 libsysstat-qt5-0 lxmenu-data lxqt-panel-l10n
+The following NEW packages will be installed:
+  libdbusmenu-qt5-2 libfm-extra4 libkf5solid5 libkf5solid5-data libkf5windowsystem-data libkf5windowsystem5 liblxqt-globalkeys-ui0 liblxqt-globalkeys0 liblxqt-l10n
+  liblxqt0 libmenu-cache-bin libmenu-cache3 libqt5xdg2 libqt5xdgiconloader2 libqt5xml5 libstatgrab10 libsysstat-qt5-0 lxmenu-data lxqt-panel lxqt-panel-l10n
+0 upgraded, 20 newly installed, 0 to remove and 1 not upgraded.
+Need to get 1,843 kB of archives.
+After this operation, 8,460 kB of additional disk space will be used.
+Do you want to continue? [Y/n] n
+Abort.
+root@trkdz-x1-devuan:~# exit
+exit
+
+Script done on Wed 18 Apr 2018 03:27:31 AM CEST

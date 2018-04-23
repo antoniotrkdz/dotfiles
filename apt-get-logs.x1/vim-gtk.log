@@ -1,0 +1,20 @@
+Script started on Mon 23 Apr 2018 02:31:09 AM CEST
+[1;31mroot[00m@trkdz-x1-devuan:~# apt-get install vim-gtk
+Reading package lists... 0%Reading package lists... 100%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... Done
+The following additional packages will be installed:
+  vim-gui-common
+Suggested packages:
+  cscope vim-doc
+The following NEW packages will be installed:
+  vim-gtk vim-gui-common
+0 upgraded, 2 newly installed, 0 to remove and 8 not upgraded.
+Need to get 1,422 kB of archives.
+After this operation, 3,272 kB of additional disk space will be used.
+Do you want to continue? [Y/n] n
+Abort.
+[1;31mroot[00m@trkdz-x1-devuan:~# exit
+exit
+
+Script done on Mon 23 Apr 2018 02:31:24 AM CEST

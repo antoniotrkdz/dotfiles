@@ -1,0 +1,22 @@
+Script started on Wed 18 Apr 2018 02:30:36 AM CEST
+root@trkdz-x1-devuan:~# apt-get install gtk2-engines-murrine gtk2-engines-pixbuf [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+Reading package lists... 0%Reading package lists... 100%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... Done
+The following additional packages will be installed:
+  albatross-gtk-theme blackbird-gtk-theme bluebird-gtk-theme
+  greybird-gtk-theme murrine-themes
+The following NEW packages will be installed:
+  albatross-gtk-theme blackbird-gtk-theme bluebird-gtk-theme
+  greybird-gtk-theme gtk2-engines-murrine gtk2-engines-pixbuf murrine-themes
+0 upgraded, 7 newly installed, 0 to remove and 1 not upgraded.
+Need to get 1,652 kB of archives.
+After this operation, 10.5 MB of additional disk space will be used.
+Do you want to continue? [Y/n] n
+Abort.
+root@trkdz-x1-devuan:~# exit
+exit
+
+Script done on Wed 18 Apr 2018 02:31:08 AM CEST

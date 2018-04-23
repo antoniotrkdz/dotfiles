@@ -1,0 +1,11 @@
+# KEYBOARD CONFIGURATION FILE
+
+# Consult the keyboard(5) manual page.
+
+XKBMODEL="pc105"
+XKBLAYOUT="it"
+XKBVARIANT="us"
+#XKBOPTIONS="ctrl:swapcaps"
+XKBOPTIONS="ctrl:nocaps"
+
+BACKSPACE="guess"

@@ -1,0 +1,24 @@
+Script started on Mon 23 Apr 2018 11:26:32 PM CEST
+[1;31mroot[00m@trkdz-x1-devuan:~# apt-get install redshift-gtk
+Reading package lists... 0%Reading package lists... 100%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... Done
+The following additional packages will be installed:
+  geoclue-2.0 gir1.2-appindicator3-0.1 libappindicator3-1 libdbusmenu-glib4 libdbusmenu-gtk3-4 libgeoclue-2-0 libindicator3-7 libjim0.76 libmbim-glib4 libmbim-proxy
+  libmm-glib0 libqmi-glib5 libqmi-proxy modemmanager redshift usb-modeswitch usb-modeswitch-data
+Suggested packages:
+  comgt wvdial
+Recommended packages:
+  iio-sensor-proxy
+The following NEW packages will be installed:
+  geoclue-2.0 gir1.2-appindicator3-0.1 libappindicator3-1 libdbusmenu-glib4 libdbusmenu-gtk3-4 libgeoclue-2-0 libindicator3-7 libjim0.76 libmbim-glib4 libmbim-proxy
+  libmm-glib0 libqmi-glib5 libqmi-proxy modemmanager redshift redshift-gtk usb-modeswitch usb-modeswitch-data
+0 upgraded, 18 newly installed, 0 to remove and 8 not upgraded.
+Need to get 2,048 kB of archives.
+After this operation, 8,704 kB of additional disk space will be used.
+Do you want to continue? [Y/n] n
+Abort.
+[1;31mroot[00m@trkdz-x1-devuan:~# exit
+exit
+
+Script done on Mon 23 Apr 2018 11:26:51 PM CEST
