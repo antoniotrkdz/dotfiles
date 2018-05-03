@@ -6,6 +6,7 @@
 #
 
 # i3 config file (v4)
+# vim:filetype=i3
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
@@ -24,42 +25,48 @@ set $mod Mod4
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
-font pango:Sans 14 
+font pango:anorexia 16
+#font pango:Sans 14 
 #font pango:Droid Sans bold 14 
 
 hide_edge_borders smart
+#focus_on_window_activation urgent
 
 #set background
 exec --no-startup-id nitrogen --restore
 
+#-----------------------------------------------------------------------
 ##Default colors:
-## class                 border  backgr. text    indicator child_border
-client.focused          #5588EE #5588EE #060808 #d68fff   #5588EE
-##client.focused          #CADB91 #CADB91 #060808 #d68fff   #CADB91
-client.focused_inactive #5f676a #5f676a #EEEEEE #484e50   #5f676a
-##client.focused_inactive #5f676a #5f676a #CADB91 #484e50   #5f676a
-client.unfocused        #5f676a #5f676a #888888 #292d2e   #5f676a
-client.urgent           #900000 #900000 #ffffff #900000   #900000
-client.placeholder      #5f676a #5f676a #5588EE #5f676a   #5f676a
-##client.placeholder      #5f676a #5f676a #CADB91 #5f676a   #5f676a
-client.background       #ffffff
+# class                 border  backgr. text    indicator child_border
+#client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
+#client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+#client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+#client.urgent           #2f343a #900000 #ffffff #900000   #900000
+#client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
-##xfce theme color       #CADB91
-##set $bg-color            #3F362F
-##set $inactive-bg-color   #3F362F
-##set $text-color          #CADB91 ###FFD29E
-##set $text-color         #FFD29E
-#set $inactive-text-color #7D6F67
-##set $urgent-bg-color     #E53935
-##set $indicator-color     #CAFF33
-##set $indicator-color    #FFB300
-##set $border-color        #5E4D3A
+#client.background       #ffffff
+#-----------------------------------------------------------------------
+
+##Spectre installation colors:
+##client.focused          #CADB91 #CADB91 #060808 #d68fff   #CADB91
+##client.focused_inactive #5f676a #5f676a #CADB91 #484e50   #5f676a
+##client.unfocused        #5f676a #5f676a #888888 #292d2e   #5f676a
+##client.urgent           #900000 #900000 #ffffff #900000   #900000
+##client.placeholder      #5f676a #5f676a #CADB91 #5f676a   #5f676a
+
+##X1-carbon installation colors:
+set $bg-color            #5587ED
+set $inactive-bg-color   #5f676A
+set $text-color          #EEEEEE 
+set $inactive-text-color #060808
+set $urgent-bg-color     #900000
+set $indicator-color     #CAFF33
 
 #                       border              background         text                 indicator        child_border
-#client.focused          $bg-color           $bg-color          $text-color          $indicator-color  $bg-color
-#client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color $indicator-color  $inactive-bg-color
-#client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color $indicator-color  $inactive-bg-color
-#client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          $indicator-color  $urgent-bg-color
+client.focused          $bg-color           $bg-color          $text-color          $indicator-color  $bg-color
+client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color $indicator-color  $inactive-bg-color
+client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color $indicator-color  $inactive-bg-color
+client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          $indicator-color  $urgent-bg-color
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -103,10 +110,12 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+b split h
-
+#bindsym $mod+b split h
 # split in vertical orientation
-bindsym $mod+v split v
+#bindsym $mod+v split v
+
+# toggle split orentation
+bindsym $mod+v split toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -117,10 +126,9 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-#bindsym $mod+Shift+space floating toggle
-#Border and title only on floating windows
+# border and title only on floating windows
 show_marks no
-bindsym $mod+Shift+p "mark --add _; [con_mark=f] floating disable, border pixel 1, mark --add --toggle _; [con_mark=_] floating enable, border normal 1; mark --add --toggle f;"
+bindsym $mod+Shift+p "mark --add _; [con_mark=f] floating disable, border pixel 2, mark --add --toggle _; [con_mark=_] floating enable, border normal 1; mark --add --toggle f;"
 
 
 # change focus between tiling / floating windows
@@ -145,9 +153,9 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 bindsym $mod+Tab workspace back_and_forth
+#workspace_auto_back_and_forth yes
 
 # Make the currently focused window a scratchpad
-#bindsym $mod+Shift+grave move scratchpad
 bindsym $mod+Shift+minus move scratchpad
 
 # move focused container to workspace
@@ -163,7 +171,6 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # Show the first scratchpad window
-#bindsym $mod+grave scratchpad show
 bindsym $mod+minus scratchpad show
 
 # Move the current workspace to the next output
@@ -204,35 +211,44 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start xfce4-panel (with workspace plugin)
-exec --no-startup-id xfce4-panel --disable-wm-check
+# start xfce4-panel (with workspace plugin)
+exec_always --no-startup-id xfce4-panel --disable-wm-check
+
+# make the touchpad behave nicely when typing
+exec --no-startup-id /usr/bin/syndaemon -d -i 0.7 -K -R -t
 
 ##replaced by xfce4-panel with i3-plugin
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 #bar {
-##        status_command i3status
-##        position bottom
-##        status_command i3status -c ~/.i3/i3status.conf
+#        status_command i3status
+#        position bottom
+#        status_command i3status -c /etc/i3status.conf
 #        tray_output none
-##	  workspace_buttons yes
-#	mode invisible #dock
-##        font pango:DejaVu Sans 16
+#	      workspace_buttons yes
+#        #	mode invisible #dock
+#        font pango:anorexia 16
 #}
 
 ## Handling of special applications
 
 ##select all windows in tiling layer
-for_window [tiling class="^.*"] border pixel 1
-new_window pixel 1
+for_window [tiling class="^.*"] border pixel 2
+new_window pixel 2
 
-##Handling of all special windows (that should be flaoting anyway)
+##Handling of all special windows (that should be floating anyway)
 for_window [window_role="pop-up"] floating enable, border normal 1
 for_window [window_role="task_dialog"] floating enable
 for_window [window_role="GtkFileChooserDialog"] floating enable, border normal 1, resize set 1200 800
+for_window [window_role="bubble"] floating enable
+for_window [window_role="Preferences"] floating enable
+
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+
 for_window [class="(?i)Gitter"] border none pixel 1
 for_window [class="(?i)xcalc"] floating enable, border normal 1
-for_window [class="(?i)skype"] floating enable, border normal 1 
+for_window [class="(?i)skype"] floating enable, border normal 1
 for_window [class="(?i)skypeforlinux"] floating disable
 for_window [title="(?i)Tabs Outliner"] floating enable, border normal 1, resize set 675 1040, move down 60, move scratchpad
 for_window [title="(?i)Extract files"] resize set 400 500
