@@ -73,16 +73,15 @@ Plug 'easymotion/vim-easymotion'
 Plug 'shime/vim-livedown'
 "Database completion
 Plug 'vim-scripts/dbext.vim'
-"Bash fixer/linter
-Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
+"i3wm .config syntax
+Plug 'PotatoesMaster/i3-vim-syntax'
+
 "Themes (for GUI and CLI)
 Plug 'KeitaNakamura/neodark.vim'
 "Plug 'desert256.vim'
 Plug 'rainux/vim-desert-warm-256'
 Plug 'rakr/vim-one'
 Plug 'tyrannicaltoucan/vim-quantum'
-
-Plug 'PotatoesMaster/i3-vim-syntax'
 
 call plug#end()
 
@@ -280,18 +279,21 @@ let g:airline_symbols.linenr = ''
 " Enable trimming of trailing whitespace when uncommenting
 "let g:NERDTrimTrailingWhitespace = 1
 
-"YouCompleteMe configuration
-"Tern configuration
+" YouCompleteMe configuration
+" Tern configuration
 let g:tern_show_argument_hints = 'on_hold'
 let g:tern_map_keys = 1
 let g:tern_show_signature_in_pum = 1
 
-"Highlight settings for YouCompleteMe hints
+" Highlight settings for YouCompleteMe hints
 highlight Pmenu ctermfg=7 ctermbg=0
 highlight PmenuSel ctermfg=0 ctermbg=7
 
-"Turn off the preview (opening a scratch buffer) from the YouCompleteMe menu
+" Turn off the preview (opening a scratch buffer) from the YouCompleteMe menu
 set completeopt-=preview
+
+" Disable YCM for ruby filetype
+let g:ycm_filetype_specific_completion_to_disable = { 'ruby': 1 }
 
 "This will make YCM and Eclim play nice
 "let g:EclimCompletionMethod = 'omnifunc'
@@ -308,7 +310,7 @@ let g:ale_echo_msg_format = '%linter%: %s [%severity%]'
 "let g:ale_sign_error         = '✘'
 "let g:ale_sign_warning       = '🔸'
 "let g:ale_sign_warning       = '⚠️'
-let g:ale_linters = {'jsx': ['eslint'], 'sql': ['sqlint'], 'ruby':['rubocop'], 'bash': ['shellcheck']}
+let g:ale_linters = {'jsx': ['eslint'], 'sql': ['sqlint'], 'ruby': ['rubocop'], 'bash': ['shellcheck']}
 let g:ale_linter_aliases = {'jsx': 'css'}
 "let g:ale_set_highlights = 0
 "let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ OK']
