@@ -146,4 +146,12 @@ alias gs='git status'
 alias v='vim'
 alias vg='vim -g'
 
+# https://github.com/junegunn/fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-debian-8
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# https://github.com/alexistoulotte/bundler_bash_completion
+eval "$(complete_bundle_bash_command init)"
