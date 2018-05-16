@@ -133,6 +133,11 @@ endfunction
 "map <tab> in insert mode to the function above
 inoremap <Tab> <C-R>=Tab_Or_Complete()<CR> 
 
+"higlights the current line
+set cursorline
+"highlights the current column
+set cuc cul
+
 "Disable all error bells
 set belloff=all
 
@@ -170,9 +175,10 @@ set listchars=tab:▸\ ,eol:¬,trail:·,space:·
 "set wildmenu
 
 "Avoid producing any extraneous files
-set nobackup
-set nowritebackup
-set noswapfile
+"Now is manageds see backup block below
+"set nobackup
+"set nowritebackup
+"set noswapfile
 
 "Avoid showing the mode on the last line
 set noshowmode
@@ -347,3 +353,43 @@ let g:ale_echo_msg_format = '%linter%: %s [%severity%]'
 "let g:ale_sign_warning       = '⚠️'
 "let g:ale_set_highlights = 0
 "let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ OK']
+
+""""""""""""""""""""""""""""""""""""""""
+" BACKUP / TMP FILES
+""""""""""""""""""""""""""""""""""""""""
+if isdirectory($HOME . '/.vim/backup') == 0
+	:silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
+endif
+set backupdir-=.
+set backupdir+=.
+set backupdir-=~/
+set backupdir^=~/.vim/backup/
+set backupdir^=./.vim-backup/
+set backup
+
+" Save your swp files to a less annoying place than the current directory.
+" " If you have .vim-swap in the current directory, it'll use that.
+" " Otherwise it saves it to ~/.vim/swap, ~/tmp or .
+if isdirectory($HOME . '/.vim/swap') == 0
+	:silent !mkdir -p ~/.vim/swap >/dev/null 2>&1
+endif
+set directory=./.vim-swap//
+set directory+=~/.vim/swap//
+set directory+=~/tmp//
+set directory+=.
+
+" viminfo stores the the state of your previous editing session
+set viminfo+=n~/.vim/viminfo
+
+if exists("+undofile")
+	" undofile - This allows you to use undos after exiting and restarting
+	" This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
+	" :help undo-persistence
+	" This is only present in 7.3+
+	if isdirectory($HOME . '/.vim/undo') == 0
+		:silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+	endif
+	set undodir=./.vim-undo//
+	set undodir+=~/.vim/undo//
+	set undofile
+endif
