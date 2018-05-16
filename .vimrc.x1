@@ -28,16 +28,12 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py --js-completer' }
 Plug 'ternjs/tern_for_vim'
 " Ale Async Linting (+formatting) as you type
 Plug 'w0rp/ale'
-" Autoformat for other files (not js)
-Plug 'chiel92/vim-autoformat'
 "Language specific
 Plug 'pangloss/vim-javascript'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 "wisely add 'end' in ruby (maybe bash)
 Plug 'tpope/vim-endwise'
-"Added vim snippets for code autofilling
-Plug 'SirVer/ultisnips'
 "Emmet for HTML editing, <c-y>, to trigger completion
 Plug 'mattn/emmet-vim'
 "Colour preview in code
@@ -59,7 +55,7 @@ Plug 'raimondi/delimitmate'
 Plug 'tpope/vim-eunuch'
 "Fuzzy files search (also avialble in bash)
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-"CtrlP Fuzzy search
+"CtrlP Fuzzy (file) search
 Plug 'ctrlpvim/ctrlp.vim'
 "Multiple cursors
 Plug 'terryma/vim-multiple-cursors'
@@ -76,6 +72,13 @@ Plug 'vim-scripts/dbext.vim'
 "i3wm .config syntax
 Plug 'PotatoesMaster/i3-vim-syntax'
 
+"Autoformat for other files (not js) - using A.L.E.
+"Plug 'chiel92/vim-autoformat'
+"Added vim snippets for code autofilling - ToDo: learn how it works!
+"Plug 'SirVer/ultisnips'
+"Perform insert mode completions with Tab - see TabOrComplete function
+"Plug 'ervandew/supertab'
+
 "Themes (for GUI and CLI)
 Plug 'KeitaNakamura/neodark.vim'
 "Plug 'desert256.vim'
@@ -91,7 +94,7 @@ inoremap jk <esc>
 inoremap kj <esc>
 vnoremap v <esc>
 nnoremap <silent> <F2> :NERDTreeTabsToggle<CR>
-noremap <F3> :Autoformat<CR>
+"noremap <F3> :Autoformat<CR>
 noremap <F4> :ALEFix<CR>
 "Open the current file in default browser
 nnoremap <F5> :exec '!sensible-browser % &'<CR>
@@ -112,11 +115,26 @@ nnoremap <S-Tab> :bprevious<CR>
 "nnoremap gm :LivedownToggle<CR>
 nnoremap <F6> :LivedownToggle<CR>
 
+"Use TAB to complete when typing words, else inserts TABs as usual.
+"Note: usual completion is on <C-n> but more trouble to press all the time.
+function! Tab_Or_Complete()
+  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\S'
+    "if NOT at the start of the line AND the cursor is preceded by a
+    "NON-Whithespace character
+    if &ft =~ 'e\=ruby' "if the filetype is ruby or eruby
+      return "\<C-x>\<C-o>"
+    else
+      return "\<C-n>"
+    endif
+  else
+    return "\<Tab>"
+  endif
+endfunction
+"map <tab> in insert mode to the function above
+inoremap <Tab> <C-R>=Tab_Or_Complete()<CR> 
+
 "Disable all error bells
 set belloff=all
-
-"Visual bell for errors
-"set visualbell
 
 "line number and relative line number
 set number
@@ -299,18 +317,33 @@ let g:ycm_filetype_specific_completion_to_disable = { 'ruby': 1 }
 "let g:EclimCompletionMethod = 'omnifunc'
 
 "ALE configuration
-let g:ale_fixers = {'javascript': [ 'prettier', 'eslint' ], 'ruby': ['rubocop'], 'bash': ['shfmt']}
-"let g:ale_fixers['javascript'] = [ 'prettier', 'eslint' ]
-"let g:ale_fixers['html'] = [ 'tidy' ]
-"let g:ale_fixers['ruby'] = [ 'rubocop' ]
+let g:ale_fixers = {
+      \ 'javascript': ['prettier', 'eslint'],
+      \ 'jsx': ['prettier', 'eslint'],
+      \ 'ruby': ['rubocop'],
+      \ 'html': [ 'tidy' ],
+      \ 'css': ['prettier', 'stylelint'],
+      \ 'scss': ['prettier', 'stylelint']
+      \ }
 let g:ale_javascript_prettier_options ='--tab-width 2 --single-quote --no-bracket-spacing --trailing-comma es5'
+let g:ale_linters = {
+      \ 'javascript': ['prettier', 'eslint'],
+      \ 'jsx': ['prettier', 'eslint'],
+      \ 'sql': ['sqlint'],
+      \ 'ruby': ['rubocop'],
+      \ 'bash': ['shellcheck'],
+      \ 'html': [ 'tidy' ],
+      \ 'css': ['prettier', 'stylelint'],
+      \ 'scss': ['prettier', 'stylelint']
+      \ }
+let g:ale_linter_aliases = {'jsx': 'css'}
+"Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
 let g:ale_echo_msg_format = '%linter%: %s [%severity%]'
 "let g:ale_sign_column_always = 1
 "let g:ale_sign_error         = '--'
 "let g:ale_sign_error         = '✘'
 "let g:ale_sign_warning       = '🔸'
 "let g:ale_sign_warning       = '⚠️'
-let g:ale_linters = {'jsx': ['eslint'], 'sql': ['sqlint'], 'ruby': ['rubocop'], 'bash': ['shellcheck']}
-let g:ale_linter_aliases = {'jsx': 'css'}
 "let g:ale_set_highlights = 0
 "let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ OK']
