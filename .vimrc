@@ -305,8 +305,8 @@ set grepprg=ag\ -i
 " Turn off the preview (opening a scratch buffer) from the YouCompleteMe menu
 set completeopt-=preview
 
-" syntax on
-syntax enable
+syntax on
+" syntax enable
 filetype plugin indent on    " Enable filetype-specific plugins and indenting
 
 "  ____ ____ ____ ____ ____ ____ ____ ____ 
