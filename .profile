@@ -23,5 +23,5 @@ fi
 
 # Autostart X at login: if logging into tty1, run startx
 #if [ -z "$DISPLAY" ] && [ $(tty) = /dev/tty1 ] ; then
-#	    exec startx ;
+#   exec startx ;
 #fi

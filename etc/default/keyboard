@@ -5,7 +5,7 @@
 XKBMODEL="pc105"
 XKBLAYOUT="it"
 XKBVARIANT="us"
-#XKBOPTIONS="ctrl:swapcaps"
 XKBOPTIONS="ctrl:nocaps"
+#XKBOPTIONS="ctrl:swapcaps"
 
 BACKSPACE="guess"

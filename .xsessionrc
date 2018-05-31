@@ -1,48 +1,11 @@
-#!/bin/bash
+# Use Spacebar as a Modifier (ALTERNATIVE  CONFIGURATION)
+# As fall back L_WIN key also works as modifier.
+# No need for separate .xmodmaprc file
+#xmodmap ~/.xmodmaprc
+/usr/bin/xmodmap -e "keycode 65=Super_L"
+/usr/bin/xmodmap -e "keycode any=space"
+/usr/bin/xcape -e "Super_L=space"
 
-##Method with xkb (not working...yet)
-
-## Requires two files:
-## .config/xkb/keycodes/my-keycodes:
-
-#xkb_keycodes "xcape-special" {
-#    <LWIN> =  65;
-#    <SPCE> = 133;
-#};
-
-## And .config/xkb/symbols/my-symbols
-
-#xkb_symbols "xcape-special" {
-#    key <LWIN>  { [ Super_L ] };
-#    modifier_map Control { <LWIN> };
-#};
-
-## Leave here
-#XKB_DIR="$HOME/.config/xkb"
-#XKB_SYMBOL_FILE="my-symbols"
-#XKB_KEYCODE_FILE="my-keycodes"
-
-#setxkbmap -layout "us+$XKB_SYMBOL_FILE(xcape-special)" \
-#	    -keycodes "evdev+$XKB_KEYCODE_FILE(xcape-special)" \
-#	        -option "" -print \
-#		    | xkbcomp -I"$XKB_DIR" - "${DISPLAY%%.*}" >/dev/null 2>&1
-
-#xcape -e "Super_L=space"
-
-## Method with xmodmap (works)
-## This file depends on settings in .xmodmaprc
-#xmodmap ~/.xmodmaprc ## Could be run here or in the DE session manager
-
-## Use spacebar as a modifier (in .i3/config set mod3)
-#spare_modifier="Hyper_L"
-#xmodmap -e "keycode 65=$spare_modifier"
-#xmodmap -e "add Hyper_L=$spare_modifier"
-#xmodmap -e "keycode any=space"
-#xcape -e "$spare_modifier=space"
-
-## Use Spacebar as a Modifier (ALTERNATIVE  CONFIGURATION)
-## No need for separate .xmodmaprc file
-xmodmap ~/.xmodmaprc
-xmodmap -e "keycode 65=Super_L"
-xmodmap -e "keycode any=space"
-xcape -e "Super_L=space"
+# make the touchpad behave nicely when typing
+/usr/bin/pkill syndaemon
+/usr/bin/syndaemon -d -i 0.7 -K -R -t

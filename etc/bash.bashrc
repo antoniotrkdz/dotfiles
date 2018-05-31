@@ -19,7 +19,7 @@ fi
 PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 
 #logging all the commands to .bash-permanent-history file. 
-PROMPT_COMMAND='echo "$(date "+%Y-%m-%d.%H:%M:%S") $(hostname) $(pwd) $(history 1)" >> ~/.bash-permanent-history'
+PROMPT_COMMAND='echo "$(date "+%Y-%m-%d.%H:%M:%S") $(hostname) $(whoami) $(pwd) $(history 1)" >> ~/.bash-permanent-history'
 
 # Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
 # If this is an xterm set the title to user@host:dir
@@ -32,13 +32,13 @@ PROMPT_COMMAND='echo "$(date "+%Y-%m-%d.%H:%M:%S") $(hostname) $(pwd) $(history 
 #esac
 
 # enable bash completion in interactive shells
-#if ! shopt -oq posix; then
-#  if [ -f /usr/share/bash-completion/bash_completion ]; then
-#    . /usr/share/bash-completion/bash_completion
-#  elif [ -f /etc/bash_completion ]; then
-#    . /etc/bash_completion
-#  fi
-#fi
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
 
 # if the command-not-found package is installed, use it
 if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-not-found ]; then
