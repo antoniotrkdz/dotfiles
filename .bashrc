@@ -97,6 +97,17 @@ fi
 #expand the aliases (for scripts)
 shopt -s expand_aliases
 
+# Get git aliases commands to complete using bash completion.
+# Using functions in /usr/share/bash-completion/completions/git
+# symlinked to ~/.git-completion
+# Also see https://gist.github.com/JuggoPop/10706934
+if [ -f ~/.git-completion ]; then
+    . ~/.git-completion
+
+  __git_complete g __git_main
+
+fi
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).

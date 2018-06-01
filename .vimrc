@@ -36,9 +36,11 @@ Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 "Commenter
 Plug 'scrooloose/nerdcommenter'
-"YouCompleteMe + tern completer - javascript
+"YouCompleteMe + tern completer - only for javascript
 Plug 'Valloric/YouCompleteMe', { 'for': 'javascript', 'do': './install.py --js-completer' }
-Plug 'ternjs/tern_for_vim'
+Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
+"MUcomplete is a minimalist autocompletion plugin for Vim.
+Plug 'lifepillar/vim-mucomplete'
 "Ale Async Linting (+formatting) as you type
 Plug 'w0rp/ale'
 "Language specific
@@ -95,7 +97,6 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 "Themes (for GUI and CLI)
 Plug 'KeitaNakamura/neodark.vim'
 Plug 'tomasr/molokai'
-Plug 'rainux/vim-desert-warm-256'
 Plug 'rakr/vim-one'
 Plug 'tyrannicaltoucan/vim-quantum'
 
@@ -181,16 +182,10 @@ let g:tern_show_argument_hints = 'on_hold'
 let g:tern_map_keys = 1
 let g:tern_show_signature_in_pum = 1
 
-" Highlight settings for YouCompleteMe hints
-highlight Pmenu ctermfg=7 ctermbg=0
-highlight PmenuSel ctermfg=0 ctermbg=7
-
 " Disable YCM for ruby filetype
 let g:ycm_filetype_blacklist = { 'ruby': 1 }
 let g:ycm_filetype_specific_completion_to_disable = { 'ruby': 1 }
-
-" This will make YCM and Eclim play nice
-"let g:EclimCompletionMethod = 'omnifunc'
+"let g:ycm_max_num_identifier_candidates = 0
 
 " DelimitMate config for ruby and others
 au FileType eruby,ruby,html,vim let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
@@ -232,6 +227,19 @@ let g:ale_sign_info          = '..'
 "let g:ale_sign_column_always = 1
 "let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ OK']
 
+" To enable Mucomplete automatic completion
+if &filetype == 'javascript'
+  let g:mucomplete#enable_auto_at_startup = 0 " javascript uses YCM
+else
+  let g:mucomplete#enable_auto_at_startup = 1
+endif
+
+" See also Mucomplete mandatory general settings below
+let g:mucomplete#always_use_completeopt = 1
+" Use <tab> and <s-tab> to cycle between completion methods (omnifunc,
+" buffer, etc.) if 0 use <C-h> and <C-j> (default).
+let g:mucomplete#cycle_with_trigger = 1
+let g:mucomplete#cycle_all = 1
 "   _____                      __  ____    __  __  _             
 "  / ___/__ ___  ___ _______ _/ / / __/__ / /_/ /_(_)__  ___ ____
 " / (_ / -_) _ \/ -_) __/ _ `/ / _\ \/ -_) __/ __/ / _ \/ _ `(_-<
@@ -239,6 +247,13 @@ let g:ale_sign_info          = '..'
 "                                                      /___/     
 "This command makes vim start a file with all folds closed
 "set foldlevelstart=0
+
+" Mucomplete mandatory Vim settings:
+set completeopt+=menuone,noinsert
+"set completeopt+=noselect
+
+" Turn off the preview (opening a scratch buffer) from the YouCompleteMe menu
+set completeopt-=preview
 
 " Higlights the current line
 set cursorline
@@ -302,9 +317,6 @@ set ignorecase
 " Use the silversearcher-ag to perform searches (like ack, but faster) 
 set grepprg=ag\ -i
 
-" Turn off the preview (opening a scratch buffer) from the YouCompleteMe menu
-set completeopt-=preview
-
 syntax on
 " syntax enable
 filetype plugin indent on    " Enable filetype-specific plugins and indenting
@@ -341,24 +353,30 @@ nnoremap ã :cnext<CR>
 nnoremap ö :cprevious<CR>
 " Livedow markdown previewer toggle on/off
 nnoremap <F6> :LivedownToggle<CR>
+" Compatibility between Mucomplete and EndWise
+imap <Plug>MyCR <Plug>(MUcompleteCR)
+imap <cr> <Plug>MyCR
+
 
 " Use TAB to complete when typing words, else inserts TABs as usual.
-" Note : usual completion is on <C-n> but more trouble to press all the time.
-function! Tab_Or_Complete()
-  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\S'
-    "if NOT at the start of the line AND the cursor is preceded by a
-    "NON-Whithespace character
-    if &filetype =~ 'e\=ruby' "if the filetype is ruby or eruby
-      return "\<C-x>\<C-o>"
-    else
-      return "\<C-n>"
-    endif
-  else
-    return "\<Tab>"
-  endif
-endfunction
-" map <tab> in insert mode to the function above
-inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+" Note : usual completion is on <C-n>.
+" SUPERSEEDED by Mucomplete installation, in here for REFERENCE only.
+
+" function! Tab_Or_Complete()
+"   if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\S'
+"     "if NOT at the start of the line AND the cursor is preceded by a
+"     "NON-Whithespace character
+"     if &filetype =~ 'e\=ruby' "if the filetype is ruby or eruby
+"       return "\<C-x>\<C-o>"
+"     else
+"       return "\<C-n>"
+"     endif
+"   else
+"     return "\<Tab>"
+"   endif
+" endfunction
+" " map <tab> in insert mode to the function above
+" inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 
 
 "  ██████╗ ██████╗ ██╗      ██████╗ ██████╗ ███████╗
@@ -369,11 +387,13 @@ inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 "  ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
 if has('gui_running')
   set background=dark
-  set termguicolors
   "Black background (before colorscheme=quantum)
   let g:quantum_black=1
   colorscheme quantum
-  "colorscheme neodark
+  " let g:molokai_original=1
+  " let g:rehash256=1
+  " colorscheme molokai
+  " colorscheme neodark
 
   "To italicize comments:
   let g:quantum_italics=1
@@ -390,15 +410,23 @@ if has('gui_running')
 
 elseif &term == "rxvt-unicode-256color" || &term == "xterm-256color"
   set t_Co=256
-  colorscheme one
   set background=dark
-  "colorscheme neodark
+  colorscheme one
+  " colorscheme neodark
   "To use 256-color in both of vim and gvim:
   "let g:neodark#use_256color = 1 " default: 0
   "To use your default terminal background:
-  "let g:neodark#terminal_transparent = 1 " default: 0
+  " let g:neodark#terminal_transparent = 1 " default: 0
+  highlight Pmenu ctermfg=0 ctermbg=8
+  highlight PmenuSel ctermfg=15 ctermbg=139
+  highlight PmenuSbar ctermbg=8
+  highlight PmenuThumb ctermfg=7
 else
   set t_Co=8
+  highlight Pmenu ctermfg=15 ctermbg=8
+  highlight PmenuSel ctermfg=15 ctermbg=0
+  highlight PmenuSbar ctermbg=8
+  highlight PmenuThumb ctermfg=7
 endif
 
 " Highlight for the matching parenthesis.

@@ -16,6 +16,7 @@ alias ll='ls -FlAh'
 #alias l='ls -CF'
 
 # GIT aliases
+alias g='git'
 alias gcm='git checkout master'
 alias gs='git status'
 
