@@ -201,7 +201,7 @@ let g:ale_fixers = {
       \ 'css': ['prettier', 'stylelint'],
       \ 'scss': ['prettier', 'stylelint']
       \ }
-let g:ale_javascript_prettier_options ='--tab-width 2 --single-quote --no-bracket-spacing --trailing-comma es5'
+let g:ale_javascript_prettier_options ='--tab-width 2 --no-bracket-spacing --trailing-comma es5'
 let g:ale_linters = {
       \ 'javascript': ['prettier', 'eslint'],
       \ 'jsx': ['prettier', 'eslint'],
