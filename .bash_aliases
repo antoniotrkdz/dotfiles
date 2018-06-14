@@ -23,3 +23,12 @@ alias gs='git status'
 # vim aliases
 alias v='vim'
 alias vg='gvim'
+
+# Get color support for 'less'
+export LESS="--RAW-CONTROL-CHARS"
+
+# Use colors for less, man, etc.
+[[ -f ~/.less_termcap ]] && . ~/.less_termcap
+
+export MANPAGER='less -X -s -M +Gg'
+
