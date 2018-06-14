@@ -1,3 +1,6 @@
+## This file makes less to colorise output like most ##
+## It gets sourced in ~/.bash_aliases ##
+
 # tput color codes -- more readable way than ANSI escape codes
 # https://linux.101hacks.com/ps1-examples/prompt-color-using-tput/
 # 0 – Black
@@ -9,7 +12,7 @@
 # 6 – Cyan
 # 7 – White
 
-# https://unix.stackexchange.com/questions/119/colors-in-man-pages?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+# Colors from https://unix.stackexchange.com/questions/119/colors-in-man-pages?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 #export LESS_TERMCAP_mb=$(tput bold; tput setaf 2) # green
 #export LESS_TERMCAP_md=$(tput bold; tput setaf 6) # cyan
 #export LESS_TERMCAP_me=$(tput sgr0)
