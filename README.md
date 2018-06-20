@@ -9,3 +9,7 @@ My dotfiles configuration files for Bash and i3 + others
 
 For info on git hooks:  
 [Git init doc](https://git-scm.com/docs/git-init#_template_directory) & [pre-push hack](https://blog.ghost.org/prevent-master-push/)
+
+To make less to colorise man pages see [this](https://unix.stackexchange.com/questions/119/colors-in-man-pages?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) and [this](https://www.2daygeek.com/linux-color-man-pages-configuration-less-most-command/#)
+
+For terminal color formatting see [this](https://misc.flogisoft.com/bash/tip_colors_and_formatting)
