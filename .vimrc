@@ -102,6 +102,9 @@ Plug 'tyrannicaltoucan/vim-quantum'
 
 call plug#end()
 
+packadd! matchit " Use % to jump between do - end, if - end, etc.
+source ~/.vim/99-hl-matchlines.vim " Plugin to highlight matchit.
+
 "   ___  __          _            ____    __  __  _             
 "  / _ \/ /_ _____ _(_)__  ___   / __/__ / /_/ /_(_)__  ___ ____
 " / ___/ / // / _ `/ / _ \(_-<  _\ \/ -_) __/ __/ / _ \/ _ `(_-<
@@ -354,6 +357,8 @@ nnoremap ã :cnext<CR>
 nnoremap ö :cprevious<CR>
 " Livedow markdown previewer toggle on/off
 nnoremap <F6> :LivedownToggle<CR>
+" toggle_end_hl
+nnoremap <leader>p :call Toggle_Extra_Paren_HL()<CR>
 " Compatibility between Mucomplete and EndWise
 imap <Plug>MyCR <Plug>(MUcompleteCR)
 imap <cr> <Plug>MyCR
@@ -431,7 +436,8 @@ else
 endif
 
 " Highlight for the matching parenthesis.
-highlight MatchParen guibg=#212121 guifg=#00ff00
+highlight MatchParen guibg=NONE guifg=#00ff00 gui=bold
+" guibg=#212121 bg color of the QUANTUM colorscheme
 
 " Highlight for the trailing space
 highlight ExtraWhitespace ctermbg=red guibg=#ff0000
