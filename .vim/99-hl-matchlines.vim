@@ -76,9 +76,10 @@ let g:extra_paren_hl_is_open = 0
 
 function! Toggle_Extra_Paren_HL()
   if g:extra_paren_hl_is_open == 0
-    " The highlight group that's used for highlighting matched lines.  By
-    " default, it will be the same as the `MatchParen` group.
-    highlight! default link MatchLine MatchParen
+    " The highlight group that's used for highlighting matched lines.
+    highlight MatchLine guibg=#414141 gui=bold
+    " With this line, by default, it will be the same as the `MatchParen` group.
+    " highlight! default link MatchLine MatchParen
     augroup matching_lines
       autocmd!
       " Highlight lines as the cursor moves.
@@ -90,10 +91,10 @@ function! Toggle_Extra_Paren_HL()
     augroup END
     let g:extra_paren_hl_is_open = 1
   else
-    highlight! default link MatchLine NONE
-    augroup matching_lines
-      autocmd! CursorMoved,InsertEnter,TextChanged,TextChangedI *
-    augroup END
+    " Removing highlighting
+    highlight clear MatchLine
+    " highlight! default link MatchLine NONE
+    autocmd! matching_lines
     let g:extra_paren_hl_is_open = 0
   endif
 endfunction

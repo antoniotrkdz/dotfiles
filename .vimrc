@@ -259,7 +259,7 @@ set completeopt+=menuone,noinsert
 " Turn off the preview (opening a scratch buffer) from the YouCompleteMe menu
 set completeopt-=preview
 
-" Higlights the current line
+" Highlights the current line
 set cursorline
 " Highlights the current column
 set cuc cul
@@ -341,14 +341,12 @@ nnoremap <F5> :execute '!sensible-browser % &'<CR>
 " Search the word under the cursor in file folder.
 noremap <F7> :execute "grep! " . expand("<cword>") . "\| copen"<CR>
 noremap <F8> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
-" Shortcut to rapidly toggle `set list`
+" Shortcut to rapidly toggle `set list` = see non printable characters.
 nnoremap <leader>l :set list!<CR>
 " Turn on/off incremental search (search as you type)
 nnoremap <leader>i :set incsearch!<CR>
-" Highlight search results
-nnoremap <Leader>h :set hlsearch<CR>
-" Remove highlights with leader + enter
-nnoremap <Leader><CR> :nohlsearch<CR>
+" Toggle highlighting of search results.
+nnoremap <Leader><CR> :set hlsearch!<CR>
 " Shortcuts to cicle through the buffers
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
@@ -357,8 +355,12 @@ nnoremap ã :cnext<CR>
 nnoremap ö :cprevious<CR>
 " Livedow markdown previewer toggle on/off
 nnoremap <F6> :LivedownToggle<CR>
-" toggle_end_hl
+
+" Toggles_highlight of matchit results, for all matching pairs
+" that are NOT Parens: (),[],{}; ie.: 'def|class|while|do' with 'end'.
+" Toggle off to get tpope/endwise plugin do its job.
 nnoremap <leader>p :call Toggle_Extra_Paren_HL()<CR>
+
 " Compatibility between Mucomplete and EndWise
 imap <Plug>MyCR <Plug>(MUcompleteCR)
 imap <cr> <Plug>MyCR
@@ -437,7 +439,7 @@ endif
 
 " Highlight for the matching parenthesis.
 highlight MatchParen guibg=NONE guifg=#00ff00 gui=bold
-" guibg=#212121 bg color of the QUANTUM colorscheme
+" guibg=#212121=background=bg BG color of the QUANTUM colorscheme
 
 " Highlight for the trailing space
 highlight ExtraWhitespace ctermbg=red guibg=#ff0000
