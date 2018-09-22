@@ -99,6 +99,7 @@ Plug 'KeitaNakamura/neodark.vim'
 Plug 'tomasr/molokai'
 Plug 'rakr/vim-one'
 Plug 'tyrannicaltoucan/vim-quantum'
+Plug 'haishanh/night-owl.vim'
 
 call plug#end()
 
@@ -396,12 +397,16 @@ imap <cr> <Plug>MyCR
 if has('gui_running')
   set background=dark
   "Black background (before colorscheme=quantum)
-  let g:quantum_black=1
-  colorscheme quantum
+  " let g:quantum_black=1
+  " colorscheme quantum
   " let g:molokai_original=1
   " let g:rehash256=1
   " colorscheme molokai
   " colorscheme neodark
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+  colorscheme night-owl
 
   "To italicize comments:
   let g:quantum_italics=1
