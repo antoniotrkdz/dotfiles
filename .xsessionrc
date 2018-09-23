@@ -4,8 +4,9 @@
 #xmodmap ~/.xmodmaprc
 /usr/bin/xmodmap -e "keycode 65=Super_L"
 /usr/bin/xmodmap -e "keycode any=space"
+/usr/bin/pkill xcape
 /usr/bin/xcape -e "Super_L=space"
 
 # make the touchpad behave nicely when typing
-/usr/bin/pkill syndaemon
-/usr/bin/syndaemon -d -i 0.7 -K -R -t
+#/usr/bin/pkill syndaemon
+#/usr/bin/syndaemon -d -i 0.7 -K -R -t
