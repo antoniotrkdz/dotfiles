@@ -10,8 +10,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-#Set Spacebar as modifier
-#set $mod Mod3
+# Mod4 is Super_L, but search "Set Spacebar as modifier"
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -29,14 +28,19 @@ font pango:anorexia 16
 #font pango:Sans 14 
 #font pango:Droid Sans bold 14 
 
-hide_edge_borders smart
+# Set smart borders (no border when just one window):
+#hide_edge_borders smart
+
+# Set urgent workspaces to be focused immediately:
 #focus_on_window_activation urgent
 
-#set background
-exec --no-startup-id nitrogen --restore
+# Set background:
+# Mate sets the background on its own.
+#exec --no-startup-id nitrogen --restore
 
+# Colors.
 #-----------------------------------------------------------------------
-##Default colors:
+# Default colors:
 # class                 border  backgr. text    indicator child_border
 #client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
 #client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
@@ -54,7 +58,7 @@ exec --no-startup-id nitrogen --restore
 ##client.urgent           #900000 #900000 #ffffff #900000   #900000
 ##client.placeholder      #5f676a #5f676a #CADB91 #5f676a   #5f676a
 
-##X1-carbon installation colors:
+# X1-carbon installation colors:
 set $bg-color            #5587ED
 set $inactive-bg-color   #5f676A
 set $text-color          #EEEEEE 
@@ -72,76 +76,80 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
+# Start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
-# kill focused window
+# Kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
-##bindsym $mod+d exec dmenu_run -b
+# Start dmenu (a program launcher)
+#bindsym $mod+d exec dmenu_run -b
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-##bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+#bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# With XFCE4 this is handled by its menu and the shortcut to it is set in its settings.
 
-# change focus
+# With MATE this workaround is needed (requires xdotool).
+bindsym $mod+d exec --no-startup-id "xdotool mousemove --sync 12 12 click 1 mousemove restore"
+
+# Change focus
 bindsym $mod+h focus left
 bindsym $mod+l focus right
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 
-# alternatively, you can use the cursor keys:
+# Alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# move focused window
+# Move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# alternatively, you can use the cursor keys:
+# Alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
+# Split in horizontal orientation
 #bindsym $mod+b split h
-# split in vertical orientation
+# Split in vertical orientation
 #bindsym $mod+v split v
 
-# toggle split orentation
+# Toggle split orentation
 bindsym $mod+v split toggle
 
-# enter fullscreen mode for the focused container
+# Enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
 
-# change container layout (stacked, tabbed, toggle split)
+# Change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-# toggle tiling / floating
+# Toggle tiling / floating
 # border and title only on floating windows
 show_marks no
 bindsym $mod+Shift+p "mark --add _; [con_mark=f] floating disable, border pixel 2, mark --add --toggle _; [con_mark=_] floating enable, border normal 1; mark --add --toggle f;"
 
 
-# change focus between tiling / floating windows
+# Change focus between tiling / floating windows
 bindsym $mod+p focus mode_toggle
 #bindsym $mod+space focus mode_toggle
 
-# focus the parent container
+# Focus the parent container
 bindsym $mod+a focus parent
 
-# focus the child container
+# Focus the child container
 #bindsym $mod+d focus child
 
-# switch to workspace
+# Switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
@@ -158,7 +166,7 @@ bindsym $mod+Tab workspace back_and_forth
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
 
-# move focused container to workspace
+# Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
@@ -177,15 +185,12 @@ bindsym $mod+minus scratchpad show
 # (effectively toggles when you only have two outputs)
 bindsym $mod+x move workspace to output right
 
-# reload the configuration file
+# Reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+Shift+e exec "xfce4-session-logout"
 
-# resize window (you can also use the mouse for that)
+# Resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
@@ -211,29 +216,64 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# start xfce4-panel (with workspace plugin)
-exec_always --no-startup-id xfce4-panel --disable-wm-check
+# Exit i3 (logs you out of your X session)
+#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# XFCE4
+#bindsym $mod+Shift+e exec "xfce4-session-logout"
+# MATE logout
+bindsym $mod+Shift+e exec "mate-session-save --logout-dialog"
 
-##replaced by xfce4-panel with i3-plugin
+# MATE shutdown
+bindsym $mod+Shift+s exec "mate-session-save --shutdown-dialog"
+
+# Start xfce4-panel (with workspace plugin).
+#exec_always --no-startup-id xfce4-panel --disable-wm-check
+
+# Start mate-panel (with workspace plugin) -- to be studied...Not needed now
+#exec_always --no-startup-id mate-panel --disable-wm-check
+
 # Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-#bar {
-#        status_command i3status
-#        position bottom
-#        status_command i3status -c /etc/i3status.conf
-#        tray_output none
-#	      workspace_buttons yes
-#        #	mode invisible #dock
-#        font pango:anorexia 16
-#}
+# finds out, if available).
 
-## Handling of special applications
+## With xfce4-panel and i3-plugin this section can be commented out entirely.
+## With mate-panel set the bar to invisible and to no tray output.
+## Set the colors of mate-applet with the colors section.
 
-##select all windows in tiling layer
+bar {
+  tray_output None
+  mode invisible
+  colors {
+    background #000000
+    statusline #ffffff
+    separator #666666
+# Default colors: -----------------------------
+#    <colorclass> <border> <background> <text>
+#    focused_workspace  #4c7899 #285577 #ffffff
+#    active_workspace   #333333 #5f676a #ffffff
+#    inactive_workspace #333333 #222222 #888888
+#    urgent_workspace   #2f343a #900000 #ffffff
+#    binding_mode       #2f343a #900000 #ffffff
+# ---------------------------------------------
+    focused_workspace  #7278C1 #7278C1 #ffffff
+    active_workspace   #33393B #33393B #ffffff
+    inactive_workspace #33393B #33393B #888888
+    urgent_workspace   #ba0000 #ba0000 #ffffff
+    binding_mode       #ba0000 #ba0000 #ffffff
+  }
+#  position bottom
+#  status_command i3status -c /etc/i3status.conf
+#	 workspace_buttons yes
+#  mode dock
+  font pango:anorexia 16
+}
+
+## Handling of special applications.
+
+## Select all windows in tiling layer.
 for_window [tiling class="^.*"] border pixel 2
 new_window pixel 2
 
-##Handling of all special windows (that should be floating anyway)
+## Handling of all special windows (that should be floating anyway).
 for_window [window_role="pop-up"] floating enable, border normal 1
 for_window [window_role="task_dialog"] floating enable
 for_window [window_role="GtkFileChooserDialog"] floating enable, border normal 1, resize set 1200 800
