@@ -260,10 +260,13 @@ set completeopt+=menuone,noinsert
 " Turn off the preview (opening a scratch buffer) from the YouCompleteMe menu
 set completeopt-=preview
 
-" Highlights the current line
-set cursorline
-" Highlights the current column
-set cuc cul
+" Highlights the current line and column only in the current window
+autocmd WinLeave * set nocursorline nocursorcolumn
+autocmd WinEnter * set cursorline cursorcolumn
+
+" Highlights the 80th column
+set colorcolumn=80
+hi ColorColumn ctermbg=darkgrey guibg=#602221
 
 " Disable all error bells
 set belloff=all
