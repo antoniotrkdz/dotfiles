@@ -7,6 +7,13 @@
 /usr/bin/pkill xcape
 /usr/bin/xcape -e "Super_L=space"
 
-# make the touchpad behave nicely when typing
+# Make the touchpad behave nicely when typing
+# Useful with laptops
 #/usr/bin/pkill syndaemon
 #/usr/bin/syndaemon -d -i 0.7 -K -R -t
+
+# Some settings for Wacom tablet (Bamboo)
+# Rotate all the devices upside-down
+/usr/bin/xsetwacom --set $(xsetwacom --list dev | gawk '/touch/ {print $8}') Rotate half
+/usr/bin/xsetwacom --set $(xsetwacom --list dev | gawk '/stylus/ {print $8}') Rotate half
+/usr/bin/xsetwacom --set $(xsetwacom --list dev | gawk '/eraser/ {print $8}') Rotate half

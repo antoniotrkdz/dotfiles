@@ -203,7 +203,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(spacemacs :separator slant :separator-scale 1.5)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -494,7 +494,7 @@ This function is called at the very end of Spacemacs initialization."
  '(custom-safe-themes
    (quote
     ("f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" default)))
- '(doom-modeline-mode t)
+ ;; '(doom-modeline-mode t)
  '(evil-want-Y-yank-to-eol nil)
  '(evil-want-fine-undo t)
  '(global-undo-tree-mode t)

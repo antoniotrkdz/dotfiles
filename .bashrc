@@ -65,7 +65,7 @@ function parse_git_branch {
 }
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[32m\]\u\[\033[00m\]@\h:\[\033[32m\]\w\[\033[00m\]$(parse_git_branch)\[\033[00m\]$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[32m\]\u\[\033[00m\]@\h:\[\033[33m\]\w\[\033[00m\]$(parse_git_branch)\[\033[00m\]\$ '
     ##PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
@@ -129,3 +129,24 @@ fi
 # https://github.com/alexistoulotte/bundler_bash_completion
 # eval "$(complete_bundle_bash_command init)"
 
+# php artisan bash completion
+# https://gist.github.com/tuanpht/2c92f39c74f404ffc712c9078a384f39
+# see also https://gist.github.com/jhoff/8fbe4116d74931751ecc9e8203dfb7c4
+_artisan()
+{
+    local arg="${COMP_LINE#php }"
+
+    case "$arg" in
+        artisan*)
+            COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
+            COMMANDS=`php artisan --raw --no-ansi list | sed "s/[[:space:]].*//g"`
+            COMPREPLY=(`compgen -W "$COMMANDS" -- "${COMP_WORDS[COMP_CWORD]}"`)
+            ;;
+        *)
+            COMPREPLY=( $(compgen -o default -- "${COMP_WORDS[COMP_CWORD]}") )
+            ;;
+        esac
+
+    return 0
+}
+complete -F _artisan php
