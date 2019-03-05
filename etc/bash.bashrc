@@ -19,7 +19,7 @@ fi
 PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 
 #logging all the commands to .bash-permanent-history file. 
-PROMPT_COMMAND='echo "$(date "+%Y-%m-%d.%H:%M:%S") $(hostname) $(whoami) $(pwd) $(history 1)" >> ~/.bash-permanent-history'
+PROMPT_COMMAND='echo "$(date "+%Y-%m-%d.%H:%M:%S") $(hostname) $(whoami) $(pwd) $(history 1)" >> ~/.bash_permanent_history'
 
 # Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
 # If this is an xterm set the title to user@host:dir
