@@ -86,6 +86,8 @@ Plug 'shime/vim-livedown'
 Plug 'vim-scripts/dbext.vim'
 "i3wm .config syntax
 Plug 'PotatoesMaster/i3-vim-syntax'
+"Vim-markbar
+" Plug 'Yilin-Yang/vim-markbar'
 
 "Autoformat for other files (not js) - using A.L.E.
 "Plug 'chiel92/vim-autoformat'
@@ -369,6 +371,8 @@ nnoremap <leader>p :call Toggle_Extra_Paren_HL()<CR>
 imap <Plug>MyCR <Plug>(MUcompleteCR)
 imap <cr> <Plug>MyCR
 
+" Needed for vim-markbar
+" map <Leader>m <Plug>ToggleMarkbar
 
 " Use TAB to complete when typing words, else inserts TABs as usual.
 " Note : usual completion is on <C-n>.
