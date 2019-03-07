@@ -291,13 +291,19 @@ bar {
 #    inactive_workspace #333333     #222222     #888888
 #    urgent_workspace   #2f343a     #900000     #ffffff
 #    binding_mode       #2f343a     #900000     #ffffff
-# ------------------------------------------------------
-    #focused_workspace   #7278C1     #7278C1     #ffffff
-    focused_workspace   #212121     #212121     #FBFBFB
-    active_workspace    #212121     #212121     #AAAAAA
-    inactive_workspace  #212121     #212121     #777777
-    urgent_workspace    #212121     #212121     #BA0000
-    binding_mode        #212121     #212121     #BABA00
+# Vulcanico colors:-------------------------------------
+    # focused_workspace   #212121     #212121     #FBFBFB
+    # active_workspace    #212121     #212121     #AAAAAA
+    # inactive_workspace  #212121     #212121     #777777
+    # urgent_workspace    #212121     #212121     #BA0000
+    # binding_mode        #212121     #212121     #BABA00
+# X1 colors:--------------------------------------------	
+    # focused_workspace  #7278C1     #7278C1     #ffffff
+    focused_workspace   #33393B     #33393B     #FFFFFF
+    active_workspace    #33393B     #33393B     #777777
+    inactive_workspace  #33393B     #33393B     #888888
+    urgent_workspace    #33393B     #33393B     #BA0000
+    binding_mode        #33393B     #33393B     #FFFF00
   }
 #  position bottom
 #  status_command i3status -c /etc/i3status.conf
@@ -326,6 +332,7 @@ for_window [window_role="gimp-toolbox"] floating enable, border normal 1
 for_window [class="(?i)Gitter"] border none pixel 1
 for_window [class="(?i)galculator"] floating enable, border normal 1
 for_window [class="(?i)xcalc"] floating enable, border normal 1
+for_window [class="(?i)x-session-manager"] floating enable, border pixel 2
 for_window [class="(?i)skype"] floating enable, border normal 1
 for_window [class="(?i)skypeforlinux"] floating disable
 for_window [class="(?i)VirtualBox Manager"] floating enable, border normal 1
