@@ -70,7 +70,7 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
                                       doom-themes
-                                      (i3wm-config-mode :location "i3wm-config-mode")
+                                      (i3wm-config-mode :location "/home/antoniotrkdz/.emacs.d/private/local/i3wm-config-mode/")
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -283,7 +283,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil, the paste transient-state is enabled. While enabled, after you
    ;; paste something, pressing `C-j' and `C-k' several times cycles through the
    ;; elements in the `kill-ring'. (default nil)
-   dotspacemacs-enable-paste-transient-state nil
+   dotspacemacs-enable-paste-transient-state t
 
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
