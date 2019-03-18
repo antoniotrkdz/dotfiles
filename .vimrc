@@ -7,16 +7,24 @@
 "________\/\\\_/\\__\/\\\_________\/\\\///\\\___\/\\\__\/\\\_____/\\\/__________
 "_________\//\\\\\___\/\\\_________\/\\\_\///\\\_\//\\\\\\\/\\__/\\\\\\\\\\\____
 "___________\/////____\///__________\///____\///___\///////\//__\///////////____
-
+"_______________________________________________________________________________
+"_______________________________________________________________________________
+"___________________/\\\________________________________________________________
+"______/\\\____/\\\_\///_____/\\\\\__/\\\\\____/\\/\\\\\\\_____/\\\\\\\\________
+"______\//\\\__/\\\___/\\\__/\\\///\\\\\///\\\_\/\\\/////\\\__/\\\//////________
+"________\//\\\/\\\___\/\\\_\/\\\_\//\\\__\/\\\_\/\\\___\///__/\\\______________
+" _________\//\\\\\____\/\\\_\/\\\__\/\\\__\/\\\_\/\\\________\//\\\____________
+"____/\\\____\//\\\_____\/\\\_\/\\\__\/\\\__\/\\\_\/\\\_________\///\\\\\\\\____
+"____\///______\///______\///__\///___\///___\///__\///____________\////////____
+"_______________________________________________________________________________
 
 set nocompatible "IMproved, required
-
-"  ____  _             _           
-" |  _ \| |_   _  __ _(_)_ __  ___ 
+"  ____  _             _
+" |  _ \| |_   _  __ _(_)_ __  ___
 " | |_) | | | | |/ _` | | '_ \/ __|
 " |  __/| | |_| | (_| | | | | \__ \
 " |_|   |_|\__,_|\__, |_|_| |_|___/
-"                 |___/             
+"                 |___/
 "Autoinstall vim plug if not already installed
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -27,92 +35,96 @@ endif
 "set the runtime path to include Vundle and initialise
 call plug#begin('~/.vim/plugged')
 
-"Git wrapper
-Plug 'tpope/vim-fugitive'
-"Symbols for git changes tracking
-Plug 'airblade/vim-gitgutter'
-"NERDTree
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-"Commenter
-Plug 'scrooloose/nerdcommenter'
-"YouCompleteMe + tern completer - only for javascript
-Plug 'Valloric/YouCompleteMe', { 'for': 'javascript', 'do': './install.py --js-completer' }
-Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
-"MUcomplete is a minimalist autocompletion plugin for Vim.
-Plug 'lifepillar/vim-mucomplete'
-"Ale Async Linting (+formatting) as you type
-Plug 'w0rp/ale'
-"Language specific
-Plug 'pangloss/vim-javascript'
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-rails'
-"wisely add 'end' in ruby (maybe bash)
-Plug 'tpope/vim-endwise'
-"Emmet for HTML editing, <c-y>, to trigger completion
-Plug 'mattn/emmet-vim'
-"Colour preview in code
-Plug 'ap/vim-css-color'
-"Always highlights the enclosing XML/HTML tags 
-Plug 'valloric/matchtagalways'
-"Airline bottom bar (and top one)
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-"Patched fonts needed to display fancy airline
-"Copy the desired font(s) in .local/share/fonts
-"set the required font(s) in the console settings
-Plug 'powerline/fonts'
-"Surround - surround or change the surround an item with "''() etc.
-Plug 'tpope/vim-surround'
-"Doubles quotes and parenthesis on the fly
-Plug 'raimondi/delimitmate'
-"UNIX shell commands
-Plug 'tpope/vim-eunuch'
-"Fuzzy files search (also avialble in bash)
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-"CtrlP Fuzzy (file) search
-Plug 'ctrlpvim/ctrlp.vim'
-"Multiple cursors
-Plug 'terryma/vim-multiple-cursors'
-"Underlines a word element
-Plug 'itchyny/vim-cursorword'
-"Help for vim in vim
-Plug 'lifepillar/vim-cheat40'
-"Easy, <leader><leader>f<letter> you want to move to
-Plug 'easymotion/vim-easymotion'
-"Markdown editor (git READMEs)
-Plug 'shime/vim-livedown'
-"Database completion
-Plug 'vim-scripts/dbext.vim'
-"i3wm .config syntax
-Plug 'PotatoesMaster/i3-vim-syntax'
-"Vim-markbar
-" Plug 'Yilin-Yang/vim-markbar'
+  "Git wrapper
+  Plug 'tpope/vim-fugitive'
+  "Symbols for git changes tracking
+  Plug 'airblade/vim-gitgutter'
+  "NERDTree
+  Plug 'scrooloose/nerdtree'
+  Plug 'jistr/vim-nerdtree-tabs'
+  "Commenter
+  Plug 'scrooloose/nerdcommenter'
+  "YouCompleteMe + tern completer - only for javascript
+  Plug 'Valloric/YouCompleteMe', { 'for': 'javascript', 'do': './install.py --js-completer' }
+  Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
+  "MUcomplete is a minimalist autocompletion plugin for Vim.
+  Plug 'lifepillar/vim-mucomplete'
+  "Ale Async Linting (+formatting) as you type
+  Plug 'w0rp/ale'
+  "Language specific
+  Plug 'pangloss/vim-javascript'
+  Plug 'vim-ruby/vim-ruby'
+  Plug 'tpope/vim-rails'
+  Plug 'StanAngeloff/php.vim'
+  "wisely add 'end' in ruby (maybe bash)
+  Plug 'tpope/vim-endwise'
+  "Emmet for HTML editing, <c-y> to trigger completion
+  Plug 'mattn/emmet-vim'
+  "Colour preview in code
+  Plug 'ap/vim-css-color'
+  "Always highlights the enclosing XML/HTML tags 
+  Plug 'valloric/matchtagalways'
+  "Airline bottom bar (and top one)
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  "Patched fonts needed to display fancy airline
+  "Copy the desired font(s) in .local/share/fonts
+  "set the required font(s) in the console settings
+  Plug 'powerline/fonts'
+  "Surround - surround or change the surround an item with "''() etc.
+  Plug 'tpope/vim-surround'
+  "Doubles quotes and parenthesis on the fly
+  Plug 'raimondi/delimitmate'
+  "UNIX shell commands
+  Plug 'tpope/vim-eunuch'
+  "Fuzzy files search (also avialble in bash)
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  "CtrlP Fuzzy (file) search
+  Plug 'ctrlpvim/ctrlp.vim'
+  "Multiple cursors
+  Plug 'terryma/vim-multiple-cursors'
+  "Underlines a word element
+  Plug 'itchyny/vim-cursorword'
+  "Help for vim in vim
+  Plug 'lifepillar/vim-cheat40'
+  "Easy, <leader><leader>f<letter> you want to move to
+  Plug 'easymotion/vim-easymotion'
+  "Markdown editor (git READMEs)
+  Plug 'shime/vim-livedown'
+  "Database completion
+  Plug 'vim-scripts/dbext.vim'
+  "i3wm .config syntax
+  Plug 'PotatoesMaster/i3-vim-syntax'
+  "Vim-markbar
+  " Plug 'Yilin-Yang/vim-markbar'
 
-"Autoformat for other files (not js) - using A.L.E.
-"Plug 'chiel92/vim-autoformat'
-"Added vim snippets for code autofilling - ToDo: learn how it works!
-"Plug 'SirVer/ultisnips'
-"Perform insert mode completions with Tab - see TabOrComplete function
-"Plug 'ervandew/supertab'
+  "Autoformat for other files (not js) - using A.L.E.
+  "Plug 'chiel92/vim-autoformat'
+  "Added vim snippets for code autofilling - ToDo: learn how it works!
+  "Plug 'SirVer/ultisnips'
+  "Perform insert mode completions with Tab - see TabOrComplete function
+  "Plug 'ervandew/supertab'
 
-"Themes (for GUI and CLI)
-Plug 'KeitaNakamura/neodark.vim'
-Plug 'tomasr/molokai'
-Plug 'rakr/vim-one'
-Plug 'tyrannicaltoucan/vim-quantum'
-Plug 'haishanh/night-owl.vim'
+  "Themes (for GUI and CLI)
+  Plug 'neutaaaaan/iosvkem'
+  Plug 'KeitaNakamura/neodark.vim'
+  Plug 'tomasr/molokai'
+  Plug 'rakr/vim-one'
+  Plug 'tyrannicaltoucan/vim-quantum'
+  Plug 'haishanh/night-owl.vim'
 
 call plug#end()
 
-packadd! matchit " Use % to jump between do - end, if - end, etc.
+if !has('nvim')
+  packadd! matchit " Use % to jump between do - end, if - end, etc.
+endif
 source ~/.vim/99-hl-matchlines.vim " Plugin to highlight matchit.
 
-"   ___  __          _            ____    __  __  _             
+"   ___  __          _            ____    __  __  _
 "  / _ \/ /_ _____ _(_)__  ___   / __/__ / /_/ /_(_)__  ___ ____
 " / ___/ / // / _ `/ / _ \(_-<  _\ \/ -_) __/ __/ / _ \/ _ `(_-<
 "/_/  /_/\_,_/\_, /_/_//_/___/ /___/\__/\__/\__/_/_//_/\_, /___/
-"            /___/                                    /___/     
+"            /___/                                    /___/
 " Option for Match HTML Tag plugin
 let g:mta_filetypes = {'html': 1, 'xhtml': 1, 'xml': 1, 'javascript': 1}
 
@@ -133,8 +145,10 @@ let g:airline#extensions#tabline#enabled = 1
 
 if has('gui_running')
     let g:airline_theme='quantum'
-else
-    let g:airline_theme = 'onedark'
+endif
+
+if has('nvim')
+    let g:airline_theme='behelit'
 endif
 
 let g:airline_powerline_fonts = 1
@@ -205,7 +219,8 @@ let g:ale_fixers = {
       \ 'eruby': ['rubocop'],
       \ 'html': [ 'tidy' ],
       \ 'css': ['prettier', 'stylelint'],
-      \ 'scss': ['prettier', 'stylelint']
+      \ 'scss': ['prettier', 'stylelint'],
+      \ 'php': ['php_cs_fixer', 'phpcbf']
       \ }
 " ALE options for alternative JS code styling, kept here for reference.
 " let g:ale_javascript_prettier_options ='--tab-width 2 --single-quote --no-bracket-spacing --trailing-comma es5'
@@ -218,7 +233,8 @@ let g:ale_linters = {
       \ 'bash': ['shellcheck'],
       \ 'html': [ 'tidy' ],
       \ 'css': ['prettier', 'stylelint'],
-      \ 'scss': ['prettier', 'stylelint']
+      \ 'scss': ['prettier', 'stylelint'],
+      \ 'php': ['php_cs_fixer', 'phpcbf', 'phpmd']
       \ }
 let g:ale_linter_aliases = {'jsx': 'css'}
 " Set this. Airline will handle the rest.
@@ -247,11 +263,11 @@ let g:mucomplete#always_use_completeopt = 1
 " buffer, etc.) if 0 use <C-h> and <C-j> (default).
 let g:mucomplete#cycle_with_trigger = 1
 let g:mucomplete#cycle_all = 1
-"   _____                      __  ____    __  __  _             
+"   _____                      __  ____    __  __  _
 "  / ___/__ ___  ___ _______ _/ / / __/__ / /_/ /_(_)__  ___ ____
 " / (_ / -_) _ \/ -_) __/ _ `/ / _\ \/ -_) __/ __/ / _ \/ _ `(_-<
 " \___/\__/_//_/\__/_/  \_,_/_/ /___/\__/\__/\__/_/_//_/\_, /___/
-"                                                      /___/     
+"                                                      /___/
 "This command makes vim start a file with all folds closed
 "set foldlevelstart=0
 
@@ -262,11 +278,11 @@ set completeopt+=menuone,noinsert
 " Turn off the preview (opening a scratch buffer) from the YouCompleteMe menu
 set completeopt-=preview
 
-" Highlights the current line and column only in the current window
+" Highlight the current line and column only in the current window
 autocmd WinLeave * set nocursorline nocursorcolumn
 autocmd WinEnter * set cursorline cursorcolumn
 
-" Highlights the 80th column
+" Highlight the 80th column
 set colorcolumn=80
 hi ColorColumn ctermbg=darkgrey guibg=#602221
 
@@ -307,7 +323,7 @@ set listchars=tab:▸\ ,eol:¬,trail:·,space:·
 "set wildmenu
 
 " Avoid producing any extraneous files
-" Now is manageds see backup block below
+" Now is managed see backup block below
 "set nobackup
 "set nowritebackup
 "set noswapfile
@@ -315,11 +331,12 @@ set listchars=tab:▸\ ,eol:¬,trail:·,space:·
 "Avoid showing the mode on the last line
 set noshowmode
 
+if !has('nvim')
 " Guiheadroom, room (in pixels) left above/below the window
-set ghr=0
-
+  set ghr=0
 " Guipty	use a pseudo-tty for I/O to external commands
-set guipty	"noguipty
+  set guipty	"noguipty
+endif
 
 " Searching
 set ignorecase
@@ -327,11 +344,10 @@ set ignorecase
 " Use the silversearcher-ag to perform searches (like ack, but faster) 
 set grepprg=ag\ -i
 
-syntax on
-" syntax enable
-filetype plugin indent on    " Enable filetype-specific plugins and indenting
+syntax on " syntax enable
+filetype plugin indent on " Enable filetype-specific plugins and indenting
 
-"  ____ ____ ____ ____ ____ ____ ____ ____ 
+"  ____ ____ ____ ____ ____ ____ ____ ____
 " ||M |||A |||P |||P |||I |||N |||G |||S ||
 " ||__|||__|||__|||__|||__|||__|||__|||__||
 " |/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
@@ -356,7 +372,7 @@ nnoremap <Leader><CR> :set hlsearch!<CR>
 " Shortcuts to cicle through the buffers
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
-" Shortcuts to cicle through the quickfix results 
+" Shortcuts to cicle through the quickfix results
 nnoremap ã :cnext<CR>
 nnoremap ö :cprevious<CR>
 " Livedow markdown previewer toggle on/off
@@ -368,15 +384,15 @@ nnoremap <F6> :LivedownToggle<CR>
 nnoremap <leader>p :call Toggle_Extra_Paren_HL()<CR>
 
 " Compatibility between Mucomplete and EndWise
-imap <Plug>MyCR <Plug>(MUcompleteCR)
-imap <cr> <Plug>MyCR
+"imap <Plug>MyCR <Plug>(MUcompleteCR)
+"imap <cr> <Plug>MyCR
 
 " Needed for vim-markbar
 " map <Leader>m <Plug>ToggleMarkbar
 
 " Use TAB to complete when typing words, else inserts TABs as usual.
 " Note : usual completion is on <C-n>.
-" SUPERSEEDED by Mucomplete installation, in here for REFERENCE only.
+" SUPERSEEDED by Mucomplete installation, here for REFERENCE only.
 
 " function! Tab_Or_Complete()
 "   if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\S'
@@ -401,52 +417,69 @@ imap <cr> <Plug>MyCR
 " ██║     ██║   ██║██║     ██║   ██║██╔══██╗╚════██║
 " ╚██████╗╚██████╔╝███████╗╚██████╔╝██║  ██║███████║
 "  ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
-if has('gui_running')
-  set background=dark
-  "Black background (before colorscheme=quantum)
-  let g:quantum_black=1
-  colorscheme quantum
-  " let g:molokai_original=1
-  " let g:rehash256=1
-  " colorscheme molokai
-  " colorscheme neodark
-  " if (has("termguicolors"))
-    " set termguicolors
-  " endif
-  " colorscheme night-owl
+if !has('nvim')
+  if has('gui_running')
+    set guioptions-=T "remove the toolbar 
+    set background=dark
+    "Black background (before colorscheme=quantum)
+    let g:quantum_black=1
+    "To italicize comments:
+    let g:quantum_italics=1
+    colorscheme quantum
+    " let g:molokai_original=1
+    " let g:rehash256=1
+    " colorscheme molokai
+    " colorscheme neodark
+    " if (has("termguicolors"))
+      " set termguicolors
+    " endif
+    " colorscheme night-owl
 
-  "To italicize comments:
-  let g:quantum_italics=1
-
-" Set font size based on screen size. When vertical height is greater than 1440
-" (i.e. an external monitor UHD is attached), use 13, else use 11.
-  if system('xrandr | grep -oP "(?<=x)[0-9]+(?=.*\*)"') > 1440
-    set guifont=Hack\ 13
+    " Set font size based on screen size. When vertical height is greater than 1440
+    " (i.e. an external monitor UHD is attached), use 13, else use 11.
+    if system('xrandr | grep -oP "(?<=x)[0-9]+(?=.*\*)"') > 1440
+      set guifont=Hack\ 13
+    else
+      set guifont=Hack\ 11
+    endif
+  elseif &term == "rxvt-unicode-256color" || &term == "xterm-256color"
+    set t_Co=256
+    set background=dark
+    colorscheme one
+    " colorscheme neodark
+    "To use 256-color in both of vim and gvim:
+    "let g:neodark#use_256color = 1 " default: 0
+    "To use your default terminal background:
+    " let g:neodark#terminal_transparent = 1 " default: 0
+    highlight Pmenu ctermfg=0 ctermbg=8
+    highlight PmenuSel ctermfg=15 ctermbg=139
+    highlight PmenuSbar ctermbg=8
+    highlight PmenuThumb ctermfg=7
   else
-    set guifont=Hack\ 11
+    set t_Co=8
+    highlight Pmenu ctermfg=15 ctermbg=8
+    highlight PmenuSel ctermfg=15 ctermbg=0
+    highlight PmenuSbar ctermbg=8
+    highlight PmenuThumb ctermfg=7
   endif
-
-  set guioptions-=T "remove the toolbar 
-
-elseif &term == "rxvt-unicode-256color" || &term == "xterm-256color"
-  set t_Co=256
-  set background=dark
-  colorscheme one
-  " colorscheme neodark
-  "To use 256-color in both of vim and gvim:
-  "let g:neodark#use_256color = 1 " default: 0
-  "To use your default terminal background:
-  " let g:neodark#terminal_transparent = 1 " default: 0
-  highlight Pmenu ctermfg=0 ctermbg=8
-  highlight PmenuSel ctermfg=15 ctermbg=139
-  highlight PmenuSbar ctermbg=8
-  highlight PmenuThumb ctermfg=7
 else
-  set t_Co=8
-  highlight Pmenu ctermfg=15 ctermbg=8
-  highlight PmenuSel ctermfg=15 ctermbg=0
-  highlight PmenuSbar ctermbg=8
-  highlight PmenuThumb ctermfg=7
+  "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+  "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+  "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+  if (empty($TMUX))
+    if (has("nvim"))
+      "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+      let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    endif
+    "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+    "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+    " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+    if (has("termguicolors"))
+      set termguicolors
+    endif
+  endif
+  set background=dark
+  colorscheme Iosvkem
 endif
 
 " Highlight for the matching parenthesis.
@@ -457,17 +490,17 @@ highlight MatchParen guibg=NONE guifg=#00ff00 gui=bold
 highlight ExtraWhitespace ctermbg=red guibg=#ff0000
 autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\\t/
 
-" $$$$$$$\                      $$\                           
-" $$  __$$\                     $$ |                          
-" $$ |  $$ | $$$$$$\   $$$$$$$\ $$ |  $$\ $$\   $$\  $$$$$$\  
-" $$$$$$$\ | \____$$\ $$  _____|$$ | $$  |$$ |  $$ |$$  __$$\ 
+" $$$$$$$\                      $$\
+" $$  __$$\                     $$ |
+" $$ |  $$ | $$$$$$\   $$$$$$$\ $$ |  $$\ $$\   $$\  $$$$$$\
+" $$$$$$$\ | \____$$\ $$  _____|$$ | $$  |$$ |  $$ |$$  __$$\
 " $$  __$$\  $$$$$$$ |$$ /      $$$$$$  / $$ |  $$ |$$ /  $$ |
 " $$ |  $$ |$$  __$$ |$$ |      $$  _$$<  $$ |  $$ |$$ |  $$ |
 " $$$$$$$  |\$$$$$$$ |\$$$$$$$\ $$ | \$$\ \$$$$$$  |$$$$$$$  |
-" \_______/  \_______| \_______|\__|  \__| \______/ $$  ____/ 
-"                                                   $$ |      
-"                                                   $$ |      
-"                                                   \__|      
+" \_______/  \_______| \_______|\__|  \__| \______/ $$  ____/
+"                                                   $$ |
+"                                                   $$ |
+"                                                   \__|
 if isdirectory($HOME . '/.vim/backup') == 0
 	:silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
 endif
@@ -490,7 +523,11 @@ set directory+=~/tmp//
 set directory+=.
 
 " viminfo stores the the state of your previous editing session
-set viminfo+=n~/.vim/viminfo
+if has('nvim')
+  set viminfo+=n~/.vim/viminfo.neovim
+else
+  set viminfo+=n~/.vim/viminfo.vim
+endif
 
 if exists("+undofile")
 	" undofile - This allows you to use undos after exiting and restarting
