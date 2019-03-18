@@ -257,13 +257,13 @@ bindsym $mod+Shift+r restart
 #bindsym $mod+Shift+e exec "xfce4-session-logout"
 
 # MATE logout
-bindsym $mod+Shift+e exec "mate-session-save --logout-dialog"
+bindsym $mod+Shift+e exec --no-startup-id "mate-session-save --logout-dialog"
 
 # MATE shutdown
-bindsym $mod+Shift+s exec "mate-session-save --shutdown-dialog"
+bindsym $mod+Shift+s exec --no-startup-id "mate-session-save --shutdown-dialog"
 
 # MATE Turn the screensaver on (blank the screen)
-bindsym $mod+Shift+b exec "mate-screensaver-command -a"
+bindsym $mod+Shift+b exec --no-startup-id "mate-screensaver-command -a"
 
 # Start xfce4-panel (with workspace plugin).
 #exec_always --no-startup-id xfce4-panel --disable-wm-check
