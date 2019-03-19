@@ -42,11 +42,15 @@ call plug#begin('~/.vim/plugged')
   "NERDTree
   Plug 'scrooloose/nerdtree'
   Plug 'jistr/vim-nerdtree-tabs'
+  "Airline bottom bar (and top one)
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  "Patched fonts needed to display fancy airline
+  "Copy the desired font(s) in .local/share/fonts
+  "set the required font(s) in the console settings
+  Plug 'powerline/fonts'
   "Commenter
   Plug 'scrooloose/nerdcommenter'
-  "YouCompleteMe + tern completer - only for javascript
-  Plug 'Valloric/YouCompleteMe', { 'for': 'javascript', 'do': './install.py --js-completer' }
-  Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
   "MUcomplete is a minimalist autocompletion plugin for Vim.
   Plug 'lifepillar/vim-mucomplete'
   "Ale Async Linting (+formatting) as you type
@@ -64,13 +68,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'ap/vim-css-color'
   "Always highlights the enclosing XML/HTML tags 
   Plug 'valloric/matchtagalways'
-  "Airline bottom bar (and top one)
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  "Patched fonts needed to display fancy airline
-  "Copy the desired font(s) in .local/share/fonts
-  "set the required font(s) in the console settings
-  Plug 'powerline/fonts'
   "Surround - surround or change the surround an item with "''() etc.
   Plug 'tpope/vim-surround'
   "Doubles quotes and parenthesis on the fly
@@ -96,8 +93,9 @@ call plug#begin('~/.vim/plugged')
   "i3wm .config syntax
   Plug 'PotatoesMaster/i3-vim-syntax'
   "Vim-markbar
-  " Plug 'Yilin-Yang/vim-markbar'
+  Plug 'Yilin-Yang/vim-markbar'
 
+  Plug '~/.vim/xterm-color-table.vim'
   "Autoformat for other files (not js) - using A.L.E.
   "Plug 'chiel92/vim-autoformat'
   "Added vim snippets for code autofilling - ToDo: learn how it works!
@@ -113,6 +111,26 @@ call plug#begin('~/.vim/plugged')
   Plug 'tyrannicaltoucan/vim-quantum'
   Plug 'haishanh/night-owl.vim'
 
+  if has('nvim')
+    " Include Phpactor
+    Plug 'phpactor/phpactor' ,  {'do': 'composer install', 'for': 'php'}
+
+    " Require ncm2 and this plugin
+    Plug 'ncm2/ncm2'
+    Plug 'roxma/nvim-yarp'
+    Plug 'phpactor/ncm2-phpactor'
+
+    " enable ncm2 for all buffers
+    autocmd BufEnter * call ncm2#enable_for_buffer()
+    autocmd FileType php setlocal omnifunc=phpactor#Complete
+  endif
+
+  if !has('nvim')
+    "YouCompleteMe + tern completer - only for javascript
+    Plug 'Valloric/YouCompleteMe', { 'for': 'javascript', 'do': './install.py --js-completer' }
+    Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
+  endif
+
 call plug#end()
 
 if !has('nvim')
@@ -126,7 +144,7 @@ source ~/.vim/99-hl-matchlines.vim " Plugin to highlight matchit.
 "/_/  /_/\_,_/\_, /_/_//_/___/ /___/\__/\__/\__/_/_//_/\_, /___/
 "            /___/                                    /___/
 " Option for Match HTML Tag plugin
-let g:mta_filetypes = {'html': 1, 'xhtml': 1, 'xml': 1, 'javascript': 1}
+let g:mta_filetypes = {'html': 1, 'xhtml': 1, 'xml': 1, 'javascript': 1, 'php': 1}
 
 " NERDTree configuration
 let NERDTreeShowHidden=1
@@ -259,8 +277,8 @@ endif
 
 " See also Mucomplete mandatory general settings below
 let g:mucomplete#always_use_completeopt = 1
-" Use <tab> and <s-tab> to cycle between completion methods (omnifunc,
-" buffer, etc.) if 0 use <C-h> and <C-j> (default).
+" Use <tab> nd <s-tab> to cycle between completion methods (omnifunc,
+" buffer, etcif 0 use <C-h> and <C-j> (default).
 let g:mucomplete#cycle_with_trigger = 1
 let g:mucomplete#cycle_all = 1
 "   _____                      __  ____    __  __  _
@@ -271,9 +289,9 @@ let g:mucomplete#cycle_all = 1
 "This command makes vim start a file with all folds closed
 "set foldlevelstart=0
 
-" Mucomplete mandatory Vim settings:
-set completeopt+=menuone,noinsert
-"set completeopt+=noselect
+" Mucomplete + Ncm2 mandatory Vim settings:
+" :help Ncm2PopupOpen for more information
+set completeopt+=noinsert,menuone,noselect
 
 " Turn off the preview (opening a scratch buffer) from the YouCompleteMe menu
 set completeopt-=preview
@@ -281,10 +299,6 @@ set completeopt-=preview
 " Highlight the current line and column only in the current window
 autocmd WinLeave * set nocursorline nocursorcolumn
 autocmd WinEnter * set cursorline cursorcolumn
-
-" Highlight the 80th column
-set colorcolumn=80
-hi ColorColumn ctermbg=darkgrey guibg=#602221
 
 " Disable all error bells
 set belloff=all
@@ -340,7 +354,7 @@ endif
 
 " Searching
 set ignorecase
-"set incsearch "handled by <leader>i -- see mappings above
+"set incsearch "handled by <leader>i -- see mappings
 " Use the silversearcher-ag to perform searches (like ack, but faster) 
 set grepprg=ag\ -i
 
@@ -369,6 +383,8 @@ nnoremap <leader>l :set list!<CR>
 nnoremap <leader>i :set incsearch!<CR>
 " Toggle highlighting of search results.
 nnoremap <Leader><CR> :set hlsearch!<CR>
+" Matchtagalways motion
+nnoremap <leader>m :MtaJumpToOtherTag<cr>
 " Shortcuts to cicle through the buffers
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
@@ -388,7 +404,7 @@ nnoremap <leader>p :call Toggle_Extra_Paren_HL()<CR>
 "imap <cr> <Plug>MyCR
 
 " Needed for vim-markbar
-" map <Leader>m <Plug>ToggleMarkbar
+map <Leader>m <Plug>ToggleMarkbar
 
 " Use TAB to complete when typing words, else inserts TABs as usual.
 " Note : usual completion is on <C-n>.
@@ -489,6 +505,13 @@ highlight MatchParen guibg=NONE guifg=#00ff00 gui=bold
 " Highlight for the trailing space
 highlight ExtraWhitespace ctermbg=red guibg=#ff0000
 autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\\t/
+
+" Highlight the 80th column
+set colorcolumn=80
+highlight ColorColumn ctermbg=52 guibg=#302222
+
+" Hide ~ at the end of the buffer
+highlight EndOfBuffer ctermfg=16 guifg=#1B1D1E
 
 " $$$$$$$\                      $$\
 " $$  __$$\                     $$ |

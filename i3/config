@@ -41,11 +41,14 @@ set $mod Mod4
 #hide_edge_borders smart
 
 # Set urgent workspaces to be focused immediately:
-focus_on_window_activation urgent
+# smart (default) 
+# If the window requesting focus is on an active workspace,
+# it will receive the focus. Otherwise, the urgency hint will be set.
+focus_on_window_activation focus
 
 # Disable focus follows mouse (control focus only by using your keyboard):
 focus_follows_mouse no
- 
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -66,7 +69,7 @@ floating_modifier $mod
 #  /    ###      ####       ###   ###     ##
 #  #
 #   ##
-                                               
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 # Before i3 v4.8, we used to recommend this one as the default:
@@ -84,7 +87,7 @@ font pango:IBM 3270 Narrow bold 14
 # _______  _____          _____   ______ _______
 # |       |     | |      |     | |_____/ |______
 # |_____  |_____| |_____ |_____| |    \_ ______|
- 
+
 # Set background:
 # Mate sets the background on its own.
 #exec --no-startup-id nitrogen --restore
@@ -135,7 +138,10 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 #                                                               aa,    ,88
 #                                                                "Y8bbdP"
 # Restore Space as modifier see .xsessionrc
-bindsym $mod+F1 exec --no-startup-id "< .xsessionrc grep -e /bin/.*x[^s] | bash -;  notify-send 'You Can use SPC as modifier' 'Hold space acts as $mod from the keyboard you just used' -i preferences-desktop-keyboard"
+bindsym $mod+F1 exec --no-startup-id "< .xsessionrc grep -e /bin/.*x[^s] | bash -; \
+  notify-send 'You Can use SPC as modifier' \
+  'Hold space acts as $mod from the keyboard you just used' \
+  -i preferences-desktop-keyboard"
 
 # Start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
@@ -313,7 +319,11 @@ bindsym $mod+r mode "resize"
 # Toggle tiling / floating
 # border and title only on floating windows
 show_marks no
-bindsym $mod+Shift+p "mark --add _; [con_mark=f] floating disable, border pixel 2, mark --add --toggle _; [con_mark=_] floating enable, border normal 1; mark --add --toggle f;"
+bindsym $mod+Shift+p "mark --add _; \
+  [con_mark=f] floating disable, border pixel 2, \
+  mark --add --toggle _; \
+  [con_mark=_] floating enable, border normal 1; \
+  mark --add --toggle f;"
 
 # Change focus between tiling / floating windows
 bindsym $mod+p focus mode_toggle
