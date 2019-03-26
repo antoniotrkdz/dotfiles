@@ -19,6 +19,84 @@
 "_______________________________________________________________________________
 
 set nocompatible "IMproved, required
+"   _____                      __  ____    __  __  _
+"  / ___/__ ___  ___ _______ _/ / / __/__ / /_/ /_(_)__  ___ ____
+" / (_ / -_) _ \/ -_) __/ _ `/ / _\ \/ -_) __/ __/ / _ \/ _ `(_-<
+" \___/\__/_//_/\__/_/  \_,_/_/ /___/\__/\__/\__/_/_//_/\_, /___/
+"                                                      /___/
+"This command makes vim start a file with all folds closed
+"set foldlevelstart=0
+
+" Mucomplete + Ncm2 mandatory Vim settings:
+" :help Ncm2PopupOpen for more information
+set completeopt+=noinsert,menuone,noselect
+
+" Turn off the preview (opening a scratch buffer) from the YouCompleteMe menu
+set completeopt-=preview
+
+" Highlight the current line and column only in the current window
+autocmd WinLeave * set nocursorline nocursorcolumn
+autocmd WinEnter * set cursorline cursorcolumn
+
+" Disable all error bells
+set belloff=all
+
+" Line number and relative line number
+set number
+set relativenumber
+set ruler
+
+" Show the command as it's being typed
+set showcmd
+
+" Shares the system clipboard
+"set clipboard=unnamed
+set clipboard=unnamedplus
+
+" Set one line to be always shown below or above the cursor
+set scrolloff=1
+
+" Set to split always right
+"set splitright
+
+"Set some 'sensible' defaults
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set smarttab
+set autoindent
+set backspace=indent,eol,start
+set complete-=i
+"set list! -- see mappings
+set listchars=tab:▸\ ,eol:¬,trail:·,space:·
+"tab:▹\ ,
+
+" Alternative menu
+"set wildmenu
+
+" Avoid producing any extraneous files
+" Now is managed see backup block below
+"set nobackup
+"set nowritebackup
+"set noswapfile
+
+"Avoid showing the mode on the last line
+set noshowmode
+
+" Guiheadroom, room (in pixels) left above/below the window
+set ghr=0
+" Guipty	use a pseudo-tty for I/O to external commands
+set guipty	"noguipty
+
+" Searching
+set ignorecase smartcase
+"set incsearch "handled by <leader>i -- see mappings
+" Use the silversearcher-ag to perform searches (like ack, but faster) 
+set grepprg=ag\ -i
+
+syntax on " syntax enable
+filetype plugin indent on " Enable filetype-specific plugins and indenting
+
 "  ____  _             _
 " |  _ \| |_   _  __ _(_)_ __  ___
 " | |_) | | | | |/ _` | | '_ \/ __|
@@ -35,9 +113,12 @@ endif
 "set the runtime path to include Vundle and initialise
 call plug#begin('~/.vim/plugged')
 
+  " Highlight briefly every yank text
+  Plug 'machakann/vim-highlightedyank'
   "Git wrapper
   Plug 'tpope/vim-fugitive'
   "Symbols for git changes tracking
+  " Plug 'mhinz/vim-signify'
   Plug 'airblade/vim-gitgutter'
   "NERDTree
   Plug 'scrooloose/nerdtree'
@@ -50,9 +131,8 @@ call plug#begin('~/.vim/plugged')
   "set the required font(s) in the console settings
   Plug 'powerline/fonts'
   "Commenter
-  Plug 'scrooloose/nerdcommenter'
-  "MUcomplete is a minimalist autocompletion plugin for Vim.
-  Plug 'lifepillar/vim-mucomplete'
+  "Plug 'scrooloose/nerdcommenter'
+  Plug 'tpope/vim-commentary'
   "Ale Async Linting (+formatting) as you type
   Plug 'w0rp/ale'
   "Language specific
@@ -70,6 +150,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'valloric/matchtagalways'
   "Surround - surround or change the surround an item with "''() etc.
   Plug 'tpope/vim-surround'
+  " Easily search for, substitute, and abbreviate multiple variants of a word
+  Plug 'tpope/vim-abolish'
   "Doubles quotes and parenthesis on the fly
   Plug 'raimondi/delimitmate'
   "UNIX shell commands
@@ -78,6 +160,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   "CtrlP Fuzzy (file) search
   Plug 'ctrlpvim/ctrlp.vim'
+  "Asynchronously fly grep (SpaceVim)
+  Plug 'wsdjeg/FlyGrep.vim'
   "Multiple cursors
   Plug 'terryma/vim-multiple-cursors'
   "Underlines a word element
@@ -95,7 +179,13 @@ call plug#begin('~/.vim/plugged')
   "Vim-markbar
   Plug 'Yilin-Yang/vim-markbar'
 
+  "Unmanged plugin to show terminal colors
   Plug '~/.vim/xterm-color-table.vim'
+
+  " "to be configured
+  " Plug 'bfredl/nvim-miniyank'
+  " Plug 'moll/vim-bbye'
+  " Plug 'vim-vdebug/vdebug'
   "Autoformat for other files (not js) - using A.L.E.
   "Plug 'chiel92/vim-autoformat'
   "Added vim snippets for code autofilling - ToDo: learn how it works!
@@ -109,33 +199,18 @@ call plug#begin('~/.vim/plugged')
   Plug 'tomasr/molokai'
   Plug 'rakr/vim-one'
   Plug 'tyrannicaltoucan/vim-quantum'
+  Plug 'vim-scripts/xoria256.vim'
   Plug 'haishanh/night-owl.vim'
 
-  if has('nvim')
-    " Include Phpactor
-    Plug 'phpactor/phpactor' ,  {'do': 'composer install', 'for': 'php'}
-
-    " Require ncm2 and this plugin
-    Plug 'ncm2/ncm2'
-    Plug 'roxma/nvim-yarp'
-    Plug 'phpactor/ncm2-phpactor'
-
-    " enable ncm2 for all buffers
-    autocmd BufEnter * call ncm2#enable_for_buffer()
-    autocmd FileType php setlocal omnifunc=phpactor#Complete
-  endif
-
-  if !has('nvim')
-    "YouCompleteMe + tern completer - only for javascript
-    Plug 'Valloric/YouCompleteMe', { 'for': 'javascript', 'do': './install.py --js-completer' }
-    Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
-  endif
+  "MUcomplete is a minimalist autocompletion plugin for Vim.
+  Plug 'lifepillar/vim-mucomplete'
+  "YouCompleteMe + tern completer - only for javascript
+  Plug 'Valloric/YouCompleteMe', { 'for': 'javascript', 'do': './install.py --js-completer' }
+  Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
 
 call plug#end()
 
-if !has('nvim')
-  packadd! matchit " Use % to jump between do - end, if - end, etc.
-endif
+packadd! matchit " Use % to jump between do - end, if - end, etc.
 source ~/.vim/99-hl-matchlines.vim " Plugin to highlight matchit.
 
 "   ___  __          _            ____    __  __  _
@@ -143,6 +218,15 @@ source ~/.vim/99-hl-matchlines.vim " Plugin to highlight matchit.
 " / ___/ / // / _ `/ / _ \(_-<  _\ \/ -_) __/ __/ / _ \/ _ `(_-<
 "/_/  /_/\_,_/\_, /_/_//_/___/ /___/\__/\__/\__/_/_//_/\_, /___/
 "            /___/                                    /___/
+" Autocompletion with tab
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Git Gutter update time in ms
+set updatetime=100
+" Alternative Signify
+" let g:signify_vcs_list = [ 'git' ]
+
 " Option for Match HTML Tag plugin
 let g:mta_filetypes = {'html': 1, 'xhtml': 1, 'xml': 1, 'javascript': 1, 'php': 1}
 
@@ -252,6 +336,7 @@ let g:ale_linters = {
       \ 'html': [ 'tidy' ],
       \ 'css': ['prettier', 'stylelint'],
       \ 'scss': ['prettier', 'stylelint'],
+      \ 'lua': ['luacheck'],
       \ 'php': ['php_cs_fixer', 'phpcbf', 'phpmd']
       \ }
 let g:ale_linter_aliases = {'jsx': 'css'}
@@ -281,86 +366,6 @@ let g:mucomplete#always_use_completeopt = 1
 " buffer, etcif 0 use <C-h> and <C-j> (default).
 let g:mucomplete#cycle_with_trigger = 1
 let g:mucomplete#cycle_all = 1
-"   _____                      __  ____    __  __  _
-"  / ___/__ ___  ___ _______ _/ / / __/__ / /_/ /_(_)__  ___ ____
-" / (_ / -_) _ \/ -_) __/ _ `/ / _\ \/ -_) __/ __/ / _ \/ _ `(_-<
-" \___/\__/_//_/\__/_/  \_,_/_/ /___/\__/\__/\__/_/_//_/\_, /___/
-"                                                      /___/
-"This command makes vim start a file with all folds closed
-"set foldlevelstart=0
-
-" Mucomplete + Ncm2 mandatory Vim settings:
-" :help Ncm2PopupOpen for more information
-set completeopt+=noinsert,menuone,noselect
-
-" Turn off the preview (opening a scratch buffer) from the YouCompleteMe menu
-set completeopt-=preview
-
-" Highlight the current line and column only in the current window
-autocmd WinLeave * set nocursorline nocursorcolumn
-autocmd WinEnter * set cursorline cursorcolumn
-
-" Disable all error bells
-set belloff=all
-
-" Line number and relative line number
-set number
-set relativenumber
-set ruler
-
-" Show the command as it's being typed
-set showcmd
-
-" Shares the system clipboard
-"set clipboard=unnamed
-set clipboard=unnamedplus
-
-" Set one line to be always shown below or above the cursor
-set scrolloff=1
-
-" Set to split always right
-"set splitright
-
-"Set some 'sensible' defaults
-set tabstop=2
-set shiftwidth=2
-set expandtab
-set smarttab
-set autoindent
-set backspace=indent,eol,start
-set complete-=i
-"set list! -- see mappings
-set listchars=tab:▸\ ,eol:¬,trail:·,space:·
-"tab:▹\ ,
-
-" Alternative menu
-"set wildmenu
-
-" Avoid producing any extraneous files
-" Now is managed see backup block below
-"set nobackup
-"set nowritebackup
-"set noswapfile
-
-"Avoid showing the mode on the last line
-set noshowmode
-
-if !has('nvim')
-" Guiheadroom, room (in pixels) left above/below the window
-  set ghr=0
-" Guipty	use a pseudo-tty for I/O to external commands
-  set guipty	"noguipty
-endif
-
-" Searching
-set ignorecase
-"set incsearch "handled by <leader>i -- see mappings
-" Use the silversearcher-ag to perform searches (like ack, but faster) 
-set grepprg=ag\ -i
-
-syntax on " syntax enable
-filetype plugin indent on " Enable filetype-specific plugins and indenting
-
 "  ____ ____ ____ ____ ____ ____ ____ ____
 " ||M |||A |||P |||P |||I |||N |||G |||S ||
 " ||__|||__|||__|||__|||__|||__|||__|||__||
@@ -384,7 +389,7 @@ nnoremap <leader>i :set incsearch!<CR>
 " Toggle highlighting of search results.
 nnoremap <Leader><CR> :set hlsearch!<CR>
 " Matchtagalways motion
-nnoremap <leader>m :MtaJumpToOtherTag<cr>
+nnoremap <leader>t :MtaJumpToOtherTag<cr>
 " Shortcuts to cicle through the buffers
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
@@ -406,6 +411,27 @@ nnoremap <leader>p :call Toggle_Extra_Paren_HL()<CR>
 " Needed for vim-markbar
 map <Leader>m <Plug>ToggleMarkbar
 
+" surround by quotes - frequently use cases of vim-surround
+map <leader>" ysiw"<cr>
+map <leader>' ysiw'<cr>
+
+" Make Y Act like D and C
+nnoremap Y y$
+
+" indent without kill the selection in vmode
+vmap < <gv
+vmap > >gv
+
+" remap the annoying u in visual mode
+vmap u y
+
+" shortcut to substitute current word under cursor
+nnoremap <leader>[ :%s/<c-r><c-w>//gc<left><left><left>
+
+" edit vimrc with f5 and source it with f6
+nmap <silent> <leader><f5> :e $MYVIMRC<CR>
+nmap <silent> <leader><f6> :so $MYVIMRC<CR>
+
 " Use TAB to complete when typing words, else inserts TABs as usual.
 " Note : usual completion is on <C-n>.
 " SUPERSEEDED by Mucomplete installation, here for REFERENCE only.
@@ -426,76 +452,60 @@ map <Leader>m <Plug>ToggleMarkbar
 " " map <tab> in insert mode to the function above
 " inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 
-
 "  ██████╗ ██████╗ ██╗      ██████╗ ██████╗ ███████╗
 " ██╔════╝██╔═══██╗██║     ██╔═══██╗██╔══██╗██╔════╝
 " ██║     ██║   ██║██║     ██║   ██║██████╔╝███████╗
 " ██║     ██║   ██║██║     ██║   ██║██╔══██╗╚════██║
 " ╚██████╗╚██████╔╝███████╗╚██████╔╝██║  ██║███████║
 "  ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
-if !has('nvim')
-  if has('gui_running')
-    set guioptions-=T "remove the toolbar 
-    set background=dark
-    "Black background (before colorscheme=quantum)
-    let g:quantum_black=1
-    "To italicize comments:
-    let g:quantum_italics=1
-    colorscheme quantum
-    " let g:molokai_original=1
-    " let g:rehash256=1
-    " colorscheme molokai
-    " colorscheme neodark
-    " if (has("termguicolors"))
-      " set termguicolors
-    " endif
-    " colorscheme night-owl
+if has('gui_running')
+  set guioptions-=T "remove the toolbar 
+  set background=dark
+  "Black background (before colorscheme=quantum)
+  let g:quantum_black=1
+  "To italicize comments:
+  let g:quantum_italics=1
+  colorscheme quantum
+  " let g:molokai_original=1
+  " let g:rehash256=1
+  " colorscheme molokai
+  " colorscheme neodark
+  " if (has("termguicolors"))
+    " set termguicolors
+  " endif
+  " colorscheme night-owl
 
-    " Set font size based on screen size. When vertical height is greater than 1440
-    " (i.e. an external monitor UHD is attached), use 13, else use 11.
-    if system('xrandr | grep -oP "(?<=x)[0-9]+(?=.*\*)"') > 1440
-      set guifont=Hack\ 13
-    else
-      set guifont=Hack\ 11
-    endif
-  elseif &term == "rxvt-unicode-256color" || &term == "xterm-256color"
-    set t_Co=256
-    set background=dark
-    colorscheme one
-    " colorscheme neodark
-    "To use 256-color in both of vim and gvim:
-    "let g:neodark#use_256color = 1 " default: 0
-    "To use your default terminal background:
-    " let g:neodark#terminal_transparent = 1 " default: 0
-    highlight Pmenu ctermfg=0 ctermbg=8
-    highlight PmenuSel ctermfg=15 ctermbg=139
-    highlight PmenuSbar ctermbg=8
-    highlight PmenuThumb ctermfg=7
+  " Set font size based on screen size. When vertical height is greater than 1440
+  " (i.e. an external monitor UHD is attached), use 13, else use 11.
+  if system('xrandr | grep -oP "(?<=x)[0-9]+(?=.*\*)"') > 1440
+    set guifont=Hack\ 13
   else
-    set t_Co=8
-    highlight Pmenu ctermfg=15 ctermbg=8
-    highlight PmenuSel ctermfg=15 ctermbg=0
-    highlight PmenuSbar ctermbg=8
-    highlight PmenuThumb ctermfg=7
+    set guifont=Hack\ 11
   endif
-else
-  "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-  "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-  "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-  if (empty($TMUX))
-    if (has("nvim"))
-      "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-      let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    endif
-    "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-    "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-    " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-    if (has("termguicolors"))
-      set termguicolors
-    endif
-  endif
+  " Hide ~ at the end of the buffer
+  highlight EndOfBuffer guifg=bg
+elseif &term == "rxvt-unicode-256color" || &term == "xterm-256color"
+  set t_Co=256
   set background=dark
   colorscheme Iosvkem
+  " colorscheme one
+  " colorscheme neodark
+  "To use 256-color in both of vim and gvim:
+  "let g:neodark#use_256color = 1 " default: 0
+  "To use your default terminal background:
+  " let g:neodark#terminal_transparent = 1 " default: 0
+  highlight Pmenu ctermfg=0 ctermbg=8
+  highlight PmenuSel ctermfg=15 ctermbg=139
+  highlight PmenuSbar ctermbg=8
+  highlight PmenuThumb ctermfg=7
+  " Hide ~ at the end of the buffer
+  highlight EndOfBuffer ctermfg=bg
+else
+  set t_Co=8
+  highlight Pmenu ctermfg=15 ctermbg=8
+  highlight PmenuSel ctermfg=15 ctermbg=0
+  highlight PmenuSbar ctermbg=8
+  highlight PmenuThumb ctermfg=7
 endif
 
 " Highlight for the matching parenthesis.
@@ -510,8 +520,18 @@ autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\\t/
 set colorcolumn=80
 highlight ColorColumn ctermbg=52 guibg=#302222
 
-" Hide ~ at the end of the buffer
-highlight EndOfBuffer ctermfg=16 guifg=#1B1D1E
+" Iovskem theme fixes (#1bid1e theme bg color, 234 cterm bg)
+if g:colors_name=='Iosvkem'
+  " Fix ALE signs highlight 
+  hi ALEErrorSign cterm=bold ctermfg=203 gui=bold guifg=#ff2040
+  hi ALEWarningSign cterm=bold ctermfg=220 gui=bold guifg=#fcbb20
+  " Fix Signify highlight
+  " hi SignifySignAdd ctermfg=34 guifg=#40bb40
+  " hi SignifySignChange ctermfg=220 guifg=#fcbb20
+  " hi SignifySignDelete ctermfg=167 guifg=#cc4040
+  "Fix git-gutter highlight
+  hi GitGutterChange ctermfg=220 guifg=#fcbb20
+endif
 
 " $$$$$$$\                      $$\
 " $$  __$$\                     $$ |
@@ -546,11 +566,7 @@ set directory+=~/tmp//
 set directory+=.
 
 " viminfo stores the the state of your previous editing session
-if has('nvim')
-  set viminfo+=n~/.vim/viminfo.neovim
-else
-  set viminfo+=n~/.vim/viminfo.vim
-endif
+set viminfo+=n~/.vim/viminfo.vim
 
 if exists("+undofile")
 	" undofile - This allows you to use undos after exiting and restarting
