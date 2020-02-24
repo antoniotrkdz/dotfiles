@@ -1,0 +1,8 @@
+ino jk <ESC>
+ino kj <ESC>
+vno v <ESC>
+map L $
+map H ^
+set autoindent
+set ignorecase
+set smartcase
