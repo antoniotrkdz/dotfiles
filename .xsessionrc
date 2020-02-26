@@ -2,10 +2,10 @@
 # As fall back L_WIN key also works as modifier.
 # No need for separate .xmodmaprc file
 #xmodmap ~/.xmodmaprc
-/usr/bin/xmodmap -e "keycode 65=Super_L"
-/usr/bin/xmodmap -e "keycode any=space"
-/usr/bin/pkill xcape
-/usr/bin/xcape -e "Super_L=space"
+#/usr/bin/xmodmap -e "keycode 65=Super_L"
+#/usr/bin/xmodmap -e "keycode any=space"
+#/usr/bin/pkill xcape
+#/usr/bin/xcape -e "Super_L=space"
 
 # Make the touchpad behave nicely when typing
 # Useful with laptops

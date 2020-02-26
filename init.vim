@@ -110,12 +110,14 @@ endif
 "set the runtime path to include Vundle and initialise
 call plug#begin('~/.config/nvim/plugged')
 
+  Plug 'Yggdroot/indentLine'
+  " Display undotree
+  Plug 'mbbill/undotree'
   " Highlight briefly every yank text
   Plug 'machakann/vim-highlightedyank'
   "Git wrapper
   Plug 'tpope/vim-fugitive'
   "Symbols for git changes tracking
-  " Plug 'mhinz/vim-signify'
   Plug 'airblade/vim-gitgutter'
   "NERDTree
   Plug 'scrooloose/nerdtree'
@@ -208,9 +210,11 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'roxma/nvim-yarp', {'for': 'php'}
   Plug 'phpactor/ncm2-phpactor', {'for': 'php'}
 
-" enable ncm2 for all buffers
-  autocmd BufEnter * call ncm2#enable_for_buffer()
-" autocmd FileType php setlocal omnifunc=phpactor#Complete
+" Vimproc
+  Plug 'Shougo/denite.nvim'
+  " Plug 'Shougo/deoplete.nvim'
+  " Plug 'phpactor/phpactor' ,  {'do': 'composer install', 'for': 'php'}
+  " Plug 'kristijanhusak/deoplete-phpactor'
 
 call plug#end()
 
@@ -220,16 +224,44 @@ call plug#end()
 "/_/  /_/\_,_/\_, /_/_//_/___/ /___/\__/\__/\__/_/_//_/\_, /___/
 "            /___/                                    /___/
 
-let g:phpactor_executable = '~/.config/nvim/plugged/phpactor/bin/phpactor' 
+" enable ncm2 for all buffers
+  autocmd BufEnter * call ncm2#enable_for_buffer()
+  " autocmd FileType php setlocal omnifunc=phpactor#Complete
+
+" let g:deoplete#enable_at_startup = 1
+
+let g:phpactor_executable = '~/.config/nvim/plugged/phpactor/bin/phpactor'
 
 " Autocompletion with tab
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" Git - Fugitive follow symlinks
+" https://github.com/tpope/vim-fugitive/pull/814#issuecomment-446767081
+" function! s:Resolve()
+"   let current = expand('%')
+"   let resolved = resolve(current)
+"   if current !=# resolved
+"     silent execute 'keepalt file' fnameescape(resolved)
+"     return 'edit'
+"   endif
+"   return ''
+" endfunction
+
+" command -bar Resolve execute s:Resolve()
+
+" augroup resolve
+"   autocmd!
+"   autocmd BufReadPost * nested
+"         \ if exists('*FugitiveExtractGitDir') && !exists('b:git_dir') &&
+"         \     expand('%') !=# resolve(expand('%')) &&
+"         \     len(FugitiveExtractGitDir(resolve(expand('%')))) |
+"         \   Resolve |
+"         \ endif
+" augroup END
+
 " Git Gutter update time in ms
 set updatetime=100
-" Alternative Signify
-" let g:signify_vcs_list = [ 'git' ]
 
 " Option for Match HTML Tag plugin
 let g:mta_filetypes = {'html': 1, 'xhtml': 1, 'xml': 1, 'javascript': 1, 'php': 1}
@@ -238,10 +270,6 @@ let g:mta_filetypes = {'html': 1, 'xhtml': 1, 'xml': 1, 'javascript': 1, 'php': 
 let NERDTreeShowHidden=1
 " Get rid of the "? show help...
 let NERDTreeMinimalUI=1
-" NERDTree Default window size
-"let g:NERDTreeWinSize = 25
-" Make NERDTree window resizable
-"let NERDTreeWinSize=1
 
 " Airline configuration
 " Always dispalays airline
@@ -249,13 +277,7 @@ set laststatus=2
 
 let g:airline#extensions#tabline#enabled = 1
 
-if has('gui_running')
-    let g:airline_theme='quantum'
-endif
-
-if has('nvim')
-    let g:airline_theme='behelit'
-endif
+let g:airline_theme='behelit'
 
 let g:airline_powerline_fonts = 1
 
@@ -320,12 +342,19 @@ let g:ale_linter_aliases = {'jsx': 'css'}
 " Set this. Airline will handle the rest.
 let g:airline#extensions#ale#enabled = 1
 let g:ale_echo_msg_format = '%linter%: %s [%severity%]'
-"let g:ale_sign_error         = '>>' "Default
-"let g:ale_sign_warning       = '--' "Default
+
 let g:ale_sign_info          = '..'
+
+"let g:ale_sign_error         = '>>' "Default
 "let g:ale_sign_error         = '✘'
+"let g:ale_sign_error         = '❌'
+let g:ale_sign_error         = '⋙'
+
+"let g:ale_sign_warning       = '--' "Default
 "let g:ale_sign_warning       = '=='
+" let g:ale_sign_warning       = '!!'
 "let g:ale_sign_warning       = '⚠️'
+
 "let g:ale_set_highlights = 0
 "let g:ale_sign_column_always = 1
 "let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ OK']
@@ -357,8 +386,9 @@ nnoremap <leader>t :MtaJumpToOtherTag<cr>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 " Shortcuts to cicle through the quickfix results
-nnoremap ã :cnext<CR>
-nnoremap ö :cprevious<CR>
+nnoremap <M-c> :cnext<CR>
+nnoremap <M-x> :cprevious<CR>
+
 " Livedow markdown previewer toggle on/off
 nnoremap <F6> :LivedownToggle<CR>
 

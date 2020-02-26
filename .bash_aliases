@@ -20,9 +20,10 @@ alias g='git'
 alias gcm='git checkout master'
 alias gs='git status'
 
-# vim aliases
+# vim/nvim aliases
 alias v='vim'
 alias vg='gvim'
+alias nv='nvim'
 
 # Get color support for 'less'
 export LESS="--RAW-CONTROL-CHARS"

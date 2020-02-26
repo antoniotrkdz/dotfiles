@@ -295,16 +295,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym l resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym j resize shrink height 10 px or 10 ppt
-        bindsym h resize grow width 10 px or 10 ppt
+        bindsym l resize shrink width 1 px or 1 ppt
+        bindsym k resize grow height 1 px or 1 ppt
+        bindsym j resize shrink height 1 px or 1 ppt
+        bindsym h resize grow width 1 px or 1 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 1 px or 1 ppt
+        bindsym Down resize grow height 1 px or 1 ppt
+        bindsym Up resize shrink height 1 px or 1 ppt
+        bindsym Right resize grow width 1 px or 1 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -313,6 +313,164 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+#  ___  _______        _______  _______  _______  _______ 
+# |   ||       |      |       ||   _   ||       ||       |
+# |   ||___    | ____ |    ___||  |_|  ||    _  ||  _____|
+# |   | ___|   ||____||   | __ |       ||   |_| || |_____ 
+# |   ||___    |      |   ||  ||       ||    ___||_____  |
+# |   | ___|   |      |   |_| ||   _   ||   |     _____| |
+# |___||_______|      |_______||__| |__||___|    |_______|
+#
+# https://github.com/Airblader/i3
+# Note: In order to use gaps you need to disable window titlebars.
+# You can also use any non-zero value if you'd like to have a border
+# for_window [class=".*"] border pixel 0
+
+# Smart Gaps
+# Only enable gaps on a workspace when there is at least one container
+# smart_gaps on
+
+# Only enable outer gaps when there is exactly one container
+# smart_gaps inverse_outer
+
+# Smart borders will draw borders on windows only if there is more than one window in a workspace.
+# This feature can also be enabled only if the gap size between window and screen edge is 0.
+
+# Activate smart borders (always)
+# smart_borders on
+# Activate smart borders (only when there are effectively no gaps)
+# smart_borders no_gaps
+
+# Smart Edge Borders
+# This extends i3's hide_edge_borders with a new option.
+# When set, edge-specific borders of a container will be hidden if it's the only
+# container on the workspace and the gaps to the screen edge is 0.
+
+# Set inner/outer gaps
+# gaps inner 10
+# gaps outer 10
+
+# set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
+# set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+# set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+# set $mode_gaps_horiz Horizontal Gaps: +|-|0 (local), Shift + +|-|0 (global)
+# set $mode_gaps_verti Vertical Gaps: +|-|0 (local), Shift + +|-|0 (global)
+# set $mode_gaps_top Top Gaps: +|-|0 (local), Shift + +|-|0 (global)
+# set $mode_gaps_right Right Gaps: +|-|0 (local), Shift + +|-|0 (global)
+# set $mode_gaps_bottom Bottom Gaps: +|-|0 (local), Shift + +|-|0 (global)
+# set $mode_gaps_left Left Gaps: +|-|0 (local), Shift + +|-|0 (global)
+# bindsym $mod+Shift+g mode "$mode_gaps"
+
+# mode "$mode_gaps" {
+#         bindsym o      mode "$mode_gaps_outer"
+#         bindsym i      mode "$mode_gaps_inner"
+#         bindsym h      mode "$mode_gaps_horiz"
+#         bindsym v      mode "$mode_gaps_verti"
+#         bindsym t      mode "$mode_gaps_top"
+#         bindsym r      mode "$mode_gaps_right"
+#         bindsym b      mode "$mode_gaps_bottom"
+#         bindsym l      mode "$mode_gaps_left"
+#         bindsym Return mode "$mode_gaps"
+#         bindsym Escape mode "default"
+# }
+
+# mode "$mode_gaps_outer" {
+#         bindsym plus  gaps outer current plus 5
+#         bindsym minus gaps outer current minus 5
+#         bindsym 0     gaps outer current set 0
+
+#         bindsym Shift+plus  gaps outer all plus 5
+#         bindsym Shift+minus gaps outer all minus 5
+#         bindsym Shift+0     gaps outer all set 0
+
+#         bindsym Return mode "$mode_gaps"
+#         bindsym Escape mode "default"
+# }
+# mode "$mode_gaps_inner" {
+#         bindsym plus  gaps inner current plus 5
+#         bindsym minus gaps inner current minus 5
+#         bindsym 0     gaps inner current set 0
+
+#         bindsym Shift+plus  gaps inner all plus 5
+#         bindsym Shift+minus gaps inner all minus 5
+#         bindsym Shift+0     gaps inner all set 0
+
+#         bindsym Return mode "$mode_gaps"
+#         bindsym Escape mode "default"
+# }
+# mode "$mode_gaps_horiz" {
+#         bindsym plus  gaps horizontal current plus 5
+#         bindsym minus gaps horizontal current minus 5
+#         bindsym 0     gaps horizontal current set 0
+
+#         bindsym Shift+plus  gaps horizontal all plus 5
+#         bindsym Shift+minus gaps horizontal all minus 5
+#         bindsym Shift+0     gaps horizontal all set 0
+
+#         bindsym Return mode "$mode_gaps"
+#         bindsym Escape mode "default"
+# }
+# mode "$mode_gaps_verti" {
+#         bindsym plus  gaps vertical current plus 5
+#         bindsym minus gaps vertical current minus 5
+#         bindsym 0     gaps vertical current set 0
+
+#         bindsym Shift+plus  gaps vertical all plus 5
+#         bindsym Shift+minus gaps vertical all minus 5
+#         bindsym Shift+0     gaps vertical all set 0
+
+#         bindsym Return mode "$mode_gaps"
+#         bindsym Escape mode "default"
+# }
+# mode "$mode_gaps_top" {
+#         bindsym plus  gaps top current plus 5
+#         bindsym minus gaps top current minus 5
+#         bindsym 0     gaps top current set 0
+
+#         bindsym Shift+plus  gaps top all plus 5
+#         bindsym Shift+minus gaps top all minus 5
+#         bindsym Shift+0     gaps top all set 0
+
+#         bindsym Return mode "$mode_gaps"
+#         bindsym Escape mode "default"
+# }
+# mode "$mode_gaps_right" {
+#         bindsym plus  gaps right current plus 5
+#         bindsym minus gaps right current minus 5
+#         bindsym 0     gaps right current set 0
+
+#         bindsym Shift+plus  gaps right all plus 5
+#         bindsym Shift+minus gaps right all minus 5
+#         bindsym Shift+0     gaps right all set 0
+
+#         bindsym Return mode "$mode_gaps"
+#         bindsym Escape mode "default"
+# }
+# mode "$mode_gaps_bottom" {
+#         bindsym plus  gaps bottom current plus 5
+#         bindsym minus gaps bottom current minus 5
+#         bindsym 0     gaps bottom current set 0
+
+#         bindsym Shift+plus  gaps bottom all plus 5
+#         bindsym Shift+minus gaps bottom all minus 5
+#         bindsym Shift+0     gaps bottom all set 0
+
+#         bindsym Return mode "$mode_gaps"
+#         bindsym Escape mode "default"
+# }
+# mode "$mode_gaps_left" {
+#         bindsym plus  gaps left current plus 5
+#         bindsym minus gaps left current minus 5
+#         bindsym 0     gaps left current set 0
+
+#         bindsym Shift+plus  gaps left all plus 5
+#         bindsym Shift+minus gaps left all minus 5
+#         bindsym Shift+0     gaps left all set 0
+
+#         bindsym Return mode "$mode_gaps"
+#         bindsym Escape mode "default"
+# }
+
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 # |T i l i n g / F l o a t i n g|
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -320,8 +478,7 @@ bindsym $mod+r mode "resize"
 # border and title only on floating windows
 show_marks no
 bindsym $mod+Shift+p "mark --add _; \
-  [con_mark=f] floating disable, border pixel 2, \
-  mark --add --toggle _; \
+  [con_mark=f] floating disable, border pixel 2, mark --add --toggle _; \
   [con_mark=_] floating enable, border normal 1; \
   mark --add --toggle f;"
 
@@ -346,11 +503,12 @@ bindsym $mod+p focus mode_toggle
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available).
 ## With xfce4-panel and i3-plugin this section can be commented out entirely.
-## With mate-panel set the bar to invisible and to no tray output.
+## With mate-panel set the bar to 'mode invisible' and to 'tray output None'.
 ## Set the colors of mate-applet with the colors section.
 ## Only the background value is considered by the applet.
 
 bar {
+  # i3bar_command i3bar -t
   tray_output None
   mode invisible
   font pango:IBM 3270 Narrow Bold 16
@@ -366,24 +524,23 @@ bar {
 #    urgent_workspace   #2f343a     #900000     #ffffff
 #    binding_mode       #2f343a     #900000     #ffffff
 # Vulcanico colors:-------------------------------------
-    # focused_workspace   #212121     #212121     #FBFBFB
-    # active_workspace    #212121     #212121     #AAAAAA
-    # inactive_workspace  #212121     #212121     #777777
-    # urgent_workspace    #212121     #212121     #BA0000
-    # binding_mode        #212121     #212121     #BABA00
+    focused_workspace   #21212100     #21212100     #FBFBFB
+    active_workspace    #212121     #212121     #AAAAAA
+    inactive_workspace  #21212100     #21212100     #777777
+    urgent_workspace    #212121     #212121     #BA0000
+    binding_mode        #212121     #212121     #BABA00
 # X1 colors:--------------------------------------------	
     # focused_workspace  #7278C1     #7278C1     #ffffff
-    focused_workspace   #33393B     #33393B     #FFFFFF
-    active_workspace    #33393B     #33393B     #777777
-    inactive_workspace  #33393B     #33393B     #888888
-    urgent_workspace    #33393B     #33393B     #BA0000
-    binding_mode        #33393B     #33393B     #FFFF00
+    # focused_workspace   #33393B     #33393B     #FFFFFF
+    # active_workspace    #33393B     #33393B     #777777
+    # inactive_workspace  #33393B     #33393B     #888888
+    # urgent_workspace    #33393B     #33393B     #BA0000
+    # binding_mode        #33393B     #33393B     #FFFF00
   }
 #  position bottom
 #  status_command i3status -c /etc/i3status.conf
 #	 workspace_buttons yes
 #  mode dock
-#  font pango:anorexia 13
 }
 
 #  d88888b  .d88b.  d8888b.         db   d8b   db d888888b d8b   db d8888b.  .d88b.  db   d8b   db
@@ -394,8 +551,8 @@ bar {
 #  YP       `Y88P'  88   YD C88888D  `8b8' `8d8'  Y888888P VP   V8P Y8888D'  `Y88P'   `8b8' `8d8'
 
 ## Select all windows in tiling layer.
-for_window [tiling class="^.*"] border pixel 2
-new_window pixel 2
+for_window [tiling class="^.*"] border pixel 4
+new_window pixel 4
 
 ## Handling of all special windows (that should be floating anyway).
 for_window [window_role="pop-up"] floating enable, border normal 1
@@ -404,12 +561,15 @@ for_window [window_role="GtkFileChooserDialog"] floating enable, border normal 1
 for_window [window_role="bubble"] floating enable
 for_window [window_role="Preferences"] floating enable
 for_window [window_type="dialog"] floating enable
+for_window [window_type="dialog" class="(?i)Caja"] floating enable, border pixel 2
 for_window [window_type="menu"] floating enable
 
 ## Handling of special applications.
 for_window [window_role="vlc-main"] floating enable, border normal 1, resize set 1400 1000
 for_window [window_role="gimp-dock"] floating enable, border normal 1
 for_window [window_role="gimp-toolbox"] floating enable, border normal 1
+for_window [window_role="gimp-toolbox"] floating enable, border normal 1
+for_window [title="(?i)Change Foreground Color"] floating enable, border normal 1, move down 200, move right 200
 for_window [class="(?i)Gitter"] border none pixel 1
 for_window [class="(?i)galculator"] floating enable, border normal 1
 for_window [class="(?i)xcalc"] floating enable, border normal 1
