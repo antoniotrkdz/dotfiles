@@ -1,13 +1,19 @@
-# Use Spacebar as a Modifier (ALTERNATIVE  CONFIGURATION)
-# As fall back L_WIN key also works as modifier.
-# No need for separate .xmodmaprc file
-#xmodmap ~/.xmodmaprc
-/usr/bin/xmodmap -e "keycode 65=Super_L"
-/usr/bin/xmodmap -e "keycode any=space"
-/usr/bin/pkill xcape
-/usr/bin/xcape -e "Super_L=space"
+if [[ -z $(/usr/bin/lsusb | grep -o 'ID feed:') ]]
+# no KBD75 connected (feed:6060).
+then
+  # Use Spacebar as a Modifier (ALTERNATIVE  CONFIGURATION)
+  # As fall back L_WIN key also works as modifier.
+  # No need for separate .xmodmaprc file
+  #xmodmap ~/.xmodmaprc
+  /usr/bin/xmodmap -e "keycode 65=Super_L"
+  /usr/bin/xmodmap -e "keycode any=space"
+  /usr/bin/pkill xcape
+  /usr/bin/xcape -e "Super_L=space"
+else
+  echo "KBD75 Connected" > /tmp/kbd75
+fi
 
-# Make the touchpad behave nicely when typing
+# Make the touchpad to behave nicely when typing.
 # Useful with laptops
 #/usr/bin/pkill syndaemon
 #/usr/bin/syndaemon -d -i 0.7 -K -R -t

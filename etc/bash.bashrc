@@ -18,8 +18,14 @@ fi
 # set a fancy prompt (non-color, overwrite the one in /etc/profile)
 PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 
-#logging all the commands to .bash-permanent-history file. 
+#Log all the commands to .bash-permanent-history file. 
 PROMPT_COMMAND='echo "$(date "+%Y-%m-%d.%H:%M:%S") $(hostname) $(whoami) $(pwd) $(history 1)" >> ~/.bash_permanent_history'
+
+#Enable vi mode if not running from vim
+if [ "$(ps -o comm= -p $PPID)" != 'nvim' ] ; then
+  # Not running from nvim
+  set -o vi
+fi
 
 # Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
 # If this is an xterm set the title to user@host:dir

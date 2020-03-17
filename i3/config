@@ -19,12 +19,11 @@
 
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 #
-#  ..%%%%...%%%%%%..%%%%%%..%%...%%...%%%%...%%%%%..
-#  .%%......%%........%%....%%%.%%%..%%..%%..%%..%%.
-#  ..%%%%...%%%%......%%....%%.%.%%..%%..%%..%%..%%.
-#  .....%%..%%........%%....%%...%%..%%..%%..%%..%%.
-#  ..%%%%...%%%%%%....%%....%%...%%...%%%%...%%%%%..
-#  ................................................
+# ..%%%%...%%%%%%..%%%%%%..%%...%%...%%%%...%%%%%..
+# .%%......%%........%%....%%%.%%%..%%..%%..%%..%%.
+# ..%%%%...%%%%......%%....%%.%.%%..%%..%%..%%..%%.
+# .....%%..%%........%%....%%...%%..%%..%%..%%..%%.
+# ..%%%%...%%%%%%....%%....%%...%%...%%%%...%%%%%..
 #
 # Mod4 is Super_L, but search "Set Spacebar as modifier"
 set $mod Mod4
@@ -92,30 +91,23 @@ font pango:IBM 3270 Narrow bold 14
 # Mate sets the background on its own.
 #exec --no-startup-id nitrogen --restore
 
-# Colors.
 #-----------------------------------------------------------------------
 # Default colors:
-# class                 border  backgr. text    indicator child_border
-#client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
-#client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-#client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-#client.urgent           #2f343a #900000 #ffffff #900000   #900000
-#client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+# class                  border  background text    indicator child_border
+#client.focused          #4c7899 #285577    #ffffff #2e9ef4   #285577
+#client.focused_inactive #333333 #5f676a    #ffffff #484e50   #5f676a
+#client.unfocused        #333333 #222222    #888888 #292d2e   #222222
+#client.urgent           #2f343a #900000    #ffffff #900000   #900000
+#client.placeholder      #000000 #0c0c0c    #ffffff #000000   #0c0c0c
 
 #client.background       #ffffff
 #-----------------------------------------------------------------------
 
-##Spectre installation colors:
-##client.focused          #CADB91 #CADB91 #060808 #d68fff   #CADB91
-##client.focused_inactive #5f676a #5f676a #CADB91 #484e50   #5f676a
-##client.unfocused        #5f676a #5f676a #888888 #292d2e   #5f676a
-##client.urgent           #900000 #900000 #ffffff #900000   #900000
-##client.placeholder      #5f676a #5f676a #CADB91 #5f676a   #5f676a
-
-# X1-carbon installation colors:
-set $bg-color            #5587ED
+# set $bg-color            #5F87FF
+set $bg-color            #5044D4
 set $inactive-bg-color   #5f676A
-set $text-color          #EEEEEE 
+# set $text-color          #EEEEEE 
+set $text-color          #060808
 set $inactive-text-color #060808
 set $urgent-bg-color     #900000
 set $indicator-color     #CAFF33
@@ -295,16 +287,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym l resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym j resize shrink height 10 px or 10 ppt
-        bindsym h resize grow width 10 px or 10 ppt
+        bindsym l resize shrink width 1 px or 1 ppt
+        bindsym k resize grow height 1 px or 1 ppt
+        bindsym j resize shrink height 1 px or 1 ppt
+        bindsym h resize grow width 1 px or 1 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 1 px or 1 ppt
+        bindsym Down resize grow height 1 px or 1 ppt
+        bindsym Up resize shrink height 1 px or 1 ppt
+        bindsym Right resize grow width 1 px or 1 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -354,10 +346,13 @@ bar {
   tray_output None
   mode invisible
   font pango:IBM 3270 Narrow Bold 16
+# Default parameters:---------------------------------
+#  position bottom
+#  status_command i3status -c /etc/i3status.conf
+#	 workspace_buttons yes
+#  mode dock
+# ------------------------------------------------------
   colors {
-    background #000000
-    statusline #ffffff
-    separator  #666666
 # Default colors: --------------------------------------
 #    <colorclass>       <border>  <background>  <text>
 #    focused_workspace  #4c7899     #285577     #ffffff
@@ -365,25 +360,18 @@ bar {
 #    inactive_workspace #333333     #222222     #888888
 #    urgent_workspace   #2f343a     #900000     #ffffff
 #    binding_mode       #2f343a     #900000     #ffffff
-# Vulcanico colors:-------------------------------------
-    # focused_workspace   #212121     #212121     #FBFBFB
-    # active_workspace    #212121     #212121     #AAAAAA
-    # inactive_workspace  #212121     #212121     #777777
-    # urgent_workspace    #212121     #212121     #BA0000
-    # binding_mode        #212121     #212121     #BABA00
-# X1 colors:--------------------------------------------	
-    # focused_workspace  #7278C1     #7278C1     #ffffff
-    focused_workspace   #33393B     #33393B     #FFFFFF
-    active_workspace    #33393B     #33393B     #777777
-    inactive_workspace  #33393B     #33393B     #888888
-    urgent_workspace    #33393B     #33393B     #BA0000
-    binding_mode        #33393B     #33393B     #FFFF00
+# Other useful colors:-------------------------------------
+    # #212121 #7278C1 #BABA00 #33393B 
+# ---------------------------------------------------------
+    background #000000
+    statusline #ffffff
+    separator  #666666
+    focused_workspace   #131313     #131313     #DADADA
+    active_workspace    #131313     #131313     #777777
+    inactive_workspace  #131313     #131313     #888888
+    urgent_workspace    #131313     #131313     #BA0000
+    binding_mode        #131313     #131313     #FFFF00
   }
-#  position bottom
-#  status_command i3status -c /etc/i3status.conf
-#	 workspace_buttons yes
-#  mode dock
-#  font pango:anorexia 13
 }
 
 #  d88888b  .d88b.  d8888b.         db   d8b   db d888888b d8b   db d8888b.  .d88b.  db   d8b   db
