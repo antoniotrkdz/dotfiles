@@ -21,7 +21,7 @@ alias gcm='git checkout master'
 alias gs='git status'
 
 # vim aliases
-alias v='vim'
+alias v='nvim'
 alias vg='gvim'
 
 # Get color support for 'less'

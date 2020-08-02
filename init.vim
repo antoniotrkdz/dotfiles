@@ -11,18 +11,22 @@
 "________\//\\\\\___\/\\\_________\/\\\_\///\\\_\//\\\\\\\/\\__/\\\\\\\\\\\____
 "__________\/////____\///__________\///____\///___\///////\//__\///////////____
 "______________________________________________________________________________
+" 
+" ╦  ╔╗╔  ╦  ╔╦╗      ╦  ╦  ╦  ╔╦╗                                            
+" ║  ║║║  ║   ║   ┌┐  ╚╗╔╝  ║  ║║║                                            
+" ╩  ╝╚╝  ╩   ╩   └┘   ╚╝   ╩  ╩ ╩═════════════════════════════════════════════
 
-" ╦  ╔╗╔  ╦  ╔╦╗     ╦  ╦  ╦  ╔╦╗                                            
-" ║  ║║║  ║   ║      ╚╗╔╝  ║  ║║║                                            
-" ╩  ╝╚╝  ╩   ╩   o   ╚╝   ╩  ╩ ╩  ──────────────────────────────────────────── 
-set completeopt+=noinsert,menuone
-
-" Turn off the preview (opening a scratch buffer) from the YouCompleteMe menu
-set completeopt-=preview
+" Turn off the preview (opening a scratch buffer) from the completion menu.
+"set completeopt-=preview
+" First menu item selected (but not inserted): noinsert in combination with menu.
+"set completeopt=menu,noinsert
+" COC uses its own completeopt on completion and restores the settings when done,
+" so add suggest.noselect: false to coc-settings.json.
 
 " Highlight the current line and column only in the current window
 autocmd WinLeave * set nocursorline nocursorcolumn
 autocmd WinEnter * set cursorline cursorcolumn
+autocmd vimEnter * set cursorline cursorcolumn
 
 " Disable all error bells
 set belloff=all
@@ -151,8 +155,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'vim-scripts/dbext.vim'
   "i3wm .config syntax
   Plug 'PotatoesMaster/i3-vim-syntax'
-  "Vim-markbar
-  Plug 'Yilin-Yang/vim-markbar'
+  "Vim-markbar (activate with ' or `)
+  " Plug 'Yilin-Yang/vim-markbar'
   "Alternative sudo.vim for Vim and Neovim
   Plug 'lambdalisue/suda.vim'
 
@@ -160,6 +164,9 @@ call plug#begin('~/.config/nvim/plugged')
   Plug '~/.vim/xterm-color-table.vim'
   " Plugin to highlight matchit.
   Plug '~/.vim/99-hl-matchlines.vim'
+  " Uncomplicated alternative to vim-signature (shows mark in gutter)
+  " Here in place of vim-markbar
+  Plug '~/.vim/marksigns.vim'
 
   "Theme (CLI)
   Plug 'neutaaaaan/iosvkem'
@@ -315,6 +322,12 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" coc.nvim works best on neovim >= 0.4.3, consider upgrade your neovim.
+" You can set this to make this error message go away:
+let g:coc_disable_startup_warning = 1
+" Note that some features may behave incorrectly.
+
 "COC SETTINGS END -------------------------------------------------------------
 
 " Vue files
@@ -389,6 +402,7 @@ let g:ale_fixers = {
       \ 'html': [ 'tidy' ],
       \ 'css': ['prettier', 'stylelint'],
       \ 'scss': ['prettier', 'stylelint'],
+      \ 'vue': ['prettier']
       \ }
 let g:ale_linters = {
       \ 'javascript': ['prettier', 'eslint'],
@@ -409,9 +423,9 @@ let g:ale_echo_msg_format = '%linter%: %s [%severity%]'
 "let g:ale_sign_warning       = '--' "Default
 let g:ale_sign_info          = '..'
 "
-" ╔╦╗╔═╗╔═╗╔═╗╦╔╗╔╔═╗╔═╗
-" ║║║╠═╣╠═╝╠═╝║║║║║ ╦╚═╗
-" ╩ ╩╩ ╩╩  ╩  ╩╝╚╝╚═╝╚═╝
+" ╔╦╗  ╔═╗  ╔═╗  ╔═╗  ╦  ╔╗╔  ╔═╗  ╔═╗
+" ║║║  ╠═╣  ╠═╝  ╠═╝  ║  ║║║  ║ ╦  ╚═╗
+" ╩ ╩  ╩ ╩  ╩    ╩    ╩  ╝╚╝  ╚═╝  ╚═╝
 " make sure there are no spaces at the end!
 inoremap jk <esc>
 inoremap kj <esc>
@@ -467,7 +481,7 @@ vmap u y
 nnoremap <leader>[ :%s/<c-r><c-w>//gc<left><left><left>
 
 " Open a terminal on the bottom
-noremap <leader>b :botright 13sp term://$SHELL<CR>i
+noremap <F12> :botright 13sp term://$SHELL<CR>i
 " mappings to exit terminal-mode:
 tnoremap <Esc> <C-\><C-n>
 tnoremap jk <C-\><C-n>
