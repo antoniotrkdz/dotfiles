@@ -1,0 +1,94 @@
+{
+  "editor.formatOnSave": true,
+  "workbench.commandPalette.preserveInput": true,
+  "workbench.startupEditor": "newUntitledFile",
+  "emmet.triggerExpansionOnTab": true,
+  "editor.tabSize": 2,
+  "editor.cursorSurroundingLines": 2,
+  "vim.easymotion": true,
+  "vim.hlsearch": true,
+  "vim.highlightedyank.enable": true,
+  "vim.useSystemClipboard": true,
+  "vim.visualstar": true,
+  "vim.easymotionMarkerForegroundColorOneChar": "#F88070",
+  "vim.easymotionMarkerForegroundColorTwoChar": "#F88070",
+  "vim.easymotionMarkerFontSize": "12",
+  "vim.easymotionMarkerBackgroundColor": "#474747",
+  "vim.easymotionMarkerWidthPerChar": 6,
+  "vim.easymotionMarkerHeight": 16,
+  "vim.insertModeKeyBindingsNonRecursive": [
+    {
+      "before": ["j","k"],
+      "after": ["<Esc>"]
+    },
+    {
+      "before": ["k","j"],
+      "after": ["<Esc>"]
+    },
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before":["v"],
+      "after":["<Esc>"]
+    },
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+    "before": ["<"],
+    "commands": ["editor.action.outdentLines"]
+    },
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before":["leader","<CR>"],
+      "commands": [":nohl"]
+    },
+    {
+      "before": ["Y"],
+      "after": ["y","$"]
+    },
+	  {
+	    "before": ["H"], 
+	    "after": ["^"]
+	  },
+	  {
+      "before": ["L"], 
+	    "after": ["$"]
+	  },
+  ],
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "files.associations": {
+    "*.vue": "vue"
+  },
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
+    "javascript",
+    "vue"
+  ],
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.donotVerifyTags": true,
+  "liveServer.settings.useWebExt": true,
+  "liveServer.settings.proxy": {
+    "enable": true,
+    "baseUri": "/",
+    "proxyUri": "http://127.0.0.1:80"
+  },
+  "editor.minimap.enabled": false,
+  "editor.fontFamily": "'Consolas Ligaturized',Consolas,'Courier New', monospace",
+  "editor.fontSize": 12,
+  "editor.fontLigatures": "'ss02'",
+  // "editor.fontLigatures": true,
+  "editor.accessibilitySupport": "off",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "vetur.format.defaultFormatter.html": "prettier",
+  "[sql]": {
+    "editor.defaultFormatter":"cymonk.sql-formatter"
+  },
+  "prettier.disableLanguages": [],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+}
