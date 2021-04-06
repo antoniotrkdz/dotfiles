@@ -40,6 +40,9 @@ focus_follows_mouse no
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# i3expo
+exec_always "~/i3expo-ng/i3expod.py -f"
+
 #  ╔═╗  ╔═╗  ╔╗╔  ╔╦╗
 #  ╠╣   ║ ║  ║║║   ║ 
 #  ╚    ╚═╝  ╝╚╝   ╩ 
@@ -79,13 +82,18 @@ font pango:IBM 3270 Narrow bold 14
 #-----------------------------------------------------------------------
 
 # set $bg-color            #5F87FF
-set $bg-color            #5044D4
+# set $bg-color            #FFFFFF
+# set $bg-color            #FF00AA
+# set $bg-color            #AAFF00
+set $bg-color            #FFBB00
 set $inactive-bg-color   #5f676A
 # set $text-color          #EEEEEE 
 set $text-color          #060808
 set $inactive-text-color #060808
-set $urgent-bg-color     #900000
-set $indicator-color     #CAFF33
+# set $urgent-bg-color     #900000
+set $urgent-bg-color     #FF0000
+# set $indicator-color     #FFFF00
+set $indicator-color     #FF88FF
 
 #                       border              background         text                 indicator        child_border
 client.focused          $bg-color           $bg-color          $text-color          $indicator-color  $bg-color
@@ -97,6 +105,9 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 #  ╠╩╗  ║  ║║║   ║║  ║  ║║║  ║ ╦  ╚═╗
 #  ╚═╝  ╩  ╝╚╝  ═╩╝  ╩  ╝╚╝  ╚═╝  ╚═╝
 #
+# i3expo
+bindsym $mod+g exec --no-startup-id "killall -s SIGUSR1 i3expod.py"
+
 # Restore Space as modifier see .xsessionrc
 bindsym $mod+F1 exec --no-startup-id "< .xsessionrc grep -e /bin/.*x[^s] | bash -; \
   notify-send 'You Can use SPC as modifier' \
@@ -105,6 +116,8 @@ bindsym $mod+F1 exec --no-startup-id "< .xsessionrc grep -e /bin/.*x[^s] | bash 
 
 # Start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
+
+bindsym XF86Tools exec --no-startup-id "~/scripts/toggle_evdev_wheel_em.sh"
 
 # Kill focused window
 bindsym $mod+Shift+q kill
@@ -333,9 +346,10 @@ bar {
 #  ╠╣   ║ ║  ╠╦╝      ║║║  ║  ║║║   ║║  ║ ║  ║║║
 #  ╚    ╚═╝  ╩╚═ ════ ╚╩╝  ╩  ╝╚╝  ═╩╝  ╚═╝  ╚╩╝
 #                                                                             
+set $px 3
 ## Select all windows in tiling layer.
-for_window [tiling class="^.*"] border pixel 2
-new_window pixel 2
+for_window [tiling class="^.*"] border pixel $px
+new_window pixel $px
 
 ## Handling of all special windows (that should be floating anyway).
 for_window [window_role="pop-up"] floating enable, border normal 1
@@ -367,3 +381,4 @@ for_window [title="(?i)Mad Max Options"] floating enable, border pixel 1
 for_window [title="(?i)^Mad Max$"] fullscreen
 for_window [title="(?i)XCOM 2 Options"] floating enable, border normal 1, resize set 800 600
 for_window [title="(?i)^XCOM 2$"] fullscreen
+for_window [title="(?i)Event Tester"] floating enable, border normal 1, resize set 178 178

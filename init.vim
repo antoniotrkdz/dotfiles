@@ -59,8 +59,10 @@ set complete-=i
 "set list! -- see mappings
 set listchars=tab:▸\ ,eol:¬,trail:·,space:·
 
-" Alternative menu
-set wildmenu
+" Since Neovim 0.4.x wildmenu uses pum
+" Default wildoptions are set to 'pum,tagfile'
+" To get the old wildmenu remove 'pum'
+set wildoptions=tagfile
 
 "Avoid showing the mode on the last line
 set noshowmode
@@ -159,6 +161,8 @@ call plug#begin('~/.config/nvim/plugged')
   " Plug 'Yilin-Yang/vim-markbar'
   "Alternative sudo.vim for Vim and Neovim
   Plug 'lambdalisue/suda.vim'
+  " Vim syntax highlighting for the OpenSCAD 3D modeling language
+  " Plug 'sirtaj/vim-openscad'
 
   "Unmanged plugin to show terminal colors, use :XtermColorTable 
   Plug '~/.vim/xterm-color-table.vim'
@@ -395,17 +399,24 @@ let g:suda#prefix = 'su//'
 " DelimitMate config
 au FileType html,vim let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
 
+" Prettier standard config
+" let g:ale_fixers = {'javascript': ['prettier_standard']}
+      " 'javascript': ['prettier', 'eslint'],
+" let g:ale_linters = {'javascript': ['standard']}
+      " 'javascript': ['prettier', 'eslint'],
+let g:ale_fix_on_save = 1
+
 " A.L.E. config
-let g:ale_fixers = {
-      \ 'javascript': ['prettier', 'eslint'],
-      \ 'jsx': ['prettier', 'eslint'],
-      \ 'html': [ 'tidy' ],
-      \ 'css': ['prettier', 'stylelint'],
-      \ 'scss': ['prettier', 'stylelint'],
-      \ 'vue': ['prettier']
-      \ }
+ let g:ale_fixers = {
+       \ 'javascript': ['prettier_standard'],
+       \ 'jsx': ['prettier', 'eslint'],
+       \ 'html': [ 'prettier' ],
+       \ 'css': ['prettier', 'stylelint'],
+       \ 'scss': ['prettier', 'stylelint'],
+       \ 'vue': ['prettier']
+       \ }
 let g:ale_linters = {
-      \ 'javascript': ['prettier', 'eslint'],
+      \ 'javascript': ['standard'],
       \ 'jsx': ['prettier', 'eslint'],
       \ 'sql': ['sqlint'],
       \ 'bash': ['language_server','shellcheck'],
@@ -416,7 +427,7 @@ let g:ale_linters = {
       \ 'lua': ['luacheck'],
       \ }
 let g:ale_linter_aliases = {'jsx': 'css'}
-" Set this. Airline will handle the rest.
+"" Set this. Airline will handle the rest.
 let g:airline#extensions#ale#enabled = 1
 let g:ale_echo_msg_format = '%linter%: %s [%severity%]'
 "let g:ale_sign_error         = '>>' "Default
@@ -466,7 +477,10 @@ nnoremap <F6> :LivedownToggle<CR>
 " Toggle off to get tpope/endwise plugin do its job.
 nnoremap <leader>p :call Toggle_Extra_Paren_HL()<CR>
 " Needed for vim-markbar
-map <Leader>m <Plug>ToggleMarkbar
+" map <Leader>m <Plug>ToggleMarkbar
+" Marksigns
+let g:marksigns_plugs = 1
+map <Leader>m <Plug>(MarksAll)
 " surround by quotes - frequently use cases of vim-surround
 map <leader>" ysiw"<CR>
 map <leader>' ysiw'<CR>
@@ -478,7 +492,7 @@ vmap > >gv
 " remap the annoying u in visual mode
 vmap u y
 " shortcut to substitute current word under cursor
-nnoremap <leader>[ :%s/<c-r><c-w>//gc<left><left><left>
+nnoremap <leader>s :%s/<c-r><c-w>//gc<left><left><left>
 
 " Open a terminal on the bottom
 noremap <F12> :botright 13sp term://$SHELL<CR>i
