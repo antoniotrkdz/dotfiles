@@ -17,3 +17,4 @@ For info on git hooks:
 To make less to colorise man pages see [this](https://unix.stackexchange.com/questions/119/colors-in-man-pages?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) and [this](https://www.2daygeek.com/linux-color-man-pages-configuration-less-most-command/#)
 
 For terminal color formatting see [this](https://misc.flogisoft.com/bash/tip_colors_and_formatting)
+Nice reddit on [using space as modifier](https://www.reddit.com/r/i3wm/comments/5zpz69/using_space_bar_as_mod_is_life_changing/)
