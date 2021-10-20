@@ -41,7 +41,7 @@ focus_follows_mouse no
 floating_modifier $mod
 
 # i3expo
-exec_always "~/i3expo-ng/i3expod.py -f"
+#exec_always "~/i3expo-ng/i3expod.py -f"
 
 #  ╔═╗  ╔═╗  ╔╗╔  ╔╦╗
 #  ╠╣   ║ ║  ║║║   ║ 

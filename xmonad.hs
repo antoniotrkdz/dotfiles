@@ -27,15 +27,17 @@ import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks)
 import XMonad.Hooks.Place
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.UrgencyHook
+import XMonad.Hooks.EwmhDesktops
 -- import XMonad.Hooks.ManageHelpers (isDialog) -- Could be useful
 import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.OneBig
+import XMonad.Layout.Grid
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Ungrab
 import XMonad.StackSet as W
--- import System.IO
+-- import System.IO (openFile, IOMode (AppendMode))
 
 import qualified DBus as D
 import qualified DBus.Client as D
@@ -43,9 +45,11 @@ import qualified Codec.Binary.UTF8.String as UTF8
 
 main :: IO ()
 main = do
+    -- logFile <- openFile "/home/antoniotrkdz/xmonad.log" AppendMode
     dbus <- D.connectSession
     getWellKnownName dbus
-    xmonad $ withUrgencyHookC BorderUrgencyHook { urgencyBorderColor = "#ff0000" } urgencyConfig { suppressWhen = Never } $ mateConfig
+    xmonad $ ewmh $ withUrgencyHookC BorderUrgencyHook {urgencyBorderColor = "#ff0000"} urgencyConfig {suppressWhen = Never}
+         $ mateConfig
          {XMonad.workspaces = Main.workspaces
          , XMonad.focusFollowsMouse = Main.focusFollowsMouse
          , XMonad.clickJustFocuses= Main.clickJustFocuses
@@ -194,12 +198,15 @@ myManageHook = composeAll
     , className =? "Mate-control-center" --> doFloat
     , className =? "Gimp-2.10" --> doFloat
     , className =? "Steam" --> doFloat
+    , className =? "ij-ImageJ" --> doFloatPlace
     , title =? "Event Tester" --> doFloatPlace
     , title =? "Tabs Outliner" --> do
       _ <- doFloat
       doShift "tabsoutliner"
-    , title =? "Tabs Outliner" --> doShift "tabsoutliner"
+    --, title =? "Tabs Outliner" --> doShift "tabsoutliner"
+    , title =? "Xnest" --> doFloatPlace
     , stringProperty "WM_WINDOW_ROLE" =? "pop-up" --> doFloatPlace
+    , stringProperty "WM_WINDOW_ROLE" =? "gimp-toolbox-color-dialog" --> doFloatPlace
     , stringProperty "_NET_WM_STATE" =? "_NET_WM_STATE_STICKY" --> doIgnore
     , stringProperty "_NET_WM_WINDOW_TYPE" =? "_NET_WM_WINDOW_TYPE_DIALOG" --> doFloatPlace
     -- , isInProperty "_NET_WM_STATE" "_NET_WM_STATE_STICKY" --> doIgnore
@@ -215,8 +222,8 @@ doFloatPlace :: ManageHook
 doFloatPlace = placeHook myPlaceHook <+> doFloat
 
 -- Define Layout
-myLayout =  avoidStruts $ tiled ||| Full ||| threeColMid ||| emptyBSP ||| onebig
-    where tiled = Tall nmaster delta ratio
+myLayout =  avoidStruts $ tall ||| Full ||| threeColMid ||| Grid ||| emptyBSP ||| onebig
+    where tall = Tall nmaster delta ratio
           threeColMid = ThreeColMid nmaster delta ratio
           onebig = OneBig width height
           nmaster = 1 -- default number of windows in master screen

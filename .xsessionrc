@@ -1,5 +1,5 @@
-if [[ -z $(/usr/bin/lsusb | grep -o 'ID feed:') ]]
-# no KBD75 connected (feed:6060).
+# KBD75 connected (feed:6060).
+if [[ -z $(/usr/bin/lsusb | grep -o 'ID 594d:') ]]
 then
   # Use Spacebar as a Modifier (ALTERNATIVE  CONFIGURATION)
   # As fall back L_WIN key also works as modifier.
@@ -10,7 +10,7 @@ then
   /usr/bin/pkill xcape
   /usr/bin/xcape -e "Super_L=space"
 else
-  echo "KBD75 Connected" > /tmp/kbd75
+  echo "Split75 Connected" > /tmp/split75
 fi
 
 # Make the touchpad to behave nicely when typing.
@@ -23,3 +23,5 @@ fi
 /usr/bin/xsetwacom --set $(xsetwacom --list dev | gawk '/touch/ {print $8}') Rotate half
 /usr/bin/xsetwacom --set $(xsetwacom --list dev | gawk '/stylus/ {print $8}') Rotate half
 /usr/bin/xsetwacom --set $(xsetwacom --list dev | gawk '/eraser/ {print $8}') Rotate half
+
+export _JAVA_AWT_WM_NONREPARENTING=1

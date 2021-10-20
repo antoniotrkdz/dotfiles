@@ -1,0 +1,266 @@
+(setq inhibit-startup-message t)
+
+(scroll-bar-mode -1)        ; Disable visible scrollbar
+(tool-bar-mode -1)          ; Disable the toolbar
+;; (tooltip-mode -1)           ; Disable tooltips
+(set-fringe-mode 10)
+;; (menu-bar-mode -1)
+
+(setq visible-bell t)
+
+;;(setq-default indent-tabs-mode nil)
+;;(setq-default tab-width 2)
+;;(setq indent-line-function 'insert-tab)
+
+(set-face-attribute 'default nil :font "mononoki" :height 140)
+
+;; Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+(column-number-mode)
+(global-display-line-numbers-mode t)
+(setq display-line-numbers 'relative)
+
+;;Disable line numbers for some modes
+(dolist (mode '(org-mode-hook
+		term-mode-hook
+		eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;; Initialize package sources
+(require 'package)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+(unless package-archive-contents
+ (package-refresh-contents))
+
+;; Initialize use-package on non-Linux platforms
+;;(unless (package-installed-p 'use-package)
+  ;; (package-install 'use-package))
+
+;; NOTE: The first time you load your configuration on a new machine, you'll
+;; need to run the following command interactively so that mode line icons
+;; display correctly:
+;;
+;; M-x all-the-icons-install-fonts
+
+;;(use-package all-the-icons)
+
+(require 'use-package)
+ (setq use-package-always-ensure t)
+
+(require 'doom-themes)
+
+;; Global settings (defaults)
+(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
+;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each
+;; theme may have their own settings.
+(load-theme 'doom-Iosvkem t)
+
+;; Enable flashing mode-line on errors
+(doom-themes-visual-bell-config)
+
+;; Enable custom neotree theme
+;;(doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
+
+(use-package ivy
+  :diminish
+  :bind (("C-s" . swiper)
+         :map ivy-minibuffer-map
+         ("TAB" . ivy-alt-done)
+         ("C-l" . ivy-alt-done)
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
+         :map ivy-switch-buffer-map
+         ("C-k" . ivy-previous-line)
+         ("C-l" . ivy-done)
+         ("C-d" . ivy-switch-buffer-kill)
+         :map ivy-reverse-i-search-map
+         ("C-k" . ivy-previous-line)
+         ("C-d" . ivy-reverse-i-search-kill))
+  :config
+  (ivy-mode 1))
+
+(use-package doom-modeline
+  :init (doom-modeline-mode 1)
+  ;;:custom ((doom-modeline-height 15))
+  )
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(show-paren-mode 1)
+
+(use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-idle-delay 0))
+
+(use-package ivy-rich
+  :init
+  (ivy-rich-mode 1))
+
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+	 ("C-x b" . counsel-ibuffer)
+	 ("C-x C-f" . counsel-find-file)
+	 :map minibuffer-local-map
+	 ("C-r" . 'counsel-minibuffer-history))
+  :config
+  (setq ivy-initial-inputs-alist nil)) ;; Don't start searches with ^
+
+;;(defun antoniotrkdz/evil-hook ()
+;;  (dolist (mode '(custom-mode
+;;		  eshell-mode
+		  ;;git-rebase-mode
+		  ;;erc-mode
+;;		  term-mode))
+;;    (add-to-list 'evil-emacs-state-modes mode)))
+
+(use-package evil
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil) ;; replaced by other package.
+  (setq evil-want-C-u-scroll t)
+  (setq evil-want-C-j-jump nil)
+  (setq evil-want-Y-yank-to-eol t)
+  (setq evil-shift-width 2)
+  (setq evil-vsplit-window-right t)
+  (setq evil-show-paren-range 5)
+  (setq evil-want-fine-undo t)
+  (setq evil-undo-system 'undo-tree)
+  (setq evil-kill-on-visual-paste nil)
+  (setq evil-escape-key-sequence "jk"
+	evil-escape-delay 0.3
+	evil-escape-unordered-key-sequence t))
+;;  :hook (evil-mode . antoniotrkdz/evil-hook)
+  :config
+  (evil-mode 1)
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+  ;;(define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+  ;; C-h is the normal emacs keybind to delete backwards 'backspace'.
+  
+  ;; Use visual line motions even outside of visual-line-mode buffers
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+
+  (evil-set-initial-state 'messages-buffer-mode 'normal)
+  (evil-set-initial-state 'dashboard-mode 'normal)
+
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
+  
+(use-package evil-escape
+  :after evil
+  :config
+  (evil-escape-mode 1))
+
+(use-package evil-commentary
+  :after evil
+  :config
+  (evil-commentary-mode))
+
+(use-package evil-surround
+  :after evil
+  :config
+  (global-evil-surround-mode 1))
+
+(use-package evil-easymotion
+  :after evil
+  :config
+  (evilem-default-keybindings "SPC"))
+
+(use-package paredit)
+  ;; :config
+  ;; (enable-paredit-mode t))
+
+(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+(add-hook 'clojure-mode-hook          #'enable-paredit-mode)
+(add-hook 'clojurescript-mode-hook    #'enable-paredit-mode)
+(add-hook 'clojurec-mode-hook         #'enable-paredit-mode)
+
+(use-package evil-goggles
+  :config
+  (evil-goggles-mode))
+
+  ;; optionally use diff-mode's faces; as a result, deleted text
+  ;; will be highlighed with `diff-removed` face which is typically
+  ;; some red color (as defined by the color theme)
+ ;; other faces such as `diff-added` will be used for other actions
+  ;; (evil-goggles-use-diff-faces))
+
+(use-package evil-matchit
+  :config
+  (global-evil-matchit-mode 1))
+
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode))
+
+(evil-global-set-key 'normal (kbd "U") 'evil-redo)
+
+;;(use-package lsp-mode
+;;  :commands (lsp lsp-deferred)
+;;  :init
+;;  (setq lsp-keymap-prefix "C-l")
+;;  :config
+;;  (lsp-enable-wich-key-integration))
+
+(setq package-selected-packages '(clojure-mode lsp-mode cider lsp-treemacs flycheck company))
+
+(when (cl-find-if-not #'package-installed-p package-selected-packages)
+  (package-refresh-contents)
+  (mapc #'package-install package-selected-packages))
+
+(add-hook 'clojure-mode-hook 'lsp)
+(add-hook 'clojurescript-mode-hook 'lsp)
+(add-hook 'clojurec-mode-hook 'lsp)
+
+(setq gc-cons-threshold (* 100 1024 1024)
+      read-process-output-max (* 1024 1024)
+      treemacs-space-between-root-nodes nil
+      company-minimum-prefix-length 1
+      lsp-lens-enable t
+      lsp-signature-auto-activate nil
+      ; lsp-enable-indentation nil ; uncomment to use cider indentation instead of lsp
+      ; lsp-enable-completion-at-point nil ; uncomment to use cider completion instead of lsp
+      lsp-keymap-prefix "C-l"
+      lsp-enable-wich-key-integration t
+      )
+
+;; The following code is handled by Emacs Custom - don't edit.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("990e24b406787568c592db2b853aa65ecc2dcd08146c0d22293259d400174e37" default))
+ '(package-selected-packages
+   '(evil-commentary evil-escape evil-collection evil counsel ivy-rich which-key rainbow-delimiters doom-modeline ivy doom-themes use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(evil-goggles-change-face ((t (:inherit diff-removed))))
+ '(evil-goggles-delete-face ((t (:inherit diff-removed))))
+ '(evil-goggles-paste-face ((t (:inherit diff-added))))
+ '(evil-goggles-undo-redo-add-face ((t (:inherit diff-added))))
+ '(evil-goggles-undo-redo-change-face ((t (:inherit diff-changed))))
+ '(evil-goggles-undo-redo-remove-face ((t (:inherit diff-removed))))
+ '(evil-goggles-yank-face ((t (:inherit diff-changed)))))
