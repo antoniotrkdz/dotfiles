@@ -1,0 +1,133 @@
+{
+  "window.zoomLevel": 1,
+  "workbench.commandPalette.preserveInput": true,
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#B48EAD",
+    "statusBar.noFolderBackground": "#B48EAD",
+    "statusBar.debuggingBackground": "#B48EAD",
+    "statusBar.foreground": "#434C5E",
+    "statusBar.debuggingForeground": "#434C5E"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.cursorSurroundingLines": 999,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "files.associations": {
+    "*.vue": "vue"
+  },
+  "editor.minimap.enabled": false,
+  "editor.fontFamily": "'Consolas ligaturized v2 Regular',Consolas,'Courier New', monospace",
+  "editor.fontLigatures": "'ss02'",
+  // "editor.fontLigatures": true,
+  "editor.accessibilitySupport": "off",
+  "editor.defaultFormatter": null,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.format.enable": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[html, css]": {
+    "editor.defaultFormatter": "HookyQR.beautify"
+  },
+  "git.confirmSync": false,
+  "editor.guides.bracketPairs": true,
+  "editor.bracketPairColorization.enabled": true,
+  "gitlens.gitCommands.skipConfirmations": [
+    "fetch:command",
+    "stash-push:command",
+    "switch:command",
+    "push:command"
+  ],
+
+  // vim
+  "vim.easymotion": true,
+  "vim.hlsearch": true,
+  "vim.highlightedyank.enable": true,
+  "vim.useSystemClipboard": true,
+  "vim.visualstar": true,
+  "vim.easymotionMarkerForegroundColorOneChar": "#F88070",
+  "vim.easymotionMarkerForegroundColorTwoCharFirst": "#F88070",
+  "vim.easymotionMarkerForegroundColorTwoCharSecond": "#F88070",
+  "vim.easymotionMarkerBackgroundColor": "#474747",
+  // "vim.easymotionMarkerHeight": 16,
+  "vim.statusBarColorControl": true,
+  "vim.statusBarColors.normal": ["#8FBCBB", "#434C5E"],
+  "vim.statusBarColors.insert": "#BF616A",
+  "vim.statusBarColors.visual": "#B48EAD",
+  "vim.statusBarColors.visualline": "#B48EAD",
+  "vim.statusBarColors.visualblock": "#A3BE8C",
+  "vim.statusBarColors.replace": "#D08770",
+  "vim.statusBarColors.commandlineinprogress": "#007ACC",
+  "vim.statusBarColors.searchinprogressmode": "#007ACC",
+  "vim.statusBarColors.easymotionmode": "#007ACC",
+  "vim.statusBarColors.easymotioninputmode": "#007ACC",
+  "vim.statusBarColors.surroundinputmode": "#007ACC",
+
+  "vim.insertModeKeyBindingsNonRecursive": [
+    {
+      "before": ["j", "k"],
+      "after": ["<Esc>"]
+    },
+    {
+      "before": ["k", "j"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["v"],
+      "after": ["<Esc>"]
+    },
+    {
+      "before": ["H"],
+      "after": ["^"]
+    },
+    {
+      "before": ["L"],
+      "after": ["$"]
+    },
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["leader", "<CR>"],
+      "commands": [":nohl"]
+    },
+    {
+      "before": ["Y"],
+      "after": ["y", "$"]
+    },
+    {
+      "before": ["H"],
+      "after": ["^"]
+    },
+    {
+      "before": ["L"],
+      "after": ["$"]
+    }
+  ],
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.donotVerifyTags": true,
+  "liveServer.settings.useWebExt": true,
+  "liveServer.settings.proxy": {
+    "enable": true,
+    "baseUri": "/",
+    "proxyUri": "http://127.0.0.1:80"
+  },
+  "editor.renderWhitespace": "all",
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
