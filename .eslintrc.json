@@ -1,0 +1,53 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": ["standard"],
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
+  "rules": {
+    "comma-style": ["error", "first"],
+    "one-var": [
+      "error",
+      {
+        "separateRequires": true
+      }
+    ],
+    "new-cap": [
+      "error",
+      {
+        "newIsCap": true,
+        "capIsNew": false,
+        "properties": true,
+        "newIsCapExceptions": ["pdf"]
+      }
+    ],
+    "key-spacing": [
+      "error",
+      {
+        "multiLine": {
+          "beforeColon": false,
+          "afterColon": true,
+          "mode": "minimum"
+        },
+        "align": {
+          "beforeColon": true,
+          "afterColon": true,
+          "on": "colon",
+          "mode": "minimum"
+        }
+      }
+    ],
+    "max-len": [
+      "error",
+      {
+        "ignoreComments": true,
+        "ignoreTrailingComments": true
+      }
+    ]
+  }
+}
