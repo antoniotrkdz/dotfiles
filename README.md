@@ -19,3 +19,8 @@ To make less to colorise man pages see [this](https://unix.stackexchange.com/que
 For terminal color formatting see [this](https://misc.flogisoft.com/bash/tip_colors_and_formatting)
 
 Nice reddit on [using space as modifier](https://www.reddit.com/r/i3wm/comments/5zpz69/using_space_bar_as_mod_is_life_changing/)
+
+To get eslint (with standard configuration plus little niceties) to work in your JS / NODE project:
+```sh
+$ npm install --save-dev eslint eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-promise
+ ```
