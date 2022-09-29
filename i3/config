@@ -41,7 +41,7 @@ focus_follows_mouse no
 floating_modifier $mod
 
 # i3expo
-#exec_always "~/i3expo-ng/i3expod.py -f"
+exec_always --no-startup-id "~/i3expo-ng/i3expod.py"
 
 #  ╔═╗  ╔═╗  ╔╗╔  ╔╦╗
 #  ╠╣   ║ ║  ║║║   ║ 
@@ -107,6 +107,7 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 #
 # i3expo
 bindsym $mod+g exec --no-startup-id "killall -s SIGUSR1 i3expod.py"
+bindsym $mod+Shift+g exec --no-startup-id "killall -s SIGHUP i3expod.py"
 
 # Restore Space as modifier see .xsessionrc
 bindsym $mod+F1 exec --no-startup-id "< .xsessionrc grep -e /bin/.*x[^s] | bash -; \
