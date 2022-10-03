@@ -23,6 +23,7 @@ alias gs='git status'
 # vim aliases
 alias v='vim'
 alias vg='gvim'
+alias nv='nvim'
 
 # Get color support for 'less'
 export LESS="--RAW-CONTROL-CHARS"

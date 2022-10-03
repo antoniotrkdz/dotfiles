@@ -136,14 +136,14 @@ call plug#begin('~/.vim/plugged')
   "Ale Async Linting (+formatting) as you type
   Plug 'w0rp/ale'
   "Language specific
-  Plug 'pangloss/vim-javascript'
-  Plug 'vim-ruby/vim-ruby'
+  " Plug 'pangloss/vim-javascript'
+  " Plug 'vim-ruby/vim-ruby'
   Plug 'tpope/vim-rails'
-  Plug 'StanAngeloff/php.vim'
+  " Plug 'StanAngeloff/php.vim'
   "wisely add 'end' in ruby (maybe bash)
   Plug 'tpope/vim-endwise'
   "Emmet for HTML editing, <c-y> to trigger completion
-  Plug 'mattn/emmet-vim'
+  " Plug 'mattn/emmet-vim'
   "Colour preview in code
   Plug 'ap/vim-css-color'
   "Always highlights the enclosing XML/HTML tags 
@@ -173,7 +173,7 @@ call plug#begin('~/.vim/plugged')
   "Markdown editor (git READMEs)
   Plug 'shime/vim-livedown'
   "Database completion
-  Plug 'vim-scripts/dbext.vim'
+  " Plug 'vim-scripts/dbext.vim'
   "i3wm .config syntax
   Plug 'PotatoesMaster/i3-vim-syntax'
   "Vim-markbar
@@ -201,12 +201,13 @@ call plug#begin('~/.vim/plugged')
   Plug 'tyrannicaltoucan/vim-quantum'
   Plug 'vim-scripts/xoria256.vim'
   Plug 'haishanh/night-owl.vim'
+  Plug 'jeffkreeftmeijer/vim-dim', {'branch': 'main'}
 
   "MUcomplete is a minimalist autocompletion plugin for Vim.
-  Plug 'lifepillar/vim-mucomplete'
+  " Plug 'lifepillar/vim-mucomplete'
   "YouCompleteMe + tern completer - only for javascript
-  Plug 'Valloric/YouCompleteMe', { 'for': 'javascript', 'do': './install.py --js-completer' }
-  Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
+  " Plug 'Valloric/YouCompleteMe', { 'for': 'javascript', 'do': './install.py --js-completer' }
+  " Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
 
 call plug#end()
 
@@ -219,6 +220,7 @@ source ~/.vim/99-hl-matchlines.vim " Plugin to highlight matchit.
 "/_/  /_/\_,_/\_, /_/_//_/___/ /___/\__/\__/\__/_/_//_/\_, /___/
 "            /___/                                    /___/
 " Autocompletion with tab
+" inoremap <m-Tab> <plug>(MUcompleteFwd)
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
@@ -305,8 +307,8 @@ let g:tern_map_keys = 1
 let g:tern_show_signature_in_pum = 1
 
 " Disable YCM for ruby filetype
-let g:ycm_filetype_blacklist = { 'ruby': 1 }
-let g:ycm_filetype_specific_completion_to_disable = { 'ruby': 1 }
+" let g:ycm_filetype_blacklist = { 'ruby': 1 }
+" let g:ycm_filetype_specific_completion_to_disable = { 'ruby': 1 }
 "let g:ycm_max_num_identifier_candidates = 0
 
 " DelimitMate config for ruby and others
@@ -410,6 +412,7 @@ nnoremap <leader>p :call Toggle_Extra_Paren_HL()<CR>
 
 " Needed for vim-markbar
 map <Leader>m <Plug>ToggleMarkbar
+let g:markbar_persist_mark_names = v:false
 
 " surround by quotes - frequently use cases of vim-surround
 map <leader>" ysiw"<cr>
@@ -484,7 +487,7 @@ if has('gui_running')
   endif
   " Hide ~ at the end of the buffer
   highlight EndOfBuffer guifg=bg
-elseif &term == "rxvt-unicode-256color" || &term == "xterm-256color"
+elseif &term =~ '\v.+-256color' || &term =="xterm-kitty"
   set t_Co=256
   set background=dark
   colorscheme Iosvkem
@@ -502,6 +505,8 @@ elseif &term == "rxvt-unicode-256color" || &term == "xterm-256color"
   highlight EndOfBuffer ctermfg=bg
 else
   set t_Co=8
+  set background=dark
+  colorscheme dim
   highlight Pmenu ctermfg=15 ctermbg=8
   highlight PmenuSel ctermfg=15 ctermbg=0
   highlight PmenuSbar ctermbg=8

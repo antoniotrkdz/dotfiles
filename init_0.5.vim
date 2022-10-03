@@ -44,12 +44,30 @@ set nocompatible
 " Set the runtime path to include Vundle and initialise
 call plug#begin('~/.config/nvim/plugged')
 
-" LSP
+" LSP / Completion
 Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp', {'branch': 'main'}
+Plug 'hrsh7th/cmp-buffer', {'branch': 'main'}
+Plug 'hrsh7th/cmp-path', {'branch': 'main'}
+Plug 'hrsh7th/cmp-cmdline', {'branch': 'main'}
 Plug 'hrsh7th/nvim-cmp', {'branch': 'main'}
 
+" For vsnip users.
+" Plug 'hrsh7th/cmp-vsnip'
+" Plug 'hrsh7th/vim-vsnip'
+
+" For luasnip users.
+" Plug 'L3MON4D3/LuaSnip'
+" Plug 'saadparwaiz1/cmp_luasnip'
+
+" For snippy users.
+" Plug 'dcampos/nvim-snippy'
+" Plug 'dcampos/cmp-snippy'
+
+" For ultisnips users.
 " Code snippets
 Plug 'SirVer/ultisnips'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'honza/vim-snippets'
 
 " Fuzzy finder
@@ -70,7 +88,7 @@ EOF
 
 " Status line
 " Plug 'glepnir/galaxyline.nvim', {'branch': 'main'}
-Plug 'hoob3rt/lualine.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 
 " Debugging
 Plug 'nvim-telescope/telescope-dap.nvim'
@@ -233,6 +251,7 @@ set signcolumn=yes
 " Give more space for displaying messages.
 set cmdheight=2
 
+" set completeopt=menu,menuone,noselect "cmp
 set completeopt=menuone,noinsert,noselect
 set smartindent
 
@@ -286,13 +305,13 @@ au FileType html,vim let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
         '', -- TypeParameter
       }
 
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    -- local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     -- Mappings
-    local opts = { noremap=true, silent=true }
+    local opts = { noremap=true, silent=true, buffer=bufnr }
     buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
@@ -331,15 +350,20 @@ au FileType html,vim let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
     end
   end
 
-  local servers = {'tsserver'}
-  for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup {
-      on_attach = on_attach,
-      filetypes = { 'javascript', 'javascriptreact', 'json', 'typescript', 
-            \ 'typescriptreact', 'css', 'less', 'scss', 'markdown', 'pandoc' },
-      root_dir = function() return vim.loop.cwd() end -- run lsp for javascript in any directory
-    }
-  end
+  -- local servers = {'tsserver'}
+  -- for _, lsp in ipairs(servers) do
+    -- nvim_lsp[lsp].setup {
+      -- on_attach = on_attach,
+      -- filetypes = { 'javascript', 'javascriptreact', 'json', 'typescript', 
+        --     \ 'typescriptreact', 'css', 'less', 'scss', 'markdown', 'pandoc' },
+      -- root_dir = function() return vim.loop.cwd() end -- run lsp for javascript in any directory
+    -- }
+  -- end
+
+  require('lspconfig')['tsserver'].setup{
+    on_attach = on_attach,
+  --  flags = lsp_flags,
+  }
 
   nvim_lsp.diagnosticls.setup {
     on_attach = on_attach,
@@ -430,6 +454,77 @@ EOF
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+lua <<EOF
+  -- Set up nvim-cmp.
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+      end,
+    },
+    window = {
+      -- completion = cmp.config.window.bordered(),
+      -- documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      -- { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
+      { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Set configuration for specific filetype.
+  cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
+
+  -- Set up lspconfig.
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+  require('lspconfig')['tsserver'].setup {
+    capabilities = capabilities
+  }
+EOF
 " -- LSP ----------------------------------------------------------------------
 
 " Code snippets
@@ -466,14 +561,16 @@ nnoremap <leader>tn :NvimTreeFindFile<CR>
 " Status line
 " luafile ~/.config/nvim/eviline.lua
 " luafile ~/.config/nvim/galaxyline.lua
-luafile ~/.config/nvim/evil_lualine.lua
-" lua <<EOF
-" require('lualine').setup {
-  " options = {
-    " theme = 'vscode'
-  " }
-" }
-" EOF
+" luafile ~/.config/nvim/evil_lualine.lua
+lua << END
+require('lualine').setup {
+  options = {
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+  }
+}
+require('lualine').get_config()
+END
 
 " Debugging
 lua <<EOF
@@ -506,8 +603,8 @@ noremap <S-A-f> :Format<CR>
 " Open the current file in default browser
 nnoremap <F5> :execute '!sensible-browser % &'<CR>
 " Edit vimrc with f5 and source it with f6
-nmap <silent> <leader><f5> :e $MYVIMRC<CR>
-nmap <silent> <leader><f6> :so $MYVIMRC<CR>
+nnoremap <silent> <leader><f5> :e $MYVIMRC<CR>
+nnoremap <leader><f6> :so $MYVIMRC<CR>
 " Search the word under the cursor in file folder.
 noremap <F7> :execute "grep! " . expand("<cword>") . "\| copen"<CR>
 noremap <F8> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
@@ -598,8 +695,13 @@ highlight Comment cterm=italic gui=italic
 highlight MatchParen guibg=NONE guifg=#00ff00 gui=bold
 
 " Highlight for the trailing space
-highlight ExtraWhitespace ctermbg=red guibg=#ff0000
-autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\\t/
+" highlight ExtraWhitespace ctermbg=red guibg=#ff0000
+" autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\\t/
+
+" TODO: highlight off for thr popupmenu
+"if (!pumvisible())
+"...
+"endif
 
 " Highlight past the 80th column
 set colorcolumn=81
