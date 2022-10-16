@@ -8,11 +8,15 @@ ______\/\\\______\/\\\___\///__\/\\\\\\\\/____/\\\////\\\_______/\\\/__________
 _______\/\\\_/\\__\/\\\_________\/\\\///\\\___\/\\\__\/\\\_____/\\\/___________
 ________\//\\\\\___\/\\\_________\/\\\_\///\\\_\//\\\\\\\/\\__/\\\\\\\\\\\_____
 __________\/////____\///__________\///____\///___\///////\//__\///////////_____
-_____________________________________________________________________________]] 
+_____________________________________________________________________________]]
 
 local g = vim.g
 local opt = vim.opt
 local api = vim.api
+
+-- disable netrw (nvim-tree)
+g.loaded = 1
+g.loaded_netrwPlugin = 1
 
 opt.compatible = false
 -- Disable all error bells
@@ -83,6 +87,7 @@ opt.cmdheight = 2
 -- set completeopt=menu,menuone,noselect -- cmp default 
 opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
 opt.smartindent = true
+opt.termguicolors = true
                                                                             --[[
 ╔═╗  ╦    ╦ ╦  ╔═╗  ╦  ╔╗╔  ╔═╗
 ╠═╝  ║    ║ ║  ║ ╦  ║  ║║║  ╚═╗
@@ -94,6 +99,7 @@ require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   -- Theme
   use 'Mofiqul/vscode.nvim'
+  use 'martinsione/darkplus.nvim'
   -- Status line
   use 'nvim-lualine/lualine.nvim'
   -- Syntax highlighting
@@ -125,8 +131,56 @@ require('packer').startup(function(use)
   use 'SirVer/ultisnips'
   use 'quangnguyen30192/cmp-nvim-ultisnips'
   -- use 'honza/vim-snippets'
+  -- File explorer
+  use 'kyazdani42/nvim-web-devicons'
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = {
+      'kyazdani42/nvim-web-devicons', -- optional, for file icons
+    },
+  }
+  use 'onsails/lspkind.nvim'
+
+  -- Commenter
+  -- use 'tpope/vim-commentary'
+  use 'terrortylor/nvim-comment' -- Does not have block comment
+
+  -- use "lukas-reineke/indent-blankline.nvim"
 
 end)
+
+-- vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
+-- vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
+-- vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
+-- vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
+-- vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
+-- vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
+
+api.nvim_set_hl(0, 'IndentBlanklineIndent1', { ctermfg = "DarkYellow", nocombine = true })
+api.nvim_set_hl(0, 'IndentBlanklineIndent2', { ctermfg = "DarkBlue", nocombine = true })
+api.nvim_set_hl(0, 'IndentBlanklineIndent3', { fg = "#98C379", nocombine = true })
+api.nvim_set_hl(0, 'IndentBlanklineIndent4', { fg = "#56B6C2", nocombine = true })
+api.nvim_set_hl(0, 'IndentBlanklineIndent5', { fg = "#61AFEF", nocombine = true })
+api.nvim_set_hl(0, 'IndentBlanklineIndent6', { fg = "#C678DD", nocombine = true })
+-- vim.opt.list = true
+-- vim.opt.listchars:append "space:⋅"
+-- vim.opt.listchars:append "eol:↴"
+
+require("indent_blankline").setup {
+  char_highlight_list = {
+    "IndentBlanklineIndent1",
+    "IndentBlanklineIndent2",
+    "IndentBlanklineIndent3",
+    "IndentBlanklineIndent4",
+    "IndentBlanklineIndent5",
+    "IndentBlanklineIndent6",
+  },
+  space_char_blankline = " ",
+  -- show_current_context = true,
+  -- show_current_context_start = true,
+}
+
+require('nvim_comment').setup({comment_empty = false})
 
 require('lualine').setup {
   options = {
@@ -134,6 +188,9 @@ require('lualine').setup {
     section_separators = { left = '', right = ''},
   }
 }
+
+-- empty setup using defaults
+require("nvim-tree").setup()
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
@@ -166,145 +223,259 @@ require("mason-lspconfig").setup({
 ║    ╚═╗  ╠═╝
 ╩═╝  ╚═╝  ╩  
 ]]
-  local nvim_lsp = require('lspconfig')
+local nvim_lsp = require('lspconfig')
+local cmp = require'cmp'
 
-  local on_attach = function(client, bufnr)
-    require'completion'.on_attach(client, bufnr)
-    protocol.CompletionItemKind = {
-        '', -- Text
-        '', -- Method
-        '', -- Function
-        '', -- Constructor
-        '', -- Field
-        '', -- Variable
-        '', -- Class
-        'ﰮ', -- Interface
-        '', -- Module
-        '', -- Property
-        '', -- Unit
-        '', -- Value
-        '', -- Enum
-        '', -- Keyword
-        '﬌', -- Snippet
-        '', -- Color
-        '', -- File
-        '', -- Reference
-        '', -- Folder
-        '', -- EnumMember
-        '', -- Constant
-        '', -- Struct
-        '', -- Event
-        'ﬦ', -- Operator
-        '', -- TypeParameter
-      }
+local on_attach = function(client, bufnr)
+  cmp.on_attach(client, bufnr)
 
-    -- local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  -- local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-    -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    -- Mappings
-    local opts = { noremap=true, silent=true, buffer=bufnr }
-    buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  -- Mappings
+  local opts = { noremap=true, silent=true, buffer=bufnr }
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
-    -- Set some keybinds conditional on server capabilities
-    if client.resolved_capabilities.document_formatting then
-        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    elseif client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    end
-
-    -- Set autocommands conditional on server_capabilities
-    if client.resolved_capabilities.document_highlight then
-        api.nvim_exec([[
-        hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-        hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-        hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-        augroup lsp_document_highlight
-            autocmd!
-            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END
-        ]], false)
-    end
+  -- Set some keybinds conditional on server capabilities
+  if client.resolved_capabilities.document_formatting then
+      buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  elseif client.resolved_capabilities.document_range_formatting then
+      buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   end
 
-  -- local servers = {'sumneko_lua','tsserver'}
-  -- for _, lsp in ipairs(servers) do
-  --   nvim_lsp[lsp].setup {
-  --     on_attach = on_attach,
-  --     filetypes = {
-  --       'javascript',
-  --       'javascriptreact',
-  --       'json',
-  --       'typescript',
-  --       'typescriptreact',
-  --       'css',
-  --       'less',
-  --       'scss',
-  --       'markdown',
-  --       'pandoc'
-  --     },
-  --     root_dir = function() return vim.loop.cwd() end -- run lsp for javascript in any directory
-  --   }
-  -- end
+  -- Set autocommands conditional on server_capabilities
+  if client.resolved_capabilities.document_highlight then
+      api.nvim_exec([[
+      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      augroup lsp_document_highlight
+          autocmd!
+          autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+          autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+      ]], false)
+  end
+end
 
-  require('lspconfig')['sumneko_lua'].setup{
-    on_attach = on_attach
+-- local servers = {'sumneko_lua','tsserver'}
+-- for _, lsp in ipairs(servers) do
+--   nvim_lsp[lsp].setup {
+--     on_attach = on_attach,
+--     filetypes = {
+--       'javascript',
+--       'javascriptreact',
+--       'json',
+--       'typescript',
+--       'typescriptreact',
+--       'css',
+--       'less',
+--       'scss',
+--       'markdown',
+--       'pandoc'
+--     },
+--     root_dir = function() return vim.loop.cwd() end -- run lsp for javascript in any directory
+--   }
+-- end
+
+nvim_lsp['sumneko_lua'].setup{
+--  on_attach = on_attach
+}
+
+nvim_lsp['tsserver'].setup{
+--  on_attach = on_attach,
+  filetypes = {
+    'javascript',
+    'javascriptreact',
+    'json',
+    'typescript',
+    'typescriptreact',
+    'css',
+    'less',
+    'scss',
+    'markdown',
+    'pandoc'
+  },
+  root_dir = function() return vim.loop.cwd() end -- run lsp for javascript in any directory
+--  flags = lsp_flags,
+}
+
+-- Completion
+--g.completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+-- inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+-- inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+-- Set up nvim-cmp.
+cmp.setup({
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+      vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+    end,
+  },
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    -- { name = 'vsnip' }, -- For vsnip users.
+    -- { name = 'luasnip' }, -- For luasnip users.
+    { name = 'ultisnips' }, -- For ultisnips users.
+    -- { name = 'snippy' }, -- For snippy users.
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
+    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
   }
+})
 
-  require('lspconfig')['tsserver'].setup{
-    on_attach = on_attach,
-    filetypes = {
-      'javascript',
-      'javascriptreact',
-      'json',
-      'typescript',
-      'typescriptreact',
-      'css',
-      'less',
-      'scss',
-      'markdown',
-      'pandoc'
-    },
-    root_dir = function() return vim.loop.cwd() end -- run lsp for javascript in any directory
-  --  flags = lsp_flags,
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+
+-- Set up lspconfig.
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+require('lspconfig')['tsserver'].setup {
+  capabilities = capabilities
+}
+
+require'nvim-web-devicons'.setup {
+ -- your personnal icons can go here (to override)
+ -- you can specify color or cterm_color instead of specifying both of them
+ -- DevIcon will be appended to `name`
+ -- override = {
+ --  zsh = {
+ --    icon = "",
+ --    color = "#428850",
+ --    cterm_color = "65",
+ --    name = "Zsh"
+ --  }
+ -- }
+
+ -- From: https://blog.inkdrop.app/how-to-set-up-neovim-0-5-modern-plugins-lsp-treesitter-etc-542c3d9c9887
+ -- '', -- Text
+ -- '', -- Method
+ -- '', -- Function
+ -- '', -- Constructor
+ -- '', -- Field
+ -- '', -- Variable
+ -- '', -- Class
+ -- 'ﰮ', -- Interface
+ -- '', -- Module
+ -- '', -- Property
+ -- '', -- Unit
+ -- '', -- Value
+ -- '', -- Enum
+ -- '', -- Keyword
+ -- '﬌', -- Snippet
+ -- '', -- Color
+ -- '', -- File
+ -- '', -- Reference
+ -- '', -- Folder
+ -- '', -- EnumMember
+ -- '', -- Constant
+ -- '', -- Struct
+ -- '', -- Event
+ -- 'ﬦ', -- Operator
+ -- '', -- TypeParameter
+
+ -- globally enable different highlight colors per icon (default to true)
+ -- if set to false all icons will have the default icon's color
+ color_icons = true;
+ -- globally enable default icons (default to false)
+ -- will get overriden by `get_icons` option
+ default = true;
+}
+
+local lspkind = require('lspkind')
+-- cmp.setup {
+--  formatting = {
+--   format = lspkind.cmp_format({
+--      mode = 'symbol', -- show only symbol annotations
+--      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+--      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+
+      -- The function below will be called before any actual modifications from lspkind
+      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+--      before = function (entry, vim_item)
+--       ...
+--      return vim_item
+--      end
+--    })
+--  }
+--}
+
+cmp.setup {
+  formatting = {
+    format = function(entry, vim_item)
+      if vim.tbl_contains({ 'path' }, entry.source.name) then
+        local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
+        if icon then
+          vim_item.kind = icon
+          vim_item.kind_hl_group = hl_group
+          return vim_item
+        end
+      end
+      return lspkind.cmp_format({ with_text = false })(entry, vim_item)
+    end
   }
-
+}
 --[[
 " Fuzzy finder
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
-" Syntax
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
-
-" File explorer
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'kyazdani42/nvim-tree.lua'
-:lua << EOF
-  require'nvim-tree'.setup()
-EOF
-
-" Status line
-" Plug 'glepnir/galaxyline.nvim', {'branch': 'main'}
-Plug 'nvim-lualine/lualine.nvim'
 
 " Debugging
 Plug 'nvim-telescope/telescope-dap.nvim'
@@ -314,9 +485,6 @@ Plug 'mfussenegger/nvim-dap'
 " Github integration
 Plug 'pwntester/octo.nvim'
 Plug 'tpope/vim-fugitive'
-
-"Commenter
-Plug 'tpope/vim-commentary'
 
 "wisely add 'end' in ruby (maybe bash)
 Plug 'tpope/vim-endwise'
@@ -498,80 +666,6 @@ au FileType html,vim let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
   }
 EOF
 
-" Completion
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-lua <<EOF
-  -- Set up nvim-cmp.
-  local cmp = require'cmp'
-
-  cmp.setup({
-    snippet = {
-      -- REQUIRED - you must specify a snippet engine
-      expand = function(args)
-        -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-      end,
-    },
-    window = {
-      -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
-    },
-    mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      -- { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
-    }, {
-      { name = 'buffer' },
-    })
-  })
-
-  -- Set configuration for specific filetype.
-  cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-    }, {
-      { name = 'buffer' },
-    })
-  })
-
-  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline({ '/', '?' }, {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'buffer' }
-    }
-  })
-
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
-  })
-
-  -- Set up lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  require('lspconfig')['tsserver'].setup {
-    capabilities = capabilities
-  }
 EOF
 " -- LSP ----------------------------------------------------------------------
 
@@ -752,10 +846,11 @@ and use tmux's 24-bit color support
 opt.background = 'dark'
 
 -- VS Code dark theme
-g.vscode_style = 'dark'
+-- g.vscode_style = 'dark'
 
 -- Set the theme.
-vim.cmd[[colorscheme vscode]]
+vim.cmd[[colorscheme darkplus]]
+-- vim.cmd[[colorscheme vscode]]
 -- vim.cmd[[colorscheme Iosvkem]]
 
 -- vim.api.nvim_set_hl(0, 'Normal', { fg = "#ffffff", bg = "#333333" })
@@ -764,7 +859,15 @@ vim.cmd[[colorscheme vscode]]
 -- vim.api.nvim_set_hl(0, 'Cursor', { reverse = true })
 -- Italic for comments.
 -- highlight Comment cterm=italic gui=italic
-vim.api.nvim_set_hl(0, 'Comment', { italic = true })
+api.nvim_set_hl(0, 'Comment', { italic = true })
+
+api.nvim_create_autocmd('TextYankPost', {
+    group = num_au,
+    callback = function()
+        -- api.nvim_set_hl(0, 'IncSearch', { fg = "#aaaa00" })
+        vim.highlight.on_yank({ higroup = 'Visual', timeout = 250 })
+    end,
+})
 
 -- Highlight for the matching parenthesis.
 -- highlight MatchParen guibg=NONE guifg=#00ff00 gui=bold

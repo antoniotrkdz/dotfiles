@@ -132,27 +132,27 @@ fi
 # php artisan bash completion
 # https://gist.github.com/tuanpht/2c92f39c74f404ffc712c9078a384f39
 # see also https://gist.github.com/jhoff/8fbe4116d74931751ecc9e8203dfb7c4
-_artisan()
-{
-    local arg="${COMP_LINE#php }"
+# _artisan()
+# {
+#     local arg="${COMP_LINE#php }"
 
-    case "$arg" in
-        artisan*)
-            COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
-            COMMANDS=`php artisan --raw --no-ansi list | sed "s/[[:space:]].*//g"`
-            COMPREPLY=(`compgen -W "$COMMANDS" -- "${COMP_WORDS[COMP_CWORD]}"`)
-            ;;
-        *)
-            COMPREPLY=( $(compgen -o default -- "${COMP_WORDS[COMP_CWORD]}") )
-            ;;
-        esac
+#     case "$arg" in
+#         artisan*)
+#             COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
+#             COMMANDS=`php artisan --raw --no-ansi list | sed "s/[[:space:]].*//g"`
+#             COMPREPLY=(`compgen -W "$COMMANDS" -- "${COMP_WORDS[COMP_CWORD]}"`)
+#             ;;
+#         *)
+#             COMPREPLY=( $(compgen -o default -- "${COMP_WORDS[COMP_CWORD]}") )
+#             ;;
+#         esac
 
-    return 0
-}
-complete -F _artisan php
+#     return 0
+# }
+# complete -F _artisan php
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export LIBGL_DRI3_DISABLE=1
+# export LIBGL_DRI3_DISABLE=1

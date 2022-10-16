@@ -41,7 +41,7 @@ focus_follows_mouse no
 floating_modifier $mod
 
 # i3expo
-exec_always --no-startup-id "~/i3expo-ng/i3expod.py"
+exec_always --no-startup-id "~/i3expo-ng/i3expod.py -w"
 
 #  ╔═╗  ╔═╗  ╔╗╔  ╔╦╗
 #  ╠╣   ║ ║  ║║║   ║ 
@@ -111,7 +111,7 @@ bindsym $mod+Shift+g exec --no-startup-id "killall -s SIGHUP i3expod.py"
 
 # Restore Space as modifier see .xsessionrc
 bindsym $mod+F1 exec --no-startup-id "< .xsessionrc grep -e /bin/.*x[^s] | bash -; \
-  notify-send 'You Can use SPC as modifier' \
+  norify-send 'You Can use SPC as modifier' \
   'Hold space acts as $mod from the keyboard you just used' \
   -i preferences-desktop-keyboard"
 
@@ -136,9 +136,13 @@ bindsym $mod+d exec --no-startup-id "xdotool mousemove --sync 12 12 click 1 mous
 
 # MATE screenshot
 bindsym $mod+Print exec --no-startup-id "mate-screenshot --interactive"
+bindsym $mod+o exec --no-startup-id "mate-screenshot --interactive"
 
 # Toggle touchpad
 bindsym $mod+Shift+t exec --no-startup-id ~/toggletpad.sh
+
+# Diodon (clipboard manager)
+bindsym $mod+v exec --no-startup-id /usr/bin/diodon
 
 # Change focus
 bindsym $mod+h focus left
@@ -173,7 +177,7 @@ bindsym $mod+Shift+Right move right
 #bindsym $mod+v split v
 
 # Toggle split orentation
-bindsym $mod+v split toggle
+bindsym $mod+t split toggle
 
 # Enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen

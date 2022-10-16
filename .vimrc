@@ -19,11 +19,7 @@
 "_______________________________________________________________________________
 
 set nocompatible "IMproved, required
-"   _____                      __  ____    __  __  _
-"  / ___/__ ___  ___ _______ _/ / / __/__ / /_/ /_(_)__  ___ ____
-" / (_ / -_) _ \/ -_) __/ _ `/ / _\ \/ -_) __/ __/ / _ \/ _ `(_-<
-" \___/\__/_//_/\__/_/  \_,_/_/ /___/\__/\__/\__/_/_//_/\_, /___/
-"                                                      /___/
+
 "This command makes vim start a file with all folds closed
 "set foldlevelstart=0
 
@@ -33,10 +29,6 @@ set completeopt+=noinsert,menuone,noselect
 
 " Turn off the preview (opening a scratch buffer) from the YouCompleteMe menu
 set completeopt-=preview
-
-" Highlight the current line and column only in the current window
-autocmd WinLeave * set nocursorline nocursorcolumn
-autocmd WinEnter * set cursorline cursorcolumn
 
 " Disable all error bells
 set belloff=all
@@ -72,7 +64,7 @@ set listchars=tab:▸\ ,eol:¬,trail:·,space:·
 "tab:▹\ ,
 
 " Alternative menu
-"set wildmenu
+set wildmenu
 
 " Avoid producing any extraneous files
 " Now is managed see backup block below
@@ -96,6 +88,26 @@ set grepprg=ag\ -i
 
 syntax on " syntax enable
 filetype plugin indent on " Enable filetype-specific plugins and indenting
+
+" Change the cursor shape For VTE compatible terminals
+" (urxvt, st, xterm, gnome-terminal 3.x, Konsole KDE5 and others)
+" See https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
+
+" Ps = 0  -> blinking block.
+" Ps = 1  -> blinking block (default).
+" Ps = 2  -> steady block.
+" Ps = 3  -> blinking underline.
+" Ps = 4  -> steady underline.
+" Ps = 5  -> blinking bar (xterm).
+" Ps = 6  -> steady bar (xterm).
+" If there is a delay when hitting ESC to exit insert mode back to normal mode
+" and show the block as cursor again. To fix:
+" set ttimeout
+" set ttimeoutlen=1
+" set ttyfast
 
 "  ____  _             _
 " |  _ \| |_   _  __ _(_)_ __  ___
@@ -131,14 +143,13 @@ call plug#begin('~/.vim/plugged')
   "set the required font(s) in the console settings
   Plug 'powerline/fonts'
   "Commenter
-  "Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-commentary'
   "Ale Async Linting (+formatting) as you type
   Plug 'w0rp/ale'
   "Language specific
   " Plug 'pangloss/vim-javascript'
   " Plug 'vim-ruby/vim-ruby'
-  Plug 'tpope/vim-rails'
+  " Plug 'tpope/vim-rails'
   " Plug 'StanAngeloff/php.vim'
   "wisely add 'end' in ruby (maybe bash)
   Plug 'tpope/vim-endwise'
@@ -168,7 +179,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'itchyny/vim-cursorword'
   "Help for vim in vim
   Plug 'lifepillar/vim-cheat40'
-  "Easy, <leader><leader>f<letter> you want to move to
+  "Easy, <leader><leader>s<letter> you want to move to
   Plug 'easymotion/vim-easymotion'
   "Markdown editor (git READMEs)
   Plug 'shime/vim-livedown'
@@ -179,8 +190,17 @@ call plug#begin('~/.vim/plugged')
   "Vim-markbar
   Plug 'Yilin-Yang/vim-markbar'
 
+  "Alternative sudo.vim for Vim and Neovim
+  Plug 'lambdalisue/suda.vim'
+
   "Unmanged plugin to show terminal colors
   Plug '~/.vim/xterm-color-table.vim'
+
+  " Uncomplicated alternative to vim-signature (shows mark in gutter)
+  " Here in place of vim-markbar
+  Plug '~/.vim/marksigns.vim'
+  " Use % to jump between do - end, if - end, etc.
+  Plug '~/.vim/99-hl-matchlines.vim' " Plugin to highlight matchit.
 
   " "to be configured
   " Plug 'bfredl/nvim-miniyank'
@@ -211,8 +231,8 @@ call plug#begin('~/.vim/plugged')
 
 call plug#end()
 
-packadd! matchit " Use % to jump between do - end, if - end, etc.
-source ~/.vim/99-hl-matchlines.vim " Plugin to highlight matchit.
+" packadd! matchit " Use % to jump between do - end, if - end, etc.
+" source ~/.vim/99-hl-matchlines.vim " Plugin to highlight matchit.
 
 "   ___  __          _            ____    __  __  _
 "  / _ \/ /_ _____ _(_)__  ___   / __/__ / /_/ /_(_)__  ___ ____
@@ -249,10 +269,8 @@ let g:airline#extensions#tabline#enabled = 1
 
 if has('gui_running')
     let g:airline_theme='quantum'
-endif
-
-if has('nvim')
-    let g:airline_theme='behelit'
+  else
+    let g:airline_theme='deus'
 endif
 
 let g:airline_powerline_fonts = 1
@@ -276,29 +294,17 @@ let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 
 " Airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
-
-" NERDCommenter settings
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-" Set a language to use its alternate delimiters by default
-"let g:NERDAltDelims_java = 1
-" Add your own custom formats or override the defaults
-"let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-" Allow commenting and inverting empty lines (useful when commenting a region)
-"let g:NERDCommentEmptyLines = 1
-" Enable trimming of trailing whitespace when uncommenting
-"let g:NERDTrimTrailingWhitespace = 1
 
 " YouCompleteMe configuration
 " Tern configuration
@@ -368,6 +374,10 @@ let g:mucomplete#always_use_completeopt = 1
 " buffer, etcif 0 use <C-h> and <C-j> (default).
 let g:mucomplete#cycle_with_trigger = 1
 let g:mucomplete#cycle_all = 1
+
+" Suda.vim prefix
+" let g:suda#prefix = 'su//'
+
 "  ____ ____ ____ ____ ____ ____ ____ ____
 " ||M |||A |||P |||P |||I |||N |||G |||S ||
 " ||__|||__|||__|||__|||__|||__|||__|||__||
@@ -420,6 +430,9 @@ map <leader>' ysiw'<cr>
 
 " Make Y Act like D and C
 nnoremap Y y$
+
+" Searching on * stays on the word searched
+nnoremap * *N
 
 " indent without kill the selection in vmode
 vmap < <gv
@@ -524,6 +537,13 @@ autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\\t/
 " Highlight the 80th column
 set colorcolumn=80
 highlight ColorColumn ctermbg=52 guibg=#302222
+
+" Highlight the current line and column only in the current window
+autocmd vimEnter * set cursorline cursorcolumn
+autocmd WinEnter * set cursorline cursorcolumn
+autocmd WinLeave * set nocursorline nocursorcolumn
+
+" autocmd InsertEnter,InsertLeave * set cul!
 
 " Iovskem theme fixes (#1bid1e theme bg color, 234 cterm bg)
 if g:colors_name=='Iosvkem'
