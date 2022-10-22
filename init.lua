@@ -97,16 +97,20 @@ vim.cmd("packadd packer.nvim")
 
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
+
   -- Theme
   use 'Mofiqul/vscode.nvim'
   use 'martinsione/darkplus.nvim'
+
   -- Status line
   use 'nvim-lualine/lualine.nvim'
+
   -- Syntax highlighting
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
   }
+
   -- Git symbols
   use {
     'lewis6991/gitsigns.nvim',
@@ -145,49 +149,15 @@ require('packer').startup(function(use)
   -- use 'tpope/vim-commentary'
   use 'terrortylor/nvim-comment' -- Does not have block comment
 
-  -- use "lukas-reineke/indent-blankline.nvim"
+  use "lukas-reineke/indent-blankline.nvim"
 
 end)
 
--- vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
--- vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
--- vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
--- vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
--- vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
--- vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
-
-api.nvim_set_hl(0, 'IndentBlanklineIndent1', { ctermfg = "DarkYellow", nocombine = true })
-api.nvim_set_hl(0, 'IndentBlanklineIndent2', { ctermfg = "DarkBlue", nocombine = true })
-api.nvim_set_hl(0, 'IndentBlanklineIndent3', { fg = "#98C379", nocombine = true })
-api.nvim_set_hl(0, 'IndentBlanklineIndent4', { fg = "#56B6C2", nocombine = true })
-api.nvim_set_hl(0, 'IndentBlanklineIndent5', { fg = "#61AFEF", nocombine = true })
-api.nvim_set_hl(0, 'IndentBlanklineIndent6', { fg = "#C678DD", nocombine = true })
 -- vim.opt.list = true
 -- vim.opt.listchars:append "space:⋅"
 -- vim.opt.listchars:append "eol:↴"
 
-require("indent_blankline").setup {
-  char_highlight_list = {
-    "IndentBlanklineIndent1",
-    "IndentBlanklineIndent2",
-    "IndentBlanklineIndent3",
-    "IndentBlanklineIndent4",
-    "IndentBlanklineIndent5",
-    "IndentBlanklineIndent6",
-  },
-  space_char_blankline = " ",
-  -- show_current_context = true,
-  -- show_current_context_start = true,
-}
-
 require('nvim_comment').setup({comment_empty = false})
-
-require('lualine').setup {
-  options = {
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-  }
-}
 
 -- empty setup using defaults
 require("nvim-tree").setup()
@@ -218,11 +188,11 @@ require("mason").setup {}
 require("mason-lspconfig").setup({
   ensure_installed = { "sumneko_lua", "tsserver" }
 })
---[[
+                                                                            --[[
 ╦    ╔═╗  ╔═╗
 ║    ╚═╗  ╠═╝
 ╩═╝  ╚═╝  ╩  
-]]
+                                                                              ]]
 local nvim_lsp = require('lspconfig')
 local cmp = require'cmp'
 
@@ -266,9 +236,9 @@ local on_attach = function(client, bufnr)
       hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
       hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
       augroup lsp_document_highlight
-          autocmd!
-          autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-          autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+        autocmd!
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       augroup END
       ]], false)
   end
@@ -729,12 +699,12 @@ nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.i
 nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
 nnoremap <silent> <leader>dl :lua require'dap'.repl.run_last()<CR>`
 ]]
---[[
+                                                                            --[[
 ╔╦╗  ╔═╗  ╔═╗  ╔═╗  ╦  ╔╗╔  ╔═╗  ╔═╗
 ║║║  ╠═╣  ╠═╝  ╠═╝  ║  ║║║  ║ ╦  ╚═╗
 ╩ ╩  ╩ ╩  ╩    ╩    ╩  ╝╚╝  ╚═╝  ╚═╝
 -- make sure there are no spaces at the end!
-]]
+                                                                              ]]
 --local function nrmap(mode, shortcut, command)
 --  vim.keymap(m, k, v, { noremap = true, silent = true })
 --end
@@ -845,11 +815,71 @@ and use tmux's 24-bit color support
 
 opt.background = 'dark'
 
+local c = require('vscode.colors')
+require('vscode').setup({
+    -- Enable transparent background
+    -- transparent = true,
+
+    -- Enable italic comment
+    -- italic_comments = true,
+
+    -- Disable nvim-tree background color
+    -- disable_nvimtree_bg = true,
+
+    -- Override colors (see ./lua/vscode/colors.lua)
+    -- color_overrides = {
+        -- vscLineNumber = '#FFFFFF',
+    -- },
+
+    -- Override highlight groups (see ./lua/vscode/theme.lua)
+    -- group_overrides = {
+    --     -- this supports the same val table as vim.api.nvim_set_hl
+    --     -- use colors from this colorscheme by requiring vscode.colors!
+    --     cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=true },
+    -- }
+})
+
+require('lualine').setup {
+  options = {
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    theme = 'vscode',
+  }
+}
+
+-- vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
+-- vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
+-- vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
+-- vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
+-- vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
+-- vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
+
+api.nvim_set_hl(0, 'IndentBlanklineIndent1', { fg = "#E06C75", nocombine = true })
+api.nvim_set_hl(0, 'IndentBlanklineIndent2', { fg = "#E5C07B", nocombine = true })
+api.nvim_set_hl(0, 'IndentBlanklineIndent3', { fg = "#98C379", nocombine = true })
+api.nvim_set_hl(0, 'IndentBlanklineIndent4', { fg = "#56B6C2", nocombine = true })
+api.nvim_set_hl(0, 'IndentBlanklineIndent5', { fg = "#61AFEF", nocombine = true })
+api.nvim_set_hl(0, 'IndentBlanklineIndent6', { fg = "#C678DD", nocombine = true })
+
+require("indent_blankline").setup {
+  char_highlight_list = {
+    "IndentBlanklineIndent1",
+    "IndentBlanklineIndent2",
+    "IndentBlanklineIndent3",
+    "IndentBlanklineIndent4",
+    "IndentBlanklineIndent5",
+    "IndentBlanklineIndent6",
+  },
+  space_char_blankline = " ",
+  show_current_context = true,
+  show_current_context_start = true,
+}
+
 -- VS Code dark theme
 -- g.vscode_style = 'dark'
 
 -- Set the theme.
-vim.cmd[[colorscheme darkplus]]
+-- vim.cmd[[colorscheme darkplus]]
 -- vim.cmd[[colorscheme vscode]]
 -- vim.cmd[[colorscheme Iosvkem]]
 
@@ -857,9 +887,10 @@ vim.cmd[[colorscheme darkplus]]
 -- vim.api.nvim_set_hl(0, 'Comment', { fg = "#111111", bold = true })
 -- vim.api.nvim_set_hl(0, 'Error', { fg = "#ffffff", undercurl = true })
 -- vim.api.nvim_set_hl(0, 'Cursor', { reverse = true })
+
 -- Italic for comments.
 -- highlight Comment cterm=italic gui=italic
-api.nvim_set_hl(0, 'Comment', { italic = true })
+-- api.nvim_set_hl(0, 'Comment', { italic = true })
 
 api.nvim_create_autocmd('TextYankPost', {
     group = num_au,

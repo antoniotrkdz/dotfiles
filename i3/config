@@ -41,7 +41,7 @@ focus_follows_mouse no
 floating_modifier $mod
 
 # i3expo
-exec_always --no-startup-id "~/i3expo-ng/i3expod.py -w"
+exec_always --no-startup-id "~/i3expo-ng/i3expod.py -w $(gsettings get org.mate.background picture-filename | sed s/\'//g)"
 
 #  ╔═╗  ╔═╗  ╔╗╔  ╔╦╗
 #  ╠╣   ║ ║  ║║║   ║ 
