@@ -67,6 +67,9 @@ font pango:IBM 3270 Narrow bold 14
 #                                                         
 # Set background:
 # Mate sets the background on its own.
+# This randomly changes the background:
+exec_always --no-startup-id "~/scripts/mate-rotate-background-random.sh ~/Pictures/Backgrounds"
+
 #exec --no-startup-id nitrogen --restore
 
 #-----------------------------------------------------------------------
