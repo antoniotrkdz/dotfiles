@@ -14,30 +14,24 @@ local g = vim.g
 local opt = vim.opt
 local api = vim.api
 
+opt.compatible = false
 -- disable netrw (nvim-tree)
 g.loaded = 1
 g.loaded_netrwPlugin = 1
-
-opt.compatible = false
 -- Disable all error bells
 opt.belloff = 'all'
 -- Line number and relative line number
 opt.number = true
 opt.relativenumber = true
 opt.ruler = true
-
 -- Show the command as it's being typed
 opt.showcmd = true
-
 -- Shares the system clipboard
 opt.clipboard = 'unnamed,unnamedplus'
-
 -- Set n line(s) to be always shown below or above the cursor
 opt.scrolloff = 999
-
 -- Set to split always right
 opt.splitright = true
-
 -- Set some 'sensible' defaults
 opt.tabstop = 2
 opt.shiftwidth = 2
@@ -48,42 +42,33 @@ opt.backspace = { 'indent' , 'eol', 'start' }
 --set complete-=i
 --set list! -- see mappings
 opt.listchars = { tab = '▸ ', eol= '¬', trail = '·', space = '·' }
-
 -- Since Neovim 0.4.x wildmenu uses pum
 -- Default wildoptions are set to 'pum,tagfile'
 -- To get the old wildmenu remove 'pum'
 opt.wildoptions = 'tagfile'
-
 -- Avoid showing the mode on the last line
 opt.showmode = false
-
 -- Searching
 opt.ignorecase = true
 opt.smartcase = true
 -- set incsearch "handled by <leader>i -- see mappings
 -- Use the silversearcher-ag to perform searches (like ack, but faster) 
 opt.grepprg = 'ag -i'
-
 -- Enable syntax
 -- Enable filetype-specific plugins and indenting
 -- filetype plugin indent on 
 -- Theese are enable by default
-
 -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 -- delays and poor user experience.
 -- Also affects Git Gutter update.
 opt.updatetime = 50
-
 -- Don't pass messages to |ins-completion-menu|.
 opt.shortmess:append({ c = true })
-
 -- Always show the signcolumn, otherwise it would shift the text each time
 -- diagnostics appear/become resolved.
 opt.signcolumn = 'yes'
-
 -- Give more space for displaying messages.
 opt.cmdheight = 2
-
 -- set completeopt=menu,menuone,noselect -- cmp default 
 opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
 opt.smartindent = true
@@ -101,6 +86,7 @@ require('packer').startup(function(use)
   -- Theme
   use 'Mofiqul/vscode.nvim'
   use 'martinsione/darkplus.nvim'
+  use 'lukas-reineke/onedark.nvim'
 
   -- Status line
   use 'nvim-lualine/lualine.nvim'
@@ -109,7 +95,9 @@ require('packer').startup(function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+    commit = '965a74f76a2999b81fe3a543fb5e53bf6c84b8b7'
   }
+  use 'p00f/nvim-ts-rainbow'
 
   -- Git symbols
   use {
@@ -151,6 +139,35 @@ require('packer').startup(function(use)
 
   use "lukas-reineke/indent-blankline.nvim"
 
+  use "norcalli/nvim-colorizer.lua"
+  use {
+    'kdheepak/tabline.nvim',
+    config = function()
+      require'tabline'.setup {
+        -- Defaults configuration options
+        enable = true,
+        -- options = {
+        -- -- If lualine is installed tabline will use separators configured in lualine by default.
+        -- -- These options can be used to override those settings.
+        --   section_separators = {'', ''},
+        --   component_separators = {'', ''},
+        --   max_bufferline_percent = 66, -- set to nil by default, and it uses vim.o.columns * 2/3
+        --   show_tabs_always = false, -- this shows tabs only when there are more than one tab or if the first tab is named
+        --   show_devicons = true, -- this shows devicons in buffer section
+        --   show_bufnr = false, -- this appends [bufnr] to buffer section,
+        --   show_filename_only = false, -- shows base filename only instead of relative path in filename
+        --   modified_icon = "+ ", -- change the default modified icon
+        --   modified_italic = false, -- set to true by default; this determines whether the filename turns italic if modified
+        --   show_tabs_only = false, -- this shows only tabs instead of tabs + buffers
+        -- }
+      }
+      vim.cmd[[
+        -- set guioptions-=e " Use showtabline in gui vim
+        -- set sessionoptions+=tabpages,globals " store tabpages and globals in session
+      ]]
+    end,
+    requires = { { 'nvim-lualine/lualine.nvim', opt=true }, {'kyazdani42/nvim-web-devicons', opt = true} }
+  }
 end)
 
 -- vim.opt.list = true
@@ -181,6 +198,19 @@ require'nvim-treesitter.configs'.setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
+  rainbow = {
+    enable = true,
+    -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    colors = {
+      "#E5C07B",
+      "#98C379",
+      "#61AFEF",
+      "#C678DD",
+    }, -- table of hex strings
+    -- termcolors = {} -- table of colour name strings
+  }
 }
 
 --make sure you call this before you set up any servers!
@@ -206,7 +236,7 @@ local on_attach = function(client, bufnr)
 
   -- Mappings
   local opts = { noremap=true, silent=true, buffer=bufnr }
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  -- buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
@@ -353,7 +383,8 @@ cmp.setup.cmdline(':', {
 })
 
 -- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 require('lspconfig')['tsserver'].setup {
   capabilities = capabilities
@@ -417,7 +448,7 @@ local lspkind = require('lspkind')
 
       -- The function below will be called before any actual modifications from lspkind
       -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
---      before = function (entry, vim_item)
+--      before = funcvim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]tion (entry, vim_item)
 --       ...
 --      return vim_item
 --      end
@@ -813,10 +844,21 @@ and use tmux's 24-bit color support
   endif
   ]]
 
+require('colorizer').setup()
+
 opt.background = 'dark'
 
-local c = require('vscode.colors')
-require('vscode').setup({
+-- require('nightfox').setup({})
+-- vim.cmd('colorscheme nightfox')
+-- require('onedark').setup({})
+-- vim.cmd('colorscheme onedark')
+-- vim.cmd[[colorscheme darkplus]]
+
+require('vscode.colors')
+require('vscode').setup({})
+vim.cmd[[colorscheme vscode]]
+-- local c = require('vscode.colors')
+-- require('vscode').setup({
     -- Enable transparent background
     -- transparent = true,
 
@@ -837,7 +879,7 @@ require('vscode').setup({
     --     -- use colors from this colorscheme by requiring vscode.colors!
     --     cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=true },
     -- }
-})
+-- })
 
 require('lualine').setup {
   options = {
@@ -862,17 +904,19 @@ api.nvim_set_hl(0, 'IndentBlanklineIndent5', { fg = "#61AFEF", nocombine = true 
 api.nvim_set_hl(0, 'IndentBlanklineIndent6', { fg = "#C678DD", nocombine = true })
 
 require("indent_blankline").setup {
-  char_highlight_list = {
-    "IndentBlanklineIndent1",
-    "IndentBlanklineIndent2",
-    "IndentBlanklineIndent3",
-    "IndentBlanklineIndent4",
-    "IndentBlanklineIndent5",
-    "IndentBlanklineIndent6",
-  },
+  -- char_highlight_list = {
+  --   "IndentBlanklineIndent1",
+  --   "IndentBlanklineIndent2",
+  --   "IndentBlanklineIndent3",
+  --   "IndentBlanklineIndent4",
+  --   "IndentBlanklineIndent5",
+  --   "IndentBlanklineIndent6",
+  -- },
   space_char_blankline = " ",
   show_current_context = true,
   show_current_context_start = true,
+  show_trailing_blankline_indent = false,
+  indent_blankline_max_indent_increase = 1,
 }
 
 -- VS Code dark theme
@@ -899,6 +943,8 @@ api.nvim_create_autocmd('TextYankPost', {
         vim.highlight.on_yank({ higroup = 'Visual', timeout = 250 })
     end,
 })
+
+vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
 
 -- Highlight for the matching parenthesis.
 -- highlight MatchParen guibg=NONE guifg=#00ff00 gui=bold

@@ -410,6 +410,8 @@ nnoremap ã :cnext<CR>
 nnoremap ö :cprevious<CR>
 " Livedow markdown previewer toggle on/off
 nnoremap <F6> :LivedownToggle<CR>
+" Open a terminal on the bottom
+noremap <F12> :botright terminal ++rows=13<CR>
 
 " Toggles_highlight of matchit results, for all matching pairs
 " that are NOT Parens: (),[],{}; ie.: 'def|class|while|do' with 'end'.
