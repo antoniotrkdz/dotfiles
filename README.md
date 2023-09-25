@@ -25,4 +25,5 @@ To get eslint (with standard configuration plus little niceties) to work in your
 $ npm install --save-dev eslint eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-promise
  ```
 Consolas ligaturized font [here](https://github.com/somq/consolas-ligaturized)
+
 DejaVu Code font [here](https://github.com/mdschweda/dejavusansmonocode)
