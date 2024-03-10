@@ -26,4 +26,6 @@ $ npm install --save-dev eslint eslint-config-standard eslint-plugin-import esli
  ```
 Consolas ligaturized font [here](https://github.com/somq/consolas-ligaturized)
 
+Consolas ligaturized __and__ patched with Nerd Fonts [here](https://github.com/BoscoDomingo/BestCodingFonts/tree/main)
+
 DejaVu Code font [here](https://github.com/mdschweda/dejavusansmonocode)
