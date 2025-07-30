@@ -135,7 +135,7 @@ bindsym $mod+Shift+q kill
 # With XFCE4 this is handled by its menu and the shortcut to it is set in its settings.
 
 # With MATE this workaround is needed (requires xdotool).
-bindsym $mod+d exec --no-startup-id "xdotool mousemove --sync 12 12 click 1 mousemove restore"
+#bindsym $mod+d exec --no-startup-id "xdotool mousemove --sync 12 12 click 1 mousemove restore"
 
 # MATE screenshot
 bindsym $mod+Print exec --no-startup-id "mate-screenshot --interactive"
@@ -244,23 +244,33 @@ bindsym $mod+Shift+r restart
 # bindsym $mod+Shift+z exec --no-startup-id "sleep 1 && xset dpms force off"
 bindsym $mod+Shift+z exec --no-startup-id "~/scripts/standbydisplay.sh"
 
-# XFCE4 logout
-#bindsym $mod+Shift+e exec "xfce4-session-logout"
-
 # MATE logout
-bindsym $mod+Shift+e exec --no-startup-id "mate-session-save --logout-dialog"
+#bindsym $mod+Shift+e exec --no-startup-id "mate-session-save --logout-dialog"
 
 # MATE shutdown
 bindsym $mod+Shift+s exec --no-startup-id "mate-session-save --shutdown-dialog"
 
 # MATE Turn the screensaver on (blank the screen)
-# bindsym $mod+Shift+b exec --no-startup-id "mate-screensaver-command -a"
+#bindsym $mod+Shift+b exec --no-startup-id "mate-screensaver-command -a"
+
+# XFCE4 logout
+#bindsym $mod+Shift+e exec "xfce4-session-logout"
 
 # Start xfce4-panel (with workspace plugin).
 #exec_always --no-startup-id xfce4-panel --disable-wm-check
 
 # Start mate-panel (with workspace plugin) -- to be studied...Not needed now
 #exec_always --no-startup-id mate-panel --disable-wm-check
+
+# BUDGIE logout
+#bindsym $mod+Shift+e exec --no-startup-id "gnome-session-quit --logout --force"
+
+# BUDGIE shutdown
+#bindsym $mod+Shift+s exec --no-startup-id "gnome-session-quit --shutdown"
+
+bindsym $mod+Shift+d exec --no-startup-id "qdbus org.kde.kglobalaccel /component/kwin invokeShortcut ShowDesktopGrid"
+#bindsym $mod+d exec --no-startup-id "qdbus org.kde.plasmashell /PlasmaShell activateLauncherMenu"
+
 
 # +-+-+-+-+-+-+-+-+-+-+-+-+
 # | R e s i z e   m o d e |
@@ -390,3 +400,7 @@ for_window [title="(?i)^Mad Max$"] fullscreen
 for_window [title="(?i)XCOM 2 Options"] floating enable, border normal 1, resize set 800 600
 for_window [title="(?i)^XCOM 2$"] fullscreen
 for_window [title="(?i)Event Tester"] floating enable, border normal 1, resize set 178 178
+for_window [class="(?i)Previews_daemon"] floating enable, border pixel $px
+
+for_window [title="Desktop @ QRect"] kill; floating enable; border none
+

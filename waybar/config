@@ -1,0 +1,180 @@
+/* Inspired by https://github.com/4rtemis-4rrow/dotfiles/tree/main/waybar */
+{
+    "layer": "top",
+    "position": "top",
+    "mod": "dock",
+    "height": 32,
+    "spacing": 0,
+    "margin": 0,
+    "exclusive": true,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/submap"
+    ],
+    "modules-center": [
+        "hyprland/window"
+    ],
+    "modules-right": [
+        "wireplumber",
+        // "pulseaudio",
+        // "pulseaudio/slider",
+        "memory",
+        "temperature",
+        "cpu",
+        "bluetooth",
+        "network",
+        "tray",
+        "custom/notifications",
+        "clock"
+    ],
+    "tray": {
+        "icon-size": 21,
+        "spacing": 30
+    },
+    "mpris": {
+        "format": "{status_icon} {artist} - {title}",
+        "format-paused": "{status_icon} {artist} - {title}",
+        "status-icons": {
+            "paused": " ",
+            "playing": " "
+        },
+        "title-len": 10
+    },
+    "custom/icon": {
+        "format": "<span font_family='Material Icons' rise='-4000' size='large'>󰂧 </span>"
+    },
+    "custom/weather": {
+        "format": "{}°",
+        "tooltip": true,
+        "interval": 3600,
+        "exec": "wttrbar",
+        "return-type": "json"
+    },
+    "custom/notifications": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "",
+            "none": "",
+            "dnd-notification": "",
+            "dnd-none": "",
+            "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "inhibited-none": "",
+            "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-inhibited-none": ""
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    },
+    "network": {
+        "format": "{bandwidthDownBytes} {bandwidthUpBytes} ",
+        "interval": 1
+    },
+    //"format": "{usage}%        ",
+    //"tooltip": false
+    "cpu": {
+        "interval": 1,
+        "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8}{icon9}{icon10}{icon11}{icon12}{icon13}{icon14}{icon15}{usage:>2}%  ",
+        "format-icons": [
+            "▁",
+            "▂",
+            "▃",
+            "▄",
+            "▅",
+            "▆",
+            "▇",
+            "█"
+        ]
+    },
+    "clock": {
+        "format": "{:%H:%M:%S - %a, %d/%m/%Y}",
+        "interval": 1,
+        "tooltip": true,
+        "tooltip-format": "<tt><big>{calendar}</big></tt>",
+        // "on-click": "hyprctl dispatch exec '[float ; size 780 1200 ; move 2648 37]ghostty -e ccal'",
+        "calendar": {
+            "mode": "year",
+            "mode-mon-col": 3,
+            "weeks-pos": "left",
+            "on-scroll": 1,
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "days": "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+    "memory": {
+        "format": " {}% "
+    },
+    "temperature": {
+        "critical-threshold": 85,
+        "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
+        "format": "{icon} {temperatureC}°C",
+        "format-icons": [
+            "",
+            "",
+            ""
+        ]
+    },
+    "pulseaudio": {
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +1%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -1%",
+        "format": "{volume}% {icon}  {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        },
+        "on-click": "kitty alsamixer"
+    },
+    "hyprland/window": {
+        "format": "{}",
+        "rewrite": {
+            "(.*) - Mozilla Firefox": "🌎 $1",
+            "class<Google-Chrome>": "CAAAAAAAAAA",
+            "class<VSCodium>": "$1 - $2"
+            // "(.*) - zsh": "> [$1]"
+        }
+    },
+    "wireplumber": {
+        "format": "{icon} {volume}% ",
+        "format-muted": "",
+        "on-click": "hyprctl dispatch exec '[float ; size 780 1200 ; move 2648 37]ghostty -e alsamixer'",
+        "format-icons": [
+            "",
+            "",
+            ""
+        ]
+    },
+    "bluetooth": {
+        "format": " {status}",
+        "format-connected": " {device_alias}",
+        "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+        // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        "on-click": "hyprctl dispatch exec '[float ; size 780 1200 ; move 2648 37]ghostty -e bluetui-x86_64-linux-gnu'"
+    }
+}
